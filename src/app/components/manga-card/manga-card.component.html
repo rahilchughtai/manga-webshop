@@ -1,0 +1,30 @@
+<mat-card class="mat-elevation-z4">
+  <div (click)="mangaClicked()">
+    <mat-card-header>
+      <mat-card-title>{{mangaData.title}} </mat-card-title>
+      <mat-card-subtitle *ngIf="mangaData.title!==mangaData.title_english" style="text-align: center;">
+        {{mangaData.title_english}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src={{mangaData.images.jpg.image_url}} alt="Manga Image">
+    <mat-card-content>
+      <p class="price" style="font-weight: bold; text-align: center;">
+        {{price | number : '1.2-2'}} €
+      </p>
+      <p *ngIf="hasSynopsis" class="synopsis">
+        {{mangaData.synopsis}}
+      </p>
+
+    </mat-card-content>
+  </div>
+  <mat-card-actions style="display:flex; justify-content: center;">
+    <button *ngIf="hasInfoButton" (click)="mangaClicked()" class="cart" mat-mini-fab color="primary"
+      aria-label="Example icon button with a menu icon">
+      <mat-icon>info</mat-icon>
+    </button>
+    <button class="favorite" (click)="addToFavorites(mangaData.title)" mat-mini-fab color="primary"
+      aria-label="Example icon button with a menu icon">
+      <mat-icon>star</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

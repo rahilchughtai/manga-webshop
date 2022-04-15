@@ -1,4 +1,17 @@
+
+
 # MangaWebshop
+
+Projekt von Rahil Chughtai für Kurs Web-Engineering 2 TINF20AI2.
+Die Applikation stellt eine e-commerce Plattform speziell für die Manga Niche dar.
+Die Manga Daten werden mithilfe der JIKAN-API über REST-API requests gefetched.
+
+- [ ] Firebase Authentication
+- [ ] Favorites
+- [ ] Shopping Cart
+- [ ] Manga Detail View
+- [ ] Profile View
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
 

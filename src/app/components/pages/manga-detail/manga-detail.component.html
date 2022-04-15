@@ -1,0 +1,32 @@
+<section>
+  <div *ngIf="mangaData; else loadSpinner">
+    <app-manga-card [hasInfoButton]="false" [hasSynopsis]="false" [mangaData]="mangaData">
+    </app-manga-card>
+  </div>
+
+  <p>
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span> Score: {{mangaData.score}}</span>
+        <span class="example-spacer"></span>
+        <span> Favorites: {{mangaData.favorites}}</span>
+        <span class="example-spacer"></span>
+        <span [ngClass]="'publishing'">Status: {{mangaData.status}}</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar-row>
+      <!-- <mat-toolbar-row>
+        <span>Second Line</span>
+      </mat-toolbar-row> -->
+    </mat-toolbar>
+  </p>
+
+  <div *ngFor="let item of [mangaData.volumes]">
+    {{mangaData.volumes}}
+  </div>
+</section>
+
+<ng-template #loadSpinner>
+  <div class="spinner-wrap">
+    <mat-spinner style="margin: auto;"></mat-spinner>
+  </div>
+</ng-template>

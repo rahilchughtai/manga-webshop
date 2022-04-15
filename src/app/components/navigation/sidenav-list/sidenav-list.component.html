@@ -1,0 +1,9 @@
+<mat-nav-list class="sidenav-list">
+  <div *ngFor="let link of links">
+    <a mat-list-item [routerLink]="link.routerLink" (click)="onToggleClose()">
+      <mat-icon>{{link.icon}}</mat-icon>
+      <span>{{link.title}}</span>
+    </a>
+    <hr>
+  </div>
+</mat-nav-list>
