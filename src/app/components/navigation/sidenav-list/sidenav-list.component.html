@@ -1,3 +1,9 @@
+<style>
+  span {
+    font-family: "Montserrat", sans-serif;
+    margin-left: 0.3em;
+  }
+</style>
 <mat-nav-list class="sidenav-list">
   <div *ngFor="let link of links">
     <a mat-list-item [routerLink]="link.routerLink" (click)="onToggleClose()">
