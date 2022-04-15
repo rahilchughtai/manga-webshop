@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -10,7 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./manga-card.component.scss'],
 })
 export class MangaCardComponent implements OnInit {
-  constructor(private _snackBar: MatSnackBar, private router: Router) {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private auth: AuthService
+  ) {}
 
   @Input() mangaData!: MangaItem;
   @Input() hasSynopsis = true;
@@ -46,10 +51,18 @@ export class MangaCardComponent implements OnInit {
 
   getPrice(startDate: Date): number {
     const year = new Date(startDate).getFullYear();
+
     return this.yearToPrice(year);
   }
 
   addToFavorites(mangaTitle: string) {
+    if (!this.auth.isLoggedIn)
+      return this.openSnackBar(
+        'Please login to add favorites to your profile',
+        'Okay',
+        'warn'
+      );
+
     this.openSnackBar(
       `Successfully added ${mangaTitle} to your favorites`,
       'Dismiss'
@@ -59,10 +72,16 @@ export class MangaCardComponent implements OnInit {
     this.router.navigate([`/manga/${this.mangaData.mal_id}`]);
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, styleClass?: string) {
+    let styling = 'success';
+
+    if (typeof styleClass !== 'undefined') {
+      styling = styleClass;
+    }
+
     this._snackBar.open(message, action, {
-      panelClass: ['custom-style'],
-      duration: 1000,
+      panelClass: [styling],
+      duration: 2000,
     });
   }
 }

@@ -20,7 +20,13 @@ export class MangaListComponent implements OnInit {
   // mockMangaData: Observable<MangaItem[]> | undefined;
 
   ngOnInit(): void {
-    
     // this.mockMangaData = this.mangaApi.getMangaDataV4();
+  }
+
+  /**
+   * Using trackby improves ngFor loop performance in angular
+   */
+  trackByFn(index: number, item: MangaItem) {
+    return item.mal_id;
   }
 }

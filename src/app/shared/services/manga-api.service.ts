@@ -1,5 +1,10 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { MangaItem } from '../models/manga-item.model';
@@ -48,12 +53,27 @@ export class MangaApiService {
 
   getMockMangaById(mid: any) {
     const mal_id = parseInt(mid);
-    return this.http
-      .get<any>('/assets/response.json')
-      .pipe(
-        map((result) =>
-          result.data.find((manga: MangaItem) => manga.mal_id === mal_id)
-        )
+    return this.http.get<any>('/assets/response.json').pipe(
+      catchError(this.errorHandler),
+      map((result) =>
+        result.data.find((manga: MangaItem) => manga.mal_id === mal_id)
+      )
+    );
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      alert(`An error occurred: ${error.error.message}`);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      alert(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
+    }
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 }

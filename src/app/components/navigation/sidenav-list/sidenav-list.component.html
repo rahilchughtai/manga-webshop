@@ -6,4 +6,13 @@
     </a>
     <hr>
   </div>
+
+  <a mat-list-item (click)="onToggleClose(); authService.SignOut()">
+    <mat-icon>
+      {{authService.isLoggedIn ? 'logout': 'input'}}
+    </mat-icon>
+    <span> {{authService.isLoggedIn ? 'Sign Out': 'Login/Register'}}
+    </span>
+  </a>
+  <hr>
 </mat-nav-list>

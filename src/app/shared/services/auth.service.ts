@@ -24,8 +24,6 @@ export class AuthService {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
 
-
-    
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -37,13 +35,17 @@ export class AuthService {
       }
     });
   }
+
+  private redirectHome = 'home';
+  private redirectLog = 'login';
+
   // Sign in with email/password
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate([this.redirectHome]);
         });
         this.SetUserData(result.user);
       })
@@ -93,7 +95,7 @@ export class AuthService {
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
-        this.router.navigate(['dashboard']);
+        this.router.navigate([this.redirectHome]);
       }
     });
   }
@@ -103,7 +105,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate([this.redirectHome]);
         });
         this.SetUserData(result.user);
       })
@@ -133,7 +135,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['login']);
     });
   }
 }

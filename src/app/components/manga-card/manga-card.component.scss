@@ -51,7 +51,12 @@ mat-card {
   background-color: $primary;
 }
 
-::ng-deep .custom-style {
+::ng-deep .success {
   background-color: $success;
+  color: white;
+}
+
+::ng-deep .warn {
+  background-color: $warn;
   color: white;
 }

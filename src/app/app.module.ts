@@ -20,6 +20,8 @@ import { NgModule } from '@angular/core';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { environment } from '../environments/environment';
+import { ProfileComponent } from './components/pages/profile/profile.component';
+import { WrapperComponent } from './components/pages/wrapper.component';
 
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
@@ -39,6 +41,8 @@ export const routes = [
     FavoritesComponent,
     CartComponent,
     MangaDetailComponent,
+    ProfileComponent,
+    WrapperComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
