@@ -1,5 +1,5 @@
 <div *ngIf="mangaData; else loadSpinner">
-  <app-manga-card [hasInfoButton]="false" [hasSynopsis]="true" [mangaData]="mangaData">
+  <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="true" [mangaData]="mangaData">
   </app-manga-card>
 </div>
 <ng-template #loadSpinner>

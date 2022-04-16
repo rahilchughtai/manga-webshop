@@ -22,11 +22,10 @@ export class MangaCardComponent implements OnInit {
   @Input() hasInfoButton = true;
   @Input() maxCardHeight = 300;
   @Input() maxCardWidth = 400;
+  @Input() headingEllipsis = true;
 
   price: number = 0;
   isFavorite = false;
-
-  
 
   ngOnInit(): void {
     this.price = this.getPrice(this.mangaData.published.from);

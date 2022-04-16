@@ -8,16 +8,11 @@ mat-card {
     justify-content: center;
   }
   img {
-    //  max-height: 200px;
     object-fit: contain;
   }
   mat-card-title {
-    white-space: nowrap;
-    width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
     font-size: 1.5em;
+    text-align: center;
   }
   cursor: pointer;
 
@@ -36,7 +31,6 @@ mat-card {
 
   button {
     margin: 0 1em;
-
   }
 }
 
@@ -62,4 +56,11 @@ mat-card {
 ::ng-deep .warn {
   background-color: $warn;
   color: white;
+}
+
+.text-ellipsis {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
