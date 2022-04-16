@@ -12,12 +12,14 @@
 </div>
 
 
+
+
 <div class="content">
   <section *ngIf="mockMangaData; else loadSpinner">
     <div fxLayoutGap="18px grid" fxLayout="row wrap">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"
+      <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
         *ngFor="let manga of mockMangaData| async ;let i=index; trackBy: trackByFn">
-        <app-manga-card [mangaData]="manga">
+        <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
         </app-manga-card>
       </div>
     </div>

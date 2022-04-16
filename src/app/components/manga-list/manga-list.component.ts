@@ -18,7 +18,7 @@ export class MangaListComponent implements OnInit {
   mockMangaData: Observable<MangaItem[]> = this.mangaApi.getMockMangaData();
 
   // mockMangaData: Observable<MangaItem[]> | undefined;
-
+  gridColumns = 5;
   ngOnInit(): void {
     // this.mockMangaData = this.mangaApi.getMangaDataV4();
   }

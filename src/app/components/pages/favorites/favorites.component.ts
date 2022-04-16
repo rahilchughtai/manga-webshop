@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -10,5 +10,11 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class FavoritesComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
-  ngOnInit(): void {}
+  mangas: any[] | null = [];
+
+  ngOnInit(): void {
+    let favs = localStorage.getItem('favorites') || '';
+    if (!favs) return;
+    this.mangas = JSON.parse(favs);
+  }
 }

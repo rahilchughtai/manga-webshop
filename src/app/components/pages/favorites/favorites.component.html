@@ -1,6 +1,10 @@
 <page-wrapper>
   <h1>
-    {{authService.isLoggedIn ? 'Bitte logge dich ein, um favoriten einzusehen':'Deine Favoriten'}}
+    Deine Favoriten
   </h1>
 
+  <div style="margin-top: 1em;" *ngFor="let manga of mangas">
+    <app-manga-card [mangaData]="manga">
+    </app-manga-card>
+  </div>
 </page-wrapper>

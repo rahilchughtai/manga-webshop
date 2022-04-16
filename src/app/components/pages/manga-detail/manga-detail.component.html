@@ -1,32 +1,25 @@
-<section>
-  <div *ngIf="mangaData; else loadSpinner">
-    <app-manga-card [hasInfoButton]="false" [hasSynopsis]="false" [mangaData]="mangaData">
-    </app-manga-card>
-  </div>
-
-  <p>
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <span> Score: {{mangaData.score}}</span>
-        <span class="example-spacer"></span>
-        <span> Favorites: {{mangaData.favorites}}</span>
-        <span class="example-spacer"></span>
-        <span [ngClass]="'publishing'">Status: {{mangaData.status}}</span>
-        <span class="example-spacer"></span>
-      </mat-toolbar-row>
-      <!-- <mat-toolbar-row>
-        <span>Second Line</span>
-      </mat-toolbar-row> -->
-    </mat-toolbar>
-  </p>
-
-  <div *ngFor="let item of [1, mangaData.volumes]">
-    {{mangaData.volumes}}
-  </div>
-</section>
-
+<div *ngIf="mangaData; else loadSpinner">
+  <app-manga-card [hasInfoButton]="false" [hasSynopsis]="true" [mangaData]="mangaData">
+  </app-manga-card>
+</div>
 <ng-template #loadSpinner>
   <div class="spinner-wrap">
     <mat-spinner style="margin: auto;"></mat-spinner>
   </div>
 </ng-template>
+
+
+<!-- <mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+    {{tile.text}}
+  </mat-grid-tile>
+</mat-grid-list> -->
+
+<!--
+<div class="wrapper">
+  <app-manga-card [hasInfoButton]="false" [hasSynopsis]="false" [mangaData]="mangaData">
+  </app-manga-card>
+  <p>
+    Purchase
+  </p>
+</div> -->

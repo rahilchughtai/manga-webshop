@@ -20,12 +20,17 @@ export class MangaCardComponent implements OnInit {
   @Input() mangaData!: MangaItem;
   @Input() hasSynopsis = true;
   @Input() hasInfoButton = true;
+  @Input() maxCardHeight = 300;
+  @Input() maxCardWidth = 400;
 
   price: number = 0;
   isFavorite = false;
 
+  
+
   ngOnInit(): void {
     this.price = this.getPrice(this.mangaData.published.from);
+    this.isFavorite = this.checkIsMangaFavorite();
   }
 
   ngOnChanges() {
@@ -55,18 +60,59 @@ export class MangaCardComponent implements OnInit {
     return this.yearToPrice(year);
   }
 
-  addToFavorites(mangaTitle: string) {
-    if (!this.auth.isLoggedIn)
-      return this.openSnackBar(
-        'Please login to add favorites to your profile',
-        'Okay',
-        'warn'
-      );
+  checkIsMangaFavorite(): boolean {
+    let favs = [];
+    if (!this.getStorageFavs()) return false;
+    favs = JSON.parse(this.getStorageFavs());
+
+    return favs.some(
+      (manga: MangaItem) => manga.mal_id === this.mangaData.mal_id
+    );
+  }
+
+  getStorageFavs(): string {
+    return localStorage.getItem('favorites') || '';
+  }
+
+  setStorageFavs(mangaFavs: MangaItem[]) {
+    localStorage.setItem('favorites', JSON.stringify(mangaFavs));
+  }
+
+  addMangaToFavorites() {
+    let mangaFavs = [];
+    if (this.getStorageFavs()) {
+      mangaFavs = JSON.parse(this.getStorageFavs());
+    }
+    mangaFavs.push(this.mangaData);
+    localStorage.setItem('favorites', JSON.stringify(mangaFavs));
+    this.openSnackBar(
+      `Added ${this.mangaData.title} to your favorites!`,
+      'Okay'
+    );
+  }
+
+  removeMangaFromFavorites() {
+    if (!this.getStorageFavs()) return;
+    let favs = JSON.parse(this.getStorageFavs());
+
+    favs = favs.filter(
+      (manga: MangaItem) => manga.mal_id !== this.mangaData.mal_id
+    );
+
+    this.setStorageFavs(favs);
 
     this.openSnackBar(
-      `Successfully added ${mangaTitle} to your favorites`,
-      'Dismiss'
+      `Removed ${this.mangaData.title} from your favorites!`,
+      'Okay',
+      'warn'
     );
+  }
+
+  btnFavoriteClick() {
+    this.isFavorite = !this.isFavorite;
+    return this.isFavorite
+      ? this.addMangaToFavorites()
+      : this.removeMangaFromFavorites();
   }
   mangaClicked() {
     this.router.navigate([`/manga/${this.mangaData.mal_id}`]);
@@ -81,7 +127,7 @@ export class MangaCardComponent implements OnInit {
 
     this._snackBar.open(message, action, {
       panelClass: [styling],
-      duration: 2000,
+      duration: 1000,
     });
   }
 }
