@@ -1,9 +1,9 @@
 <page-wrapper>
   <h1>
-    Deine Favoriten
+    {{(favoriteMangas | async)?.length ? 'Deine Favoriten' : 'Füge deine Lieblingsmangas hinzu!'}}
   </h1>
 
-  <div style="margin-top: 1em;" *ngFor="let manga of mangas">
+  <div style="margin-top: 1em;" *ngFor="let manga of favoriteMangas | async">
     <app-manga-card [mangaData]="manga">
     </app-manga-card>
   </div>

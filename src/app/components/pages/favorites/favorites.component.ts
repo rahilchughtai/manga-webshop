@@ -1,6 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { Observable, Subscription, take } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { MangaFavoritesService } from 'src/app/shared/services/manga-favorites.service';
+import { MangaItem } from 'src/app/shared/models/manga-item.model';
 
 @Component({
   selector: 'app-favorites',
@@ -8,13 +11,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private mangaFav: MangaFavoritesService
+  ) {}
 
-  mangas: any[] | null = [];
+  favoriteMangas: Observable<MangaItem[]> = this.mangaFav.currentMangaFavsObservable;
 
-  ngOnInit(): void {
-    let favs = localStorage.getItem('favorites') || '';
-    if (!favs) return;
-    this.mangas = JSON.parse(favs);
-  }
+  ngOnInit(): void {}
 }

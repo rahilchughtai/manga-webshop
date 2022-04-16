@@ -14,14 +14,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginRegisterComponent } from './components/pages/login-register/login-register.component';
 import { MangaCardComponent } from './components/manga-card/manga-card.component';
 import { MangaDetailComponent } from './components/pages/manga-detail/manga-detail.component';
+import { MangaFavoritesService } from './shared/services/manga-favorites.service';
 import { MangaListComponent } from './components/manga-list/manga-list.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { NgModule } from '@angular/core';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
-import { environment } from '../environments/environment';
-import { ProfileComponent } from './components/pages/profile/profile.component';
 import { WrapperComponent } from './components/pages/wrapper.component';
+import { environment } from '../environments/environment';
 
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
@@ -55,7 +56,7 @@ export const routes = [
     MaterialModule,
     FormsModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, MangaFavoritesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

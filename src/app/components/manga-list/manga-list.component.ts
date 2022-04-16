@@ -12,17 +12,11 @@ import data from 'src/assets/response.json';
 })
 export class MangaListComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
-
+  mockMangaData: Observable<MangaItem[]> = this.mangaApi.getMockMangaData();
+  gridColumns = 5;
   value = '';
 
-  mockMangaData: Observable<MangaItem[]> = this.mangaApi.getMockMangaData();
-
-  // mockMangaData: Observable<MangaItem[]> | undefined;
-  gridColumns = 5;
-  ngOnInit(): void {
-    // this.mockMangaData = this.mangaApi.getMangaDataV4();
-  }
-
+  ngOnInit(): void {}
   /**
    * Using trackby improves ngFor loop performance in angular
    */
