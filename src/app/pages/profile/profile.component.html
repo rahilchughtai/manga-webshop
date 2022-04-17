@@ -1,4 +1,18 @@
-<p>profile works!</p>
+<div class="wrapper">
+  <main *ngIf="authService.isLoggedIn; else NotLoggedIn">
+    <h1>
+      Profile:
+    </h1>
 
 
+  </main>
 
+  <ng-template class="container" #NotLoggedIn>
+    <h1>
+      Logge dich ein oder registriere dich, um dein Profil einzusehen
+    </h1>
+    <button routerLink="/login" mat-raised-button mat-button>
+      <span>Zum Login</span>
+    </button>
+  </ng-template>
+</div>

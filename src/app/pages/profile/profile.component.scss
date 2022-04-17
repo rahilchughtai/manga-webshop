@@ -1,0 +1,15 @@
+@use "../../shared/styles/styles" as s;
+.wrapper {
+  h1{
+    text-align: center;
+    padding: 1em;
+    font-size: 2em;
+  }
+  margin-top: 5em !important;
+  @include s.page-wrap;
+}
+button {
+  margin-top: 2em;
+  padding: 1em;
+  font-size: 2em;
+}

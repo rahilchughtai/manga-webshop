@@ -15,6 +15,7 @@ export class SidenavListComponent implements OnInit {
 
   links = [
     { routerLink: 'home', icon: 'home', title: 'Home' },
+    { routerLink: 'profile', icon: 'account_circle', title: 'Profile' },
     { routerLink: 'search', icon: 'auto_stories', title: 'Mangas' },
     { routerLink: 'favorites', icon: 'star', title: 'Favorites' },
     { routerLink: 'cart', icon: 'shopping_cart', title: 'Cart' },
