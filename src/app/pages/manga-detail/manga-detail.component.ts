@@ -1,16 +1,18 @@
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MangaItem, cartItem } from 'src/app/shared/models/manga-item.model';
+import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
-import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
 
 interface cartFormInformation {
   quantity: number;
-  volumeNumber: number;
+  volume: number;
 }
 
 @Component({
@@ -18,7 +20,7 @@ interface cartFormInformation {
   templateUrl: './manga-detail.component.html',
   styleUrls: ['./manga-detail.component.scss'],
 })
-export class MangaDetailComponent implements OnInit {
+export class MangaDetailComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
@@ -29,7 +31,7 @@ export class MangaDetailComponent implements OnInit {
   ) {}
 
   public cartMangaPurchaseForm: FormGroup = this.fb.group({
-    volumeNumber: ['', Validators.required],
+    volume: ['', Validators.required],
     quantity: ['', Validators.required],
   });
 
@@ -40,17 +42,28 @@ export class MangaDetailComponent implements OnInit {
     return [...Array(n).keys()].map((i) => i + 1).reverse();
   };
 
+  cartSubscription!: Subscription;
+  cartData!: cartItem[];
+
   mangaId: string | null = '';
   mangaData!: MangaItem;
   volumeArr!: number[];
   quantityMax = this.makeArray(10);
 
   ngOnInit(): void {
+    this.cartSubscription = this.cartService
+      .getCart()
+      .subscribe((data) => (this.cartData = data));
+
     this.mangaId = this.route.snapshot.paramMap.get('mid');
     this.mangaApi.getMockMangaById(this.mangaId).subscribe((data) => {
       this.mangaData = data;
       this.volumeArr = this.makeArray(this.mangaData.volumes);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.cartSubscription.unsubscribe();
   }
 
   get cartFormData(): cartFormInformation {
@@ -65,9 +78,14 @@ export class MangaDetailComponent implements OnInit {
       );
     }
 
-    // TODO pass to cart service
-    console.log(this.cartFormData);
-    this.cartService.addMangaToCart();
+    const { quantity, volume } = this.cartFormData;
+    const newCartData = {
+      mangaData: this.mangaData,
+      quantity,
+      volume,
+    };
+
+    this.cartService.addMangaToCart(this.cartData, newCartData);
     this.snack.openSnackBar('Added to your cart');
   }
 }

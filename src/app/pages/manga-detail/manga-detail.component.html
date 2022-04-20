@@ -6,7 +6,7 @@
   <form [formGroup]="cartMangaPurchaseForm">
     <mat-form-field appearance="fill">
       <mat-label>Manga Volume</mat-label>
-      <mat-select formControlName="volumeNumber">
+      <mat-select formControlName="volume">
         <mat-option *ngFor="let volume of volumeArr" [value]="volume">
           Volume No: {{volume}}
         </mat-option>
@@ -30,6 +30,11 @@
 <pre>
   {{cartMangaPurchaseForm.value | json }}
   {{cartMangaPurchaseForm.valid}}
+</pre>
+
+<pre>
+{{ cartData | json}}
+
 </pre>
 
 <ng-template #loadSpinner>

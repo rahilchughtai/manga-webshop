@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Subscription } from 'rxjs';
+import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
 
 @Component({
   selector: 'app-manga-card',
@@ -32,30 +33,8 @@ export class MangaCardComponent implements OnInit {
   isFavorite = false;
 
   ngOnInit(): void {
-    this.price = this.getPrice(this.mangaData.published.from);
+    this.price = getPriceByPublishingDate(this.mangaData.published.from);
     this.isFavorite = this.mangaFavService.checkIsMangaFav(this.mangaData);
-  }
-
-  yearToPrice(year: number): number {
-    switch (true) {
-      case year <= 1990:
-        return 5.0;
-      case year <= 2000:
-        return 6.5;
-      case year <= 2005:
-        return 6.99;
-      case year < 2010:
-        return 8;
-      case year <= 2022:
-        return 12;
-      default:
-        return 7;
-    }
-  }
-
-  getPrice(startDate: Date): number {
-    const year = new Date(startDate).getFullYear();
-    return this.yearToPrice(year);
   }
 
   addMangaToFavorites() {

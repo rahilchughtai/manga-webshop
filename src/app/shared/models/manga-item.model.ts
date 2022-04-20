@@ -18,10 +18,11 @@ export interface MangaItem {
   favorites: number;
 }
 
-
-export interface cartItem{
-  mangaData:MangaItem,
-  quantity:number,
+export interface cartItem {
+  mangaData: MangaItem;
+  volume: number;
+  quantity: number;
+ 
 }
 export interface Published {
   from: Date;
