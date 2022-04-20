@@ -19,11 +19,11 @@ import { MangaListComponent } from './components/manga-list/manga-list.component
 import { MaterialModule } from './shared/modules/material.module';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
-
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
   { path: 'contacts', label: 'Contacts' },
@@ -55,6 +55,7 @@ export const routes = [
     FlexLayoutModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthService, MangaFavoritesService],
   bootstrap: [AppComponent],

@@ -3,32 +3,34 @@
   </app-manga-card>
 
 
-  <mat-form-field appearance="fill">
-    <mat-label>Manga Volume</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let volume of volumeArr" [value]="volume">
-        Volume No: {{volume}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-
-    <mat-label>Quantity</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let quantity of quantityMax" [value]="quantity">
-        {{quantity}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button *ngIf="formIsValid" (click)="addMangaToCart()" mat-button mat-raised-button>
+  <form [formGroup]="cartMangaPurchaseForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Manga Volume</mat-label>
+      <mat-select formControlName="volumeNumber">
+        <mat-option *ngFor="let volume of volumeArr" [value]="volume">
+          Volume No: {{volume}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Quantity</mat-label>
+      <mat-select formControlName="quantity">
+        <mat-option *ngFor="let quantity of quantityMax" [value]="quantity">
+          {{quantity}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <button [disabled]="cartMangaPurchaseForm.invalid" (click)="addMangaToCart()" mat-button mat-raised-button>
     Add to cart!
   </button>
 </section>
 
 
-
-
-
+<pre>
+  {{cartMangaPurchaseForm.value | json }}
+  {{cartMangaPurchaseForm.valid}}
+</pre>
 
 <ng-template #loadSpinner>
   <div class="spinner-wrap">
