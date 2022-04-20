@@ -5,6 +5,7 @@ import { MangaFavoritesService } from 'src/app/shared/services/manga-favorites.s
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class MangaCardComponent implements OnInit {
   constructor(
-    private _snackBar: MatSnackBar,
+    private snackService: SnackbarService,
     private router: Router,
     private auth: AuthService,
     private mangaFavService: MangaFavoritesService
@@ -59,18 +60,16 @@ export class MangaCardComponent implements OnInit {
 
   addMangaToFavorites() {
     this.mangaFavService.addMangaFavs(this.mangaData);
-    this.openSnackBar(
-      `Added ${this.mangaData.title} to your favorites!`,
-      'Okay'
+    this.snackService.openSnackBar(
+      `Added ${this.mangaData.title} to your favorites!`
     );
   }
 
   removeMangaFromFavorites() {
     this.mangaFavService.removeMangaFromFavs(this.mangaData);
-    this.openSnackBar(
+    this.snackService.openSnackBar(
       `Removed ${this.mangaData.title} from your favorites!`,
-      'Okay',
-      'warn'
+      'snackbar-warn'
     );
   }
 
@@ -83,13 +82,5 @@ export class MangaCardComponent implements OnInit {
 
   mangaClicked() {
     this.router.navigate([`/manga/${this.mangaData.mal_id}`]);
-  }
-
-  openSnackBar(message: string, action: string, styleClass?: string) {
-    let styling = styleClass ? styleClass : 'success';
-    this._snackBar.open(message, action, {
-      panelClass: [styling],
-      duration: 1000,
-    });
   }
 }
