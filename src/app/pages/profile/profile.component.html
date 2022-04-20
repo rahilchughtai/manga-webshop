@@ -5,16 +5,16 @@
       Profile:
     </h1>
 
-    <img src="{{userData.photoURL}}"/>
+    <img [src]="userData.photoURL"/>
 
     <table style="text-align: left;">
       <tr>
         <th><h2>Username:</h2></th>
-        <th><h2 class="editables" id="username">{{userData.displayName}}</h2></th>
+        <th><input [readonly]="!editActive" [(ngModel)]="userData.displayName"></th>
       </tr>
       <tr>
         <th><h2>Email:</h2></th>
-        <th><h2 class="editables" id="email">{{userData.email}}</h2></th>
+        <th><input [readonly]="!editActive" [(ngModel)]="userData.email"></th>
       </tr>
       <tr>
         <th><h2>Email Verified:</h2></th>
@@ -28,10 +28,10 @@
 
     </table>
 
-    <button class="editablesButton" (click)="swapEdit()" mat-raised-button>Edit</button>
+    <button [style.display]="editActive?'none':''" (click)="editActive = true" mat-raised-button>Edit</button>
 
-    <button class="hidden editablesButton" (click)="resetEdit(); swapEdit();" mat-raised-button>Cancel</button>
-    <button class="hidden editablesButton" (click)="saveEdit()" mat-raised-button>Save</button>
+    <button [style.display]="!editActive?'none':''" (click)="userData = getData(); editActive = false" mat-raised-button>Cancel</button>
+    <button [style.display]="!editActive?'none':''" (click)="saveEdit(); editActive = false" mat-raised-button>Save</button>
   </main>
 
   <ng-template class="container" #NotLoggedIn>
