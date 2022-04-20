@@ -17,6 +17,9 @@
       vertical-align: middle;
     }
   }
+  .hidden{
+    display: none;
+  }
 
   margin-top: 5em !important;
   @include s.page-wrap;

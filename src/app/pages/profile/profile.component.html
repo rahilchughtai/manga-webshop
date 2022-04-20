@@ -10,11 +10,11 @@
     <table style="text-align: left;">
       <tr>
         <th><h2>Username:</h2></th>
-        <th><h2 class="editables" (input)="updateChangedUserData($event, 'displayName')">{{userData.displayName}}</h2></th>
+        <th><h2 class="editables" id="username">{{userData.displayName}}</h2></th>
       </tr>
       <tr>
         <th><h2>Email:</h2></th>
-        <th><h2 class="editables" (input)="updateChangedUserData($event, 'email')">{{userData.email}}</h2></th>
+        <th><h2 class="editables" id="email">{{userData.email}}</h2></th>
       </tr>
       <tr>
         <th><h2>Email Verified:</h2></th>
@@ -27,6 +27,11 @@
       </tr>
 
     </table>
+
+    <button class="editablesButton" (click)="swapEdit()" mat-raised-button>Edit</button>
+
+    <button class="hidden editablesButton" (click)="resetEdit(); swapEdit();" mat-raised-button>Cancel</button>
+    <button class="hidden editablesButton" (click)="saveEdit()" mat-raised-button>Save</button>
   </main>
 
   <ng-template class="container" #NotLoggedIn>
