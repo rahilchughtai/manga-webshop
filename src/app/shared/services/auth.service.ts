@@ -121,12 +121,13 @@ export class AuthService {
       `users/${user.uid}`
     );
     const userData = {
-      favoriteManga:'Berserk',
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      shoppingCart:user.shoppingCart,
+
     };
     return userRef.set(userData, {
       merge: true,
