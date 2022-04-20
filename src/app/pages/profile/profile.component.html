@@ -1,10 +1,32 @@
 <div class="wrapper">
-  <main *ngIf="authService.isLoggedIn; else NotLoggedIn">
+  <main *ngIf="authService.isLoggedIn; else NotLoggedIn"  style="width: 100%;">
+
     <h1>
       Profile:
     </h1>
 
+    <img src="{{userData.photoURL}}"/>
 
+    <table style="text-align: left;">
+      <tr>
+        <th><h2>Username:</h2></th>
+        <th><h2 class="editables" (input)="updateChangedUserData($event, 'displayName')">{{userData.displayName}}</h2></th>
+      </tr>
+      <tr>
+        <th><h2>Email:</h2></th>
+        <th><h2 class="editables" (input)="updateChangedUserData($event, 'email')">{{userData.email}}</h2></th>
+      </tr>
+      <tr>
+        <th><h2>Email Verified:</h2></th>
+        <th>
+          <span>
+            <mat-icon aria-hidden="false" aria-label="mail verified" *ngIf="userData.emailVerified">check_circle</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="mail not verified" *ngIf="!userData.emailVerified">not_interested</mat-icon>
+          </span>
+        </th>
+      </tr>
+
+    </table>
   </main>
 
   <ng-template class="container" #NotLoggedIn>

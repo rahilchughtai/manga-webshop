@@ -5,6 +5,19 @@
     padding: 1em;
     font-size: 2em;
   }
+  table{
+
+    th{
+      padding-right: 15px;
+    }
+    h2{
+      margin: 16px 0;
+    }
+    mat-icon{
+      vertical-align: middle;
+    }
+  }
+
   margin-top: 5em !important;
   @include s.page-wrap;
 }
