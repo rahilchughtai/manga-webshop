@@ -26,7 +26,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private route: ActivatedRoute,
     private mangaApi: MangaApiService,
-    private auth: AuthService,
+    public auth: AuthService,
     private snack: SnackbarService
   ) {}
 
@@ -51,10 +51,11 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
   quantityMax = this.makeArray(10);
 
   ngOnInit(): void {
-    this.cartSubscription = this.cartService
-      .getCart()
-      .subscribe((data) => (this.cartData = data));
-
+    if (this.auth.isLoggedIn) {
+      this.cartSubscription = this.cartService
+        .getCart()
+        .subscribe((data) => (this.cartData = data));
+    }
     this.mangaId = this.route.snapshot.paramMap.get('mid');
     this.mangaApi.getMockMangaById(this.mangaId).subscribe((data) => {
       this.mangaData = data;
@@ -63,7 +64,9 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cartSubscription.unsubscribe();
+    if (this.auth.isLoggedIn) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 
   get cartFormData(): cartFormInformation {

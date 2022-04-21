@@ -3,6 +3,7 @@
   </app-manga-card>
 
 
+
   <form [formGroup]="cartMangaPurchaseForm">
     <mat-form-field appearance="fill">
       <mat-label>Manga Volume</mat-label>
@@ -24,6 +25,8 @@
   <button [disabled]="cartMangaPurchaseForm.invalid" (click)="addMangaToCart()" mat-button mat-raised-button>
     Add to cart!
   </button>
+
+
 </section>
 
 <ng-template #loadSpinner>
