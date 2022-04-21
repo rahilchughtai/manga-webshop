@@ -17,17 +17,14 @@ export class ProfileComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   userData = JSON.parse(localStorage.getItem('user')!);
-
   editActive = false;
 
-
   public saveEdit(){
-    alert("Saved")
     // TODO Save Edit
   }
 
-  public getData(){
-    return JSON.parse(localStorage.getItem('user')!);
+  public async resetData(){
+    this.userData = await this.authService.GetUserData(JSON.parse(localStorage.getItem('user')!).uid)
   }
 
   ngOnInit(): void {}

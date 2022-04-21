@@ -121,16 +121,35 @@ export class AuthService {
       `users/${user.uid}`
     );
     const userData = {
-      favoriteManga:'Berserk',
+      favoriteManga: 'Berserk',
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      adress: '',
     };
     return userRef.set(userData, {
       merge: true,
     });
+  }
+  async GetUserData(useruid: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${useruid}`
+    );
+    return new Promise((resolve, reject) =>
+      {
+        userRef.get().subscribe(userData => {
+          if(userData.exists){
+            localStorage.setItem('user', JSON.stringify(userData.data()))
+            resolve(userData.data());
+          }
+          else{
+            reject(null);
+            window.alert("GetUserData("+ useruid +") could not be resolved");
+          }
+        })
+      });
   }
   // Sign out
   SignOut() {

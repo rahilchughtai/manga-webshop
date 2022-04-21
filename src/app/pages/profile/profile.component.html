@@ -30,7 +30,7 @@
 
     <button [style.display]="editActive?'none':''" (click)="editActive = true" mat-raised-button>Edit</button>
 
-    <button [style.display]="!editActive?'none':''" (click)="userData = getData(); editActive = false" mat-raised-button>Cancel</button>
+    <button [style.display]="!editActive?'none':''" (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
     <button [style.display]="!editActive?'none':''" (click)="saveEdit(); editActive = false" mat-raised-button>Save</button>
   </main>
 
