@@ -42,7 +42,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
     return [...Array(n).keys()].map((i) => i + 1).reverse();
   };
 
-  cartSubscription!: Subscription;
+  cartSubscription!: Subscription | undefined;
   cartData!: CartItem[];
 
   mangaId: string | null = '';
@@ -54,7 +54,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
     if (this.auth.isLoggedIn) {
       this.cartSubscription = this.cartService
         .getCart()
-        .subscribe((data) => (this.cartData = data));
+        ?.subscribe((data) => (this.cartData = data));
     }
     this.mangaId = this.route.snapshot.paramMap.get('mid');
     this.mangaApi.getMockMangaById(this.mangaId).subscribe((data) => {
@@ -65,7 +65,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.auth.isLoggedIn) {
-      this.cartSubscription.unsubscribe();
+      this.cartSubscription?.unsubscribe();
     }
   }
 

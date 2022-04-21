@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'nav-toolbar',
@@ -11,16 +12,14 @@ import { Observable } from 'rxjs';
 })
 export class ToolbarComponent implements OnInit {
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private cartService: CartService
   ) {}
 
-  cartItemCount!: Observable<number>;
+  cartItemCount!: Observable<number> | undefined;
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn) {
-      this.cartItemCount = this.cartService.getCartCount();
-    }
+    this.cartItemCount = this.cartService.getCartCount();
   }
 
   @Output() SideNavToggle = new EventEmitter();

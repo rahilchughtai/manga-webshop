@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
     public authService: AuthService
   ) {}
 
-  shoppingCartData!: Observable<CartItem[]>;
+  shoppingCartData!: Observable<CartItem[]> | undefined;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {

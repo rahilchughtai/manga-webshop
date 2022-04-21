@@ -131,7 +131,6 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      shoppingCart: user.shoppingCart,
     };
     return userRef.set(userData, {
       merge: true,

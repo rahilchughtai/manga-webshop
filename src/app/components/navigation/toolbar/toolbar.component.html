@@ -4,7 +4,9 @@
   </button>
   <span [routerLink]="['home']" class="title" style="margin-left:1em;">MangaMiracle</span>
   <span class="example-spacer"></span>
+
   <button [routerLink]="['cart']" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon [matBadge]="cartItemCount | async" matBadgeColor="warn">shopping_cart</mat-icon>
+    <mat-icon [matBadge]="authService.isLoggedIn ? (cartItemCount | async) : 0 " matBadgeColor="warn">shopping_cart
+    </mat-icon>
   </button>
 </mat-toolbar>
