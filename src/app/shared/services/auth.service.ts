@@ -15,6 +15,7 @@ import { User } from '../models/user';
 })
 export class AuthService {
   userData: any; // Save logged in user data
+
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -23,13 +24,13 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
-
-    this.afAuth.authState.subscribe((user) => {
+    this.afAuth.authState.subscribe(async (user) => {
       if (user) {
-        this.userData = user;
+        this.userData = await this.GetUserData(user.uid);
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
       } else {
+        this.userData = null;
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);
       }
@@ -47,7 +48,6 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate([this.redirectHome]);
         });
-        this.SetUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -61,7 +61,7 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         this.SendVerificationMail();
-        this.SetUserData(result.user);
+        this.CreateUserData(result.user, "password");
       })
       .catch((error) => {
         window.alert(error.message);
@@ -107,7 +107,11 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate([this.redirectHome]);
         });
-        this.SetUserData(result.user);
+        this.CheckIfUserExists(result.user!.uid).then((value) => {
+          if(!value){
+            this.CreateUserData(result.user, "google.com");
+          }
+        })
       })
       .catch((error) => {
         window.alert(error);
@@ -116,33 +120,52 @@ export class AuthService {
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    const userData = {
-      favoriteManga: 'Berserk',
+  async CreateUserData(user: any, provider:string) {
+    const userData= {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      adress: '',
+      providertype: provider
     };
-    return userRef.set(userData, {
+    this.SetUserData(userData)
+  }
+  async SetUserData(user: User) {
+
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+
+    localStorage.setItem('user', JSON.stringify(user));
+
+    return userRef.set(user, {
       merge: true,
     });
   }
+  // Logic to check if a user exists in DB
+  async CheckIfUserExists(useruid: any){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${useruid}`
+    );
+    return new Promise((resolve) =>
+    {
+      userRef.get().subscribe(userData => {
+        if(userData.exists){resolve(true)}
+        if(!userData.exists){resolve(false)}
+      })
+    });
+  }
+  // Promise to return a users data
   async GetUserData(useruid: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${useruid}`
     );
     return new Promise((resolve, reject) =>
       {
-        userRef.get().subscribe(userData => {
-          if(userData.exists){
-            localStorage.setItem('user', JSON.stringify(userData.data()))
-            resolve(userData.data());
+        userRef.get().subscribe(localUserData => {
+          if(localUserData.exists){
+            resolve(localUserData.data());
           }
           else{
             reject(null);

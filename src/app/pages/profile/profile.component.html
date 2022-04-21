@@ -1,37 +1,47 @@
 <div class="wrapper">
-  <main *ngIf="authService.isLoggedIn; else NotLoggedIn"  style="width: 100%;">
+  <main *ngIf="this.authService.userData; else Loading" style="width: 100%;">
+    <main *ngIf="authService.isLoggedIn; else NotLoggedIn" style="width: 100%;">
 
-    <h1>
-      Profile:
-    </h1>
+      <h1>
+        Profil:
+      </h1>
 
-    <img [src]="userData.photoURL"/>
+      <img [src]="this.authService.userData.photoURL!"/>
 
-    <table style="text-align: left;">
-      <tr>
-        <th><h2>Username:</h2></th>
-        <th><input [readonly]="!editActive" [(ngModel)]="userData.displayName"></th>
-      </tr>
-      <tr>
-        <th><h2>Email:</h2></th>
-        <th><input [readonly]="!editActive" [(ngModel)]="userData.email"></th>
-      </tr>
-      <tr>
-        <th><h2>Email Verified:</h2></th>
-        <th>
-          <span>
-            <mat-icon aria-hidden="false" aria-label="mail verified" *ngIf="userData.emailVerified">check_circle</mat-icon>
-            <mat-icon aria-hidden="false" aria-label="mail not verified" *ngIf="!userData.emailVerified">not_interested</mat-icon>
-          </span>
-        </th>
-      </tr>
+      <table style="text-align: left;">
+        <tr>
+          <th><h2>Username:</h2></th>
+          <th><input [readonly]="!editActive || this.authService.userData.providertype == 'google.com'" [(ngModel)]="this.authService.userData.displayName!"></th>
+        </tr>
+        <tr>
+          <th><h2>Email:</h2></th>
+          <th><input [readonly]="!editActive || this.authService.userData.providertype == 'google.com'" [(ngModel)]="this.authService.userData.email!"></th>
+        </tr>
+        <tr>
+          <th><h2>First Name:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.firstName!"></th>
+        </tr>
+        <tr>
+          <th><h2>Second Name:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.secondName!"></th>
+        </tr>
+        <tr>
+          <th><h2>Email Verified:</h2></th>
+          <th>
+            <span>
+              <mat-icon aria-hidden="false" aria-label="mail verified" *ngIf="this.authService.userData.emailVerified">check_circle</mat-icon>
+              <mat-icon aria-hidden="false" aria-label="mail not verified" *ngIf="!this.authService.userData.emailVerified">not_interested</mat-icon>
+            </span>
+          </th>
+        </tr>
 
-    </table>
+      </table>
 
-    <button [style.display]="editActive?'none':''" (click)="editActive = true" mat-raised-button>Edit</button>
+      <button [style.display]="editActive?'none':''" (click)="editActive = true" mat-raised-button>Edit</button>
 
-    <button [style.display]="!editActive?'none':''" (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
-    <button [style.display]="!editActive?'none':''" (click)="saveEdit(); editActive = false" mat-raised-button>Save</button>
+      <button [style.display]="!editActive?'none':''" (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
+      <button [style.display]="!editActive?'none':''" (click)="this.authService.SetUserData(this.authService.userData); editActive = false" mat-raised-button>Save</button>
+    </main>
   </main>
 
   <ng-template class="container" #NotLoggedIn>
@@ -41,5 +51,11 @@
     <button routerLink="/login" mat-raised-button mat-button>
       <span>Zum Login</span>
     </button>
+  </ng-template>
+
+  <ng-template class="container" #Loading>
+    <h1>
+      Das Profil lädt
+    </h1>
   </ng-template>
 </div>
