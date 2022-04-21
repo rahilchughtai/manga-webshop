@@ -1,7 +1,7 @@
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { CartItem, MangaItem } from 'src/app/shared/models/manga-item.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MangaItem, cartItem } from 'src/app/shared/models/manga-item.model';
 import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -43,7 +43,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
   };
 
   cartSubscription!: Subscription;
-  cartData!: cartItem[];
+  cartData!: CartItem[];
 
   mangaId: string | null = '';
   mangaData!: MangaItem;
@@ -86,6 +86,6 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
     };
 
     this.cartService.addMangaToCart(this.cartData, newCartData);
-    this.snack.openSnackBar('Added to your cart');
+    this.snack.openSnackBar(`Added ${this.mangaData.title} to your cart!`);
   }
 }

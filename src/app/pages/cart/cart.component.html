@@ -2,5 +2,14 @@
   <h1>
     Cart Works!
 
+    <h3>TODO: Proper view that allows cart updating + displaying subtotal and total price value
+    </h3>
+    <ul>
+      <li style="margin-top: 2em;" *ngFor="let cartItem of shoppingCartData | async">
+        Title: {{cartItem.mangaData.title}} <br>
+        Volume: {{cartItem.volume}} <br>
+        Quantity: {{cartItem.quantity}}
+      </li>
+    </ul>
   </h1>
 </page-wrapper>
