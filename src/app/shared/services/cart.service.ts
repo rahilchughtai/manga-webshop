@@ -40,9 +40,9 @@ export class CartService {
     this.userRef?.update({ shoppingCart: currentCart });
   }
 
-  get userRef(): AngularFirestoreDocument<any> | null {
+  get userRef(): AngularFirestoreDocument<any> | undefined {
     if (!this.authService.isLoggedIn) {
-      return null;
+      return undefined;
     }
     return this.afs.doc(`users/${this.authService.userId}`);
   }
@@ -52,8 +52,8 @@ export class CartService {
   }
 
   getCartCount(): Observable<number> | undefined {
-    console.log("Getting called!!")
-    return this.getCart()?.pipe(map((data) => data.length));
+    console.log('Getting called!!');
+    return this.getCart()?.pipe(map((data) => (data || []).length));
   }
 
   isItemInCart(

@@ -1,4 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+
+import { CartService } from 'src/app/shared/services/cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'nav-cart-button',
@@ -10,7 +19,7 @@ import { Component, Input, OnInit } from '@angular/core';
       aria-label="Example icon-button with share icon"
     >
       <mat-icon
-        [matBadge]="cartItemCount"
+        [matBadge]="authState ? (cartItemCount | async) : 0"
         matBadgeColor="warn"
         >shopping_cart
       </mat-icon>
@@ -18,10 +27,16 @@ import { Component, Input, OnInit } from '@angular/core';
   `,
   styles: [],
 })
-export class CartButtonComponent implements OnInit {
-  constructor() {}
+export class CartButtonComponent implements OnInit, OnChanges {
+  constructor(public cartService: CartService) {}
 
-  ngOnInit(): void {}
+  cartItemCount!: Observable<number> | undefined;
+  @Input() authState = false;
 
-  @Input() cartItemCount: number = 0;
+  ngOnInit(): void {
+    this.cartItemCount = this.cartService.getCartCount();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.cartItemCount = this.cartService.getCartCount();
+  }
 }

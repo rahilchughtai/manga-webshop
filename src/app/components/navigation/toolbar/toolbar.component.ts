@@ -10,20 +10,20 @@ import { of } from 'rxjs';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   constructor(
     public authService: AuthService,
-    private cartService: CartService
+    public cartService: CartService
   ) {}
-
-  cartItemCount!: Observable<number> | undefined;
-
-  ngOnInit(): void {
-    this.cartItemCount = this.cartService.getCartCount();
-  }
 
   @Output() SideNavToggle = new EventEmitter();
   openSidenav() {
     this.SideNavToggle.emit();
+  }
+
+ // cartItemCount!: Observable<number> | undefined;
+
+  ngOnInit(): void {
+  //  this.cartItemCount = this.cartService.getCartCount();
   }
 }

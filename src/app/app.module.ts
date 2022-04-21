@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './shared/services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CartButtonComponent } from './components/navigation/toolbar/cart-button.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { FirebaseServiceModule } from './shared/modules/firebase.module';
@@ -24,7 +25,6 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
-import { CartButtonComponent } from './components/navigation/toolbar/cart-button.component';
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
   { path: 'contacts', label: 'Contacts' },
@@ -45,7 +45,8 @@ export const routes = [
     MangaDetailComponent,
     ProfileComponent,
     WrapperComponent,
-    CartButtonComponent,
+    CartButtonComponent
+
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
