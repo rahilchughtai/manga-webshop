@@ -11,19 +11,11 @@ import { of } from 'rxjs';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  constructor(
-    public authService: AuthService,
-    public cartService: CartService
-  ) {}
+  constructor(public authService: AuthService) {}
 
   @Output() SideNavToggle = new EventEmitter();
+
   openSidenav() {
     this.SideNavToggle.emit();
-  }
-
- // cartItemCount!: Observable<number> | undefined;
-
-  ngOnInit(): void {
-  //  this.cartItemCount = this.cartService.getCartCount();
   }
 }

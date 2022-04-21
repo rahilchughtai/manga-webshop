@@ -36,7 +36,7 @@ export class CartButtonComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.cartItemCount = this.cartService.getCartCount();
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.cartItemCount = this.cartService.getCartCount();
   }
 }
