@@ -91,6 +91,11 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
+
+  get userId(): number {
+    return JSON.parse(localStorage.getItem('user')!).uid;
+  }
+
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
@@ -120,7 +125,7 @@ export class AuthService {
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  async CreateUserData(user: any, provider:string) {
+  CreateUserData(user: any, provider:string) {
     const userData= {
       uid: user.uid,
       email: user.email,

@@ -48,16 +48,6 @@ mat-card {
   background-color: $primary;
 }
 
-::ng-deep .success {
-  background-color: $success;
-  color: white;
-}
-
-::ng-deep .warn {
-  background-color: $warn;
-  color: white;
-}
-
 .text-ellipsis {
   width: 200px;
   white-space: nowrap;
