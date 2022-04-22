@@ -7,6 +7,7 @@ import {
 import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
+import { JikanApiResponse } from '../models/response.model';
 import { MangaItem } from '../models/manga-item.model';
 
 @Injectable({
@@ -34,16 +35,36 @@ export class MangaApiService {
       .pipe(map((data) => data.manga));
   }
 
-  getMangaDataV4() {
+  private createParams(indx = 1, limit = 25) {
+    return new HttpParams()
+      .append('sfw', true)
+      .append('order_by', 'score')
+      .append('type', 'manga')
+      .append('sort', 'desc')
+      .append('page', indx)
+      .append('limit', limit);
+  }
+
+  /**
+   * Current LIVE endpoint for querying data
+   * @param pageIndex
+   * @param limit
+   * @returns
+   */
+  getJikanMangaData(
+    pageIndex?: number,
+    limit?: number
+  ): Observable<JikanApiResponse> {
+    const params = this.createParams(pageIndex, limit);
+
     return this.http
-      .get<any>(
-        `${this.BASE_API_V4}/manga?sfw=true&order_by=score&sort=desc&limit=50`
-      )
-      .pipe(map((data) => data.data));
+      .get<any>(`${this.BASE_API_V4}/manga`, {
+        params,
+      })
+      .pipe(catchError(this.errorHandler));
   }
 
   /*Mock Service Functions*/
-
   getMockMangaData(): Observable<MangaItem[]> {
     console.log('Using mockMangaData!');
     return this.http
