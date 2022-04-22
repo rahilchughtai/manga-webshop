@@ -36,6 +36,8 @@ export class CartButtonComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.cartItemCount = this.cartService.getCartCount();
   }
+
+  // This allows for the cart number to react to login changes
   ngOnChanges(): void {
     this.cartItemCount = this.cartService.getCartCount();
   }
