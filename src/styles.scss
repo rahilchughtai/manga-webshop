@@ -1,4 +1,4 @@
-@import "../src/app/variables.scss";
+@use "../src/app/variables.scss" as *;
 
 /* You can add global styles to this file, and also import other style files */
 html,
@@ -23,3 +23,14 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: $warn;
 }
+
+.snackbar-success {
+  background: $success;
+  color: white;
+}
+
+.snackbar-warn {
+  background: $warn;
+  color: white;
+}
+

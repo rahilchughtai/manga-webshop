@@ -91,6 +91,11 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
+
+  get userId(): number {
+    return JSON.parse(localStorage.getItem('user')!).uid;
+  }
+
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
@@ -121,7 +126,6 @@ export class AuthService {
       `users/${user.uid}`
     );
     const userData = {
-      favoriteManga:'Berserk',
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
