@@ -25,6 +25,7 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
   { path: 'contacts', label: 'Contacts' },
@@ -59,6 +60,7 @@ export const routes = [
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialFileInputModule
   ],
   providers: [AuthService, MangaFavoritesService],
   bootstrap: [AppComponent],

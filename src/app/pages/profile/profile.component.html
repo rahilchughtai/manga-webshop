@@ -2,29 +2,35 @@
   <main *ngIf="authService.isLoggedIn; else NotLoggedIn" style="width: 100%;">
     <main *ngIf="this.authService.userData; else Loading" style="width: 100%;">
 
-      <h1>
-        Profil:
-      </h1>
+      <img style="width: 10%; margin: 0 auto;" [src]="this.authService.userData.photoURL!"/>
 
-      <img [src]="this.authService.userData.photoURL!"/>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" [readonly]="!editActive || this.authService.userData.providertype == 'google.com'"
+              [(ngModel)]="this.authService.userData.displayName!" [name]="this.authService.userData.displayName!">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" [readonly]="!editActive"
+        [(ngModel)]="this.authService.userData.email!" [name]="this.authService.userData.email!">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" [readonly]="!editActive"
+              [(ngModel)]="this.authService.userData.firstName!" [name]="this.authService.userData.firstName!">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" [readonly]="!editActive"
+              [(ngModel)]="this.authService.userData.lastName!" [name]="this.authService.userData.lastName!">
+      </mat-form-field>
+
+
 
       <table style="text-align: left;">
-        <tr>
-          <th><h2>Username:</h2></th>
-          <th><input [readonly]="!editActive || this.authService.userData.providertype == 'google.com'" [(ngModel)]="this.authService.userData.displayName!"></th>
-        </tr>
-        <tr>
-          <th><h2>Email:</h2></th>
-          <th><input [readonly]="!editActive || this.authService.userData.providertype == 'google.com'" [(ngModel)]="this.authService.userData.email!"></th>
-        </tr>
-        <tr>
-          <th><h2>First Name:</h2></th>
-          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.firstName!"></th>
-        </tr>
-        <tr>
-          <th><h2>Second Name:</h2></th>
-          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.secondName!"></th>
-        </tr>
         <tr>
           <th><h2>Land:</h2></th>
           <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.adress.country!"></th>
@@ -60,11 +66,13 @@
 
       </table>
 
-      <button [style.display]="editActive?'none':''" (click)="editActive = true" mat-raised-button>Edit</button>
+      <button *ngIf="!editActive; else EditActive" (click)="editActive = true" mat-raised-button>Edit</button>
 
-      <button [style.display]="editActive?'':'none'" (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
-      <button [style.display]="editActive?'':'none'" (click)="this.authService.SetUserData(this.authService.userData); editActive = false"
-              [disabled]="checkErrorInEditInput()" mat-raised-button>Save</button>
+      <ng-template #EditActive>
+        <button (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
+        <button (click)="this.authService.SetUserData(this.authService.userData); editActive = false"
+                [disabled]="!checkIfUserDataIsCorrect()" mat-raised-button>Save</button>
+      </ng-template>
     </main>
   </main>
 
@@ -78,8 +86,6 @@
   </ng-template>
 
   <ng-template class="container" #Loading>
-    <h1>
-      Das Profil lädt
-    </h1>
+    <mat-spinner style="margin: 0 auto;"></mat-spinner>
   </ng-template>
 </div>

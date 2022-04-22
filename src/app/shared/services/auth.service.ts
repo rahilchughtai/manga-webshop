@@ -132,7 +132,7 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      providertype: provider
+      providertype: provider,
     };
     this.SetUserData(userData)
   }
@@ -149,7 +149,7 @@ export class AuthService {
     });
   }
   // Logic to check if a user exists in DB
-  async CheckIfUserExists(useruid: any){
+  CheckIfUserExists(useruid: any){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${useruid}`
     );
@@ -162,7 +162,7 @@ export class AuthService {
     });
   }
   // Promise to return a users data
-  async GetUserData(useruid: any) {
+  GetUserData(useruid: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${useruid}`
     );

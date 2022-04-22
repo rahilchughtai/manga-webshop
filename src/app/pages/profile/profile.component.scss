@@ -5,6 +5,21 @@
     padding: 1em;
     font-size: 2em;
   }
+  img{
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 30px;
+  }
+  mat-form-field{
+    width: 50%;
+    display: block;
+    margin: auto;
+
+    :read-only{
+      color: white;
+      border-color: white;
+    }
+  }
   table{
 
     th{
