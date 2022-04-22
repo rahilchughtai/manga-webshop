@@ -7,7 +7,7 @@ $app-accent: mat-palette($mat-light-blue);
 $app-warn: mat-palette($mat-pink);
 
 // Create your Sass color vars (will be available in all the project)
-$primary: mat-color($app-primary);
+$primary: #454545;
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);
 $success: #00c851;
