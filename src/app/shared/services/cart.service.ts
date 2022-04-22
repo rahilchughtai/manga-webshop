@@ -60,6 +60,9 @@ export class CartService {
     currentCart: CartItem[],
     newCartItem: CartItem
   ): boolean | number {
+    if (!currentCart) {
+      return false;
+    }
     const { volume, mangaData } = newCartItem;
     let itemIndex = -1;
     const sameItem = (cartItem: CartItem, index: number) => {
