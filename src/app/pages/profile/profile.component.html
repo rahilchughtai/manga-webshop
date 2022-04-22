@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <main *ngIf="this.authService.userData; else Loading" style="width: 100%;">
-    <main *ngIf="authService.isLoggedIn; else NotLoggedIn" style="width: 100%;">
+  <main *ngIf="authService.isLoggedIn; else NotLoggedIn" style="width: 100%;">
+    <main *ngIf="this.authService.userData; else Loading" style="width: 100%;">
 
       <h1>
         Profil:
@@ -26,6 +26,26 @@
           <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.secondName!"></th>
         </tr>
         <tr>
+          <th><h2>Land:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.adress.country!"></th>
+        </tr>
+        <tr>
+          <th><h2>Ort:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.adress.ort!"></th>
+        </tr>
+        <tr>
+          <th><h2>PLZ:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.adress.plz!"></th>
+        </tr>
+        <tr>
+          <th><h2>Straße:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.adress.streetName!"></th>
+        </tr>
+        <tr>
+          <th><h2>Nummer:</h2></th>
+          <th><input [readonly]="!editActive" [(ngModel)]="this.authService.userData.adress.streetNumber!"></th>
+        </tr>
+        <tr>
           <th><h2>Email Verified:</h2></th>
           <th>
             <span>
@@ -33,14 +53,18 @@
               <mat-icon aria-hidden="false" aria-label="mail not verified" *ngIf="!this.authService.userData.emailVerified">not_interested</mat-icon>
             </span>
           </th>
+          <th><button (click)="this.authService.SendVerificationMail()"
+                      [style.display]="(this.authService.userData.providertype != 'google.com' || this.authService.userData.emailVerified == false)?'':'none'"
+                      mat-raised-button>Send Verification Mail</button></th>
         </tr>
 
       </table>
 
       <button [style.display]="editActive?'none':''" (click)="editActive = true" mat-raised-button>Edit</button>
 
-      <button [style.display]="!editActive?'none':''" (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
-      <button [style.display]="!editActive?'none':''" (click)="this.authService.SetUserData(this.authService.userData); editActive = false" mat-raised-button>Save</button>
+      <button [style.display]="editActive?'':'none'" (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
+      <button [style.display]="editActive?'':'none'" (click)="this.authService.SetUserData(this.authService.userData); editActive = false"
+              [disabled]="checkErrorInEditInput()" mat-raised-button>Save</button>
     </main>
   </main>
 
