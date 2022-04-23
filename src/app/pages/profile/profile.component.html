@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-  <mat-card *ngIf=" false; else NotLoggedIn">
+  <mat-card *ngIf="authService.isLoggedIn else NotLoggedIn">
     <mat-card-header>
       <mat-card-title>Your Profile</mat-card-title>
     </mat-card-header>
@@ -8,8 +8,7 @@
       <form [formGroup]="profileForm">
         <main>
           <main>
-            <img
-              src="https://lh3.googleusercontent.com/a/AATXAJwzNjHrM2WDNlBtB-iyDn9nq4eE5qfWl8je8iVfrQ=s432-p-rw-no-mo" />
+            <img [src]="profilePic" />
             <mat-form-field appearance="fill">
               <mat-label>Username</mat-label>
               <input formControlName="displayName" matInput type="text" placeholder="Username">
@@ -64,16 +63,23 @@
                   <input formControlName="streetNumber" type="text" matInput placeholder="Nummer">
                 </mat-form-field>
               </div>
+              <mat-error *ngIf="this.profileForm.invalid">
+                <p style="text-align: center;">
+                  Please fill out all required feels and check if theyre correct;
+                </p>
+
+              </mat-error>
             </section>
             <div class="editButtons">
-              <button *ngIf="!editActive; else EditActive" (click)="editActive = true" mat-raised-button
+              <button *ngIf="!editActive; else EditActive" (click)="activateEdit()" mat-raised-button
                 style="width: fit-content;">Edit<mat-icon
                   style="font-size: 15px; height: 15px ; width: 15px; margin-left: 5px;"> border_color</mat-icon>
               </button>
 
               <ng-template class="editButtons" #EditActive>
                 <button (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
-                <button [disabled]="this.errorInEdit" mat-raised-button>Save</button>
+                <button [disabled]="profileForm.invalid" (click)="saveData(); editActive=false"
+                  mat-raised-button>Save</button>
               </ng-template>
             </div>
           </main>
@@ -85,20 +91,17 @@
 
 
   <ng-template class="container" #NotLoggedIn>
-    <h1>
-      Logge dich ein oder registriere dich, um dein Profil einzusehen
-    </h1>
-    <button routerLink="/login" mat-raised-button mat-button>
-      <span>Zum Login</span>
-    </button>
+    <div class="not-logged-in">
+      <h1 style="text-align: center;">
+        Logge dich ein oder registriere dich, um dein Profil einzusehen
+      </h1>
+      <button routerLink="/login" mat-raised-button mat-button>
+        <span>Zum Login</span>
+      </button>
+    </div>
   </ng-template>
 
-  <pre>
 
-    {{
-  profileForm.value | json
-  }}
-</pre>
 
   <ng-template class="container" #Loading>
     <mat-spinner style="margin: 0 auto;"></mat-spinner>

@@ -1,4 +1,4 @@
-@use "../../shared/styles/styles" as s;
+@use "../../shared/styles/styles" as *;
 @use "../../variables.scss" as *;
 
 .wrapper {
@@ -90,5 +90,12 @@
     button {
       margin: 0 min(2%, 20px);
     }
+  }
+}
+
+.not-logged-in {
+  h1 {
+    @include gradient-font;
+    font-size: 2.1em;
   }
 }

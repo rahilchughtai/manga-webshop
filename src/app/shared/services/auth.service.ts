@@ -6,10 +6,10 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, of, switchMap, throwError } from 'rxjs';
+import { User, UserAddress } from '../models/user';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,7 @@ import { User } from '../models/user';
 export class AuthService {
   userData$: Observable<User | undefined | null>;
 
+  // See https://www.positronx.io/full-angular-firebase-authentication-system/
   private redirectHome = 'home';
   private redirectLog = 'login';
 
@@ -71,7 +72,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
-        this.updateUserData(this.extractUserData(result.user));
+        this.setUserData(this.extractUserData(result.user));
       })
       .catch((error) => {
         window.alert(error);
@@ -106,16 +107,40 @@ export class AuthService {
     });
   }
 
-  updateUserData(userData: User) {
-    const { uid, email, displayName, photoURL } = userData;
+  updateUserData(data: any) {
+    const user = this.getStorageUserData();
+    const newUser = {
+      ...user,
+      ...data,
+    };
+    this.setUserData(newUser);
+  }
+
+  private initAdress(address: any): UserAddress {
+    return {
+      streetName: address?.streetName || '',
+      streetNumber: address?.streetNumber || 0,
+      plz: address?.plz || 0,
+      ort: address?.ort || '',
+      country: address?.country || '',
+    };
+  }
+
+  setUserData(userData: any) {
+    const { uid, email, displayName, photoURL, firstName, lastName, address } =
+      userData;
     const userRef = this.getFireUserDocument(uid);
-    this.setLocalStorageUserData(userData);
-    const data = {
+    const newAddress = this.initAdress(address);
+    const data: User = {
       uid,
       email,
       displayName,
       photoURL,
+      firstName: firstName || '',
+      lastName: lastName || '',
+      address: newAddress,
     };
+    this.setLocalStorageUserData(data);
     return userRef.set(data, { merge: true });
   }
 
