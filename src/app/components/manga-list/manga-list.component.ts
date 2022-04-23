@@ -37,7 +37,7 @@ export class MangaListComponent implements OnInit {
       .pipe(
         debounceTime(800),
         distinctUntilChanged(),
-        filter((term) => term.length > 2)
+        filter((term) => term.length > 3 || term.length === 0)
       )
       .subscribe((term) => {
         this.fetchMangaApiData(term);
@@ -66,7 +66,6 @@ export class MangaListComponent implements OnInit {
     ({ current_page: this.pageIndex } = pag);
     ({ total: this.totalRecords, count: this.pageSize } = items);
   }
-
 
   pageEvent(pageEvent: PageEvent) {
     const { pageIndex, pageSize } = pageEvent;
