@@ -127,12 +127,11 @@ export class AuthService {
   }
 
   mergeLocalStorageData(userData: any) {
-    const user = this.userData$.pipe(take(1)).subscribe((fireUser) => {
+    this.userData$.pipe(take(1)).subscribe((fireUser) => {
       const newUser = {
         ...(fireUser && { ...fireUser }),
         ...userData,
       };
-
       this.setLocalStorageUserData(newUser);
     });
   }
