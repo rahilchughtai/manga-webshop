@@ -9,6 +9,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +62,7 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         this.SendVerificationMail();
-        this.CreateUserData(result.user, "password");
+        // TODO Set new User
       })
       .catch((error) => {
         window.alert(error.message);
@@ -112,9 +113,21 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate([this.redirectHome]);
         });
-        this.CheckIfUserExists(result.user!.uid).then((value) => {
-          if(!value){
-            this.CreateUserData(result.user, "google.com");
+
+        this.CheckIfUserExists(result.user!.uid).then((exists) => {
+          if(!exists){
+
+            // TODO (Perhabs) Update when new SingUp method gets implemented
+            let userData : User = {
+                uid: result.user!.uid,
+                email: result.user!.email ? result.user!.email : "",
+                displayName:  result.user!.displayName ? result.user!.displayName : "",
+                photoURL:  result.user!.photoURL ? result.user!.photoURL : "",
+                emailVerified:  result.user!.emailVerified,
+                providertype: "google.com",
+              }
+
+            this.SetUserData(userData);
           }
         })
       })
@@ -125,18 +138,7 @@ export class AuthService {
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  CreateUserData(user: any, provider:string) {
-    const userData= {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      providertype: provider,
-    };
-    this.SetUserData(userData)
-  }
-  async SetUserData(user: User) {
+  SetUserData(user: User) {
 
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`

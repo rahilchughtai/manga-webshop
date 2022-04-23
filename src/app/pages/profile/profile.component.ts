@@ -17,12 +17,12 @@ export class ProfileComponent implements OnInit {
   // TODO Check if Inputs are correct. If no: <mat-error>
   errorInEdit : Boolean= false;
 
-   // restes the shown profile data to pre edit
+  ngOnInit(): void {}
+
+  // restes the shown profile data to pre edit
   resetData() : void{
     this.authService.userData = JSON.parse(localStorage.getItem('user')!);
   }
-
-  ngOnInit(): void {}
 
   //https://www.positronx.io/full-angular-firebase-authentication-system/
 }
