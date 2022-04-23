@@ -1,14 +1,13 @@
 import {MangaItem} from './manga-item.model';
 
-
 export interface User {
   uid: string;
 
-  email?: string;
+  email: string;
   displayName?: string;
   photoURL?: string;
-  providertype?: string; //google.com / password
   emailVerified?: boolean;
+  providertype?: string; //google.com / password
   firstName?: string;
   lastName?: string;
   address?: UserAddress;

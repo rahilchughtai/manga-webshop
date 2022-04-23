@@ -1,103 +1,74 @@
 <div class="wrapper">
   <main *ngIf="authService.isLoggedIn; else NotLoggedIn">
-    <main *ngIf="this.authService.userData; else Loading">
-
-      <img [src]="this.authService.userData.photoURL!"/>
-
-      <mat-form-field appearance="fill" [ngClass]="{'readOnly':(!editActive || this.authService.userData.providertype == 'google.com')}">
+    <main>
+      <img src="https://lh3.googleusercontent.com/a/AATXAJwzNjHrM2WDNlBtB-iyDn9nq4eE5qfWl8je8iVfrQ=s432-p-rw-no-mo" />
+      <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
-        <input matInput type="text" placeholder="Username"
-              [(ngModel)]="this.authService.userData.displayName!" [name]="this.authService.userData.displayName!">
+        <input matInput type="text" placeholder="Username">
       </mat-form-field>
 
       <div class="doubleInputBlock">
-        <mat-form-field appearance="fill" [ngClass]="'readOnly'">
-          <mat-label>Email</mat-label>
-          <input type="email" matInput placeholder="Email"
-          [(ngModel)]="this.authService.userData.email!" [name]="this.authService.userData.email!">
+        <mat-form-field appearance="fill">
+          <mat-label>E-Mail</mat-label>
+          <input type="text" matInput placeholder="E-Mail">
         </mat-form-field>
-
-        <div class="doubleInputBlockElement">
-          <mat-icon aria-hidden="false" aria-label="mail verified" *ngIf="this.authService.userData.emailVerified">check_circle</mat-icon>
-          <mat-icon aria-hidden="false" aria-label="mail not verified" *ngIf="!this.authService.userData.emailVerified">not_interested</mat-icon>
-          <button (click)="this.authService.SendVerificationMail()"
-                [disabled]="(this.authService.userData.providertype != 'google.com' || this.authService.userData.emailVerified == false)?'':'none'"
-                mat-raised-button>Send Verification Mail</button>
-        </div>
       </div>
 
-      <br>
-      <br>
-
       <div class="doubleInputBlock">
-        <mat-form-field appearance="fill" [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>First Name</mat-label>
-          <input type="text" matInput placeholder="First Name"
-                [(ngModel)]="this.authService.userData.firstName!" [name]="this.authService.userData.firstName!">
+          <input type="text" matInput placeholder="First Name">
         </mat-form-field>
-
-        <mat-form-field appearance="fill"  [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>Last Name</mat-label>
-          <input type="text" matInput placeholder="Last Name"
-                [(ngModel)]="this.authService.userData.lastName!" [name]="this.authService.userData.lastName!">
+          <input type="text" matInput placeholder="Last Name">
         </mat-form-field>
       </div>
 
-      <br>
-      <br>
-
       <div class="doubleInputBlock">
-        <mat-form-field appearance="fill" [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>Land</mat-label>
-          <input type="text" matInput placeholder="Land"
-                [(ngModel)]="this.authService.userData.adress.country!" [name]="this.authService.userData.adress.country!">
+          <input type="text" matInput placeholder="Land">
         </mat-form-field>
       </div>
 
       <div class="doubleInputBlock">
-        <mat-form-field appearance="fill" [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>Ort</mat-label>
-          <input type="text" matInput placeholder="Ort"
-                [(ngModel)]="this.authService.userData.adress.ort!" [name]="this.authService.userData.adress.ort!">
+          <input type="text" matInput placeholder="Ort">
         </mat-form-field>
 
-        <mat-form-field appearance="fill"  [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>PLZ</mat-label>
-          <input type="text" matInput placeholder="PLZ"
-                [(ngModel)]="this.authService.userData.adress.plz!" [name]="this.authService.userData.adress.plz!">
+          <input type="text" matInput placeholder="PLZ">
           <mat-error>Please provide name.</mat-error>
         </mat-form-field>
       </div>
 
       <div class="doubleInputBlock">
-        <mat-form-field appearance="fill" [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>Straße</mat-label>
-          <input type="text" matInput placeholder="Straße"
-                [(ngModel)]="this.authService.userData.adress.streetName!" [name]="this.authService.userData.adress.streetName!">
+          <input type="text" matInput placeholder="Straße">
         </mat-form-field>
 
-        <mat-form-field appearance="fill"  [ngClass]="{'readOnly':!editActive}">
+        <mat-form-field appearance="fill">
           <mat-label>Nummer</mat-label>
-          <input type="text" matInput placeholder="Nummer"
-                [(ngModel)]="this.authService.userData.adress.streetNumber!" [name]="this.authService.userData.adress.streetNumber!">
+          <input type="text" matInput placeholder="Nummer">
         </mat-form-field>
       </div>
-
-      <br>
-      <br>
 
       <div class="editButtons">
-        <button *ngIf="!editActive; else EditActive" (click)="editActive = true" mat-raised-button style="width: fit-content;">Edit<mat-icon style="font-size: 15px; height: 15px ; width: 15px; margin-left: 5px;"> border_color</mat-icon></button>
-
+        <button *ngIf="!editActive; else EditActive" (click)="editActive = true" mat-raised-button
+          style="width: fit-content;">Edit<mat-icon
+            style="font-size: 15px; height: 15px ; width: 15px; margin-left: 5px;"> border_color</mat-icon></button>
         <ng-template class="editButtons" #EditActive>
           <button (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
-          <button (click)="this.authService.SetUserData(this.authService.userData); editActive = false"
-                  [disabled]="this.errorInEdit" mat-raised-button>Save</button>
+          <button [disabled]="this.errorInEdit" mat-raised-button>Save</button>
         </ng-template>
       </div>
-
     </main>
   </main>
+
 
   <ng-template class="container" #NotLoggedIn>
     <h1>
