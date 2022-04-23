@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
         streetName: [streetName, Validators.required],
         streetNumber: [streetNumber, Validators.required],
         country: [country, Validators.required],
-        city: [ort, Validators.required],
+        ort: [ort, Validators.required],
         plz: [plz, Validators.required],
       }),
     });

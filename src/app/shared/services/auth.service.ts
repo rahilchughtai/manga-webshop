@@ -5,7 +5,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, of, switchMap, throwError } from 'rxjs';
+import { Observable, of, switchMap, take, throwError } from 'rxjs';
 import { User, UserAddress } from '../models/user';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -72,7 +72,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
-        this.setUserData(this.extractUserData(result.user));
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error);
@@ -110,7 +110,7 @@ export class AuthService {
   updateUserData(data: any) {
     const user = this.getStorageUserData();
     const newUser = {
-      ...user,
+      ...(user && user),
       ...data,
     };
     this.setUserData(newUser);
@@ -126,6 +126,17 @@ export class AuthService {
     };
   }
 
+  mergeLocalStorageData(userData: any) {
+    const user = this.userData$.pipe(take(1)).subscribe((fireUser) => {
+      const newUser = {
+        ...(fireUser && { ...fireUser }),
+        ...userData,
+      };
+
+      this.setLocalStorageUserData(newUser);
+    });
+  }
+
   setUserData(userData: any) {
     const { uid, email, displayName, photoURL, firstName, lastName, address } =
       userData;
@@ -136,11 +147,12 @@ export class AuthService {
       email,
       displayName,
       photoURL,
-      firstName: firstName || '',
-      lastName: lastName || '',
-      address: newAddress,
+      ...(firstName && { firstName }),
+      ...(lastName && { lastName }),
+      ...(address && { address: newAddress }),
     };
-    this.setLocalStorageUserData(data);
+
+    this.mergeLocalStorageData(data);
     return userRef.set(data, { merge: true });
   }
 
