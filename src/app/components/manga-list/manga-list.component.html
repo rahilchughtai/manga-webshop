@@ -15,6 +15,11 @@
 
 <div class="content">
   <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
+    <div *ngIf="!response.data.length">
+      <h1>
+       Für diesen Suchbegriff gab es leider keine Ergebnisse
+      </h1>
+    </div>
     <div fxLayoutGap="18px grid" fxLayout="row wrap">
       <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
         *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
@@ -22,13 +27,17 @@
         </app-manga-card>
       </div>
     </div>
+    <div [hidden]="!response.data.length">
+      <mat-paginator showFirstLastButtons="true" [length]="totalRecords" [pageSize]="pageSize"
+        [pageSizeOptions]="[10,25]" (page)="pageEvent($event)" aria-label="Select page">
+      </mat-paginator>
+    </div>
   </section>
+
   <ng-template #loadSpinner>
     <mat-spinner></mat-spinner>
   </ng-template>
 
-  <mat-paginator [hidden]="JikanApiResponse$| async" showFirstLastButtons="true" [length]="totalRecords"
-    [pageSize]="pageSize" [pageSizeOptions]="[10,25]" (page)="pageEvent($event)" aria-label="Select page">
-  </mat-paginator>
+
 
 </div>
