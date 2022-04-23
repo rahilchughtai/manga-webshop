@@ -18,4 +18,6 @@ export interface JikanApiResponse {
   data: MangaItem[];
 }
 
-
+export interface JikanMangaByIdResponse {
+  data: MangaItem;
+}

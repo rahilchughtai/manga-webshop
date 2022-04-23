@@ -4,10 +4,13 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
+import {
+  JikanApiResponse,
+  JikanMangaByIdResponse,
+} from '../models/response.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { JikanApiResponse } from '../models/response.model';
 import { MangaItem } from '../models/manga-item.model';
 
 @Injectable({
@@ -35,14 +38,21 @@ export class MangaApiService {
       .pipe(map((data) => data.manga));
   }
 
-  private createParams(indx = 1, limit = 25) {
-    return new HttpParams()
+  private createParams(q?: string, indx = 1, limit = 25) {
+    let params = new HttpParams();
+    if (q) {
+      console.log('q is set', q);
+      params = params.append('q', q);
+    }
+    params = params
       .append('sfw', true)
       .append('order_by', 'score')
       .append('type', 'manga')
       .append('sort', 'desc')
       .append('page', indx)
       .append('limit', limit);
+
+    return params;
   }
 
   /**
@@ -52,11 +62,11 @@ export class MangaApiService {
    * @returns
    */
   getJikanMangaData(
+    q?: string,
     pageIndex?: number,
     limit?: number
   ): Observable<JikanApiResponse> {
-    const params = this.createParams(pageIndex, limit);
-
+    const params = this.createParams(q, pageIndex, limit);
     return this.http
       .get<any>(`${this.BASE_API_V4}/manga`, {
         params,
@@ -64,14 +74,24 @@ export class MangaApiService {
       .pipe(catchError(this.errorHandler));
   }
 
-  /*Mock Service Functions*/
+  /*Mock Service Functions
   getMockMangaData(): Observable<MangaItem[]> {
     console.log('Using mockMangaData!');
     return this.http
       .get<any>('/assets/response.json')
       .pipe(map((data) => data.data));
   }
+  */
 
+  getJikanMangaById(mid: any): Observable<MangaItem> {
+    const mal_id = parseInt(mid);
+    console.log(mal_id);
+    return this.http
+      .get<JikanMangaByIdResponse>(`${this.BASE_API_V4}/manga/${mal_id}`)
+      .pipe(map((data) => data.data));
+  }
+
+  /*
   getMockMangaById(mid: any) {
     const mal_id = parseInt(mid);
     return this.http.get<any>('/assets/response.json').pipe(
@@ -80,9 +100,9 @@ export class MangaApiService {
         result.data.find((manga: MangaItem) => manga.mal_id === mal_id)
       )
     );
-  }
+  }*/
 
-  errorHandler(error: HttpErrorResponse) {
+  private errorHandler(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       alert(`An error occurred: ${error.error.message}`);

@@ -4,8 +4,9 @@
 <div class="search-bar">
   <mat-form-field class="example-form-field" appearance="fill">
     <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
-    <input matInput type="text" [(ngModel)]="value">
-    <button *ngIf="value" matSuffix mat-icon-button (click)="value=''">
+    <input [formControl]="mangaSearchField" type="search" class="form-control" placeholder="One Piece..." matInput
+      type="text">
+    <button *ngIf="mangaSearchField.value" matSuffix mat-icon-button (click)="mangaSearchField.setValue('')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -17,7 +18,7 @@
     <div fxLayoutGap="18px grid" fxLayout="row wrap">
       <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
         *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
-        <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
+        <app-manga-card [hasSynopsis]="true" [mangaData]="manga">
         </app-manga-card>
       </div>
     </div>
@@ -26,8 +27,8 @@
     <mat-spinner></mat-spinner>
   </ng-template>
 
-  <mat-paginator *ngIf="JikanApiResponse$ | async" [length]="totalRecords" [pageSize]="pageSize"
-    [pageSizeOptions]="[10,25]" (page)="pageEvent($event)" aria-label="Select page">
+  <mat-paginator [hidden]="JikanApiResponse$| async" showFirstLastButtons="true" [length]="totalRecords"
+    [pageSize]="pageSize" [pageSizeOptions]="[10,25]" (page)="pageEvent($event)" aria-label="Select page">
   </mat-paginator>
 
 </div>

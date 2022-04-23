@@ -3,8 +3,10 @@ import {
   JikanApiResponse,
   Pagination,
 } from 'src/app/shared/models/response.model';
-import { Observable, first, map, share, take } from 'rxjs';
+import { Observable, filter, first, map, share, take } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
+import { FormControl } from '@angular/forms';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { PageEvent } from '@angular/material/paginator';
@@ -19,9 +21,10 @@ export class MangaListComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
+  public mangaSearchField!: FormControl;
+  searchFieldResult!: Observable<string>;
   gridColumns = 5;
   value = '';
-
   pageIndex = 0;
   totalRecords = 0;
   pageSize = 0;
@@ -29,12 +32,22 @@ export class MangaListComponent implements OnInit {
   paginationData!: Pagination;
 
   ngOnInit(): void {
+    this.mangaSearchField = new FormControl();
+    this.mangaSearchField.valueChanges
+      .pipe(
+        debounceTime(800),
+        distinctUntilChanged(),
+        filter((term) => term.length > 2)
+      )
+      .subscribe((term) => {
+        this.fetchMangaApiData(term);
+      });
     this.fetchMangaApiData();
   }
 
-  fetchMangaApiData(index?: number, limit?: number) {
+  fetchMangaApiData(term?: string, index?: number, limit?: number) {
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(index,limit)
+      .getJikanMangaData(term, index, limit)
       .pipe(share());
     this.mapToPageValue();
   }
@@ -49,15 +62,19 @@ export class MangaListComponent implements OnInit {
   }
 
   initializePageValues(pag: Pagination) {
-    console.log(pag);
     const { items } = pag;
     ({ current_page: this.pageIndex } = pag);
     ({ total: this.totalRecords, count: this.pageSize } = items);
   }
 
+
   pageEvent(pageEvent: PageEvent) {
     const { pageIndex, pageSize } = pageEvent;
-    this.fetchMangaApiData(pageIndex + 1, pageSize);
+    this.fetchMangaApiData(
+      this.mangaSearchField.value,
+      pageIndex + 1,
+      pageSize
+    );
   }
 
   trackByFn(index: number, item: MangaItem) {

@@ -1,9 +1,9 @@
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CartItem, MangaItem } from 'src/app/shared/models/manga-item.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
@@ -44,7 +44,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
 
   cartSubscription!: Subscription | undefined;
   cartData!: CartItem[];
-
+  loading = true;
   mangaId: string | null = '';
   mangaData!: MangaItem;
   volumeArr!: number[];
@@ -54,13 +54,18 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
     if (this.auth.isLoggedIn) {
       this.cartSubscription = this.cartService
         .getCart()
+        ?.pipe(take(1))
         ?.subscribe((data) => (this.cartData = data));
     }
     this.mangaId = this.route.snapshot.paramMap.get('mid');
-    this.mangaApi.getMockMangaById(this.mangaId).subscribe((data) => {
-      this.mangaData = data;
-      this.volumeArr = this.makeArray(this.mangaData.volumes);
-    });
+    this.mangaApi
+      .getJikanMangaById(this.mangaId)
+      .pipe(take(1))
+      .subscribe((mangaItem) => {
+        this.mangaData = mangaItem;
+        this.volumeArr = this.makeArray(mangaItem.volumes);
+        this.loading = false;
+      });
   }
 
   ngOnDestroy(): void {
