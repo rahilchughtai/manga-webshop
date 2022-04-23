@@ -1,73 +1,87 @@
 <div class="wrapper">
-  <main *ngIf="authService.isLoggedIn; else NotLoggedIn">
-    <main>
-      <img src="https://lh3.googleusercontent.com/a/AATXAJwzNjHrM2WDNlBtB-iyDn9nq4eE5qfWl8je8iVfrQ=s432-p-rw-no-mo" />
-      <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput type="text" placeholder="Username">
-      </mat-form-field>
 
-      <div class="doubleInputBlock">
-        <mat-form-field appearance="fill">
-          <mat-label>E-Mail</mat-label>
-          <input type="text" matInput placeholder="E-Mail">
-        </mat-form-field>
-      </div>
+  <mat-card *ngIf=" false; else NotLoggedIn">
+    <mat-card-header>
+      <mat-card-title>Your Profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="profileForm">
+        <main>
+          <main>
+            <img
+              src="https://lh3.googleusercontent.com/a/AATXAJwzNjHrM2WDNlBtB-iyDn9nq4eE5qfWl8je8iVfrQ=s432-p-rw-no-mo" />
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input formControlName="displayName" matInput type="text" placeholder="Username">
+            </mat-form-field>
 
-      <div class="doubleInputBlock">
-        <mat-form-field appearance="fill">
-          <mat-label>First Name</mat-label>
-          <input type="text" matInput placeholder="First Name">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Last Name</mat-label>
-          <input type="text" matInput placeholder="Last Name">
-        </mat-form-field>
-      </div>
+            <div class="doubleInputBlock">
+              <mat-form-field appearance="fill">
+                <mat-label>E-Mail</mat-label>
+                <input formControlName="email" type="text" matInput placeholder="E-Mail">
+              </mat-form-field>
+            </div>
 
-      <div class="doubleInputBlock">
-        <mat-form-field appearance="fill">
-          <mat-label>Land</mat-label>
-          <input type="text" matInput placeholder="Land">
-        </mat-form-field>
-      </div>
+            <div class="doubleInputBlock">
+              <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input formControlName="firstName" type="text" matInput placeholder="First Name">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input formControlName="lastName" type="text" matInput placeholder="Last Name">
+              </mat-form-field>
+            </div>
 
-      <div class="doubleInputBlock">
-        <mat-form-field appearance="fill">
-          <mat-label>Ort</mat-label>
-          <input type="text" matInput placeholder="Ort">
-        </mat-form-field>
+            <section formGroupName="address">
+              <div class="doubleInputBlock">
+                <mat-form-field appearance="fill">
+                  <mat-label>Land</mat-label>
+                  <input formControlName="country" type="text" matInput placeholder="Land">
+                </mat-form-field>
+              </div>
 
-        <mat-form-field appearance="fill">
-          <mat-label>PLZ</mat-label>
-          <input type="text" matInput placeholder="PLZ">
-          <mat-error>Please provide name.</mat-error>
-        </mat-form-field>
-      </div>
+              <div class="doubleInputBlock">
+                <mat-form-field appearance="fill">
+                  <mat-label>Ort</mat-label>
+                  <input formControlName="city" type="text" matInput placeholder="Ort">
+                </mat-form-field>
 
-      <div class="doubleInputBlock">
-        <mat-form-field appearance="fill">
-          <mat-label>Straße</mat-label>
-          <input type="text" matInput placeholder="Straße">
-        </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>PLZ</mat-label>
+                  <input formControlName="plz" type="text" matInput placeholder="PLZ">
+                </mat-form-field>
+              </div>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Nummer</mat-label>
-          <input type="text" matInput placeholder="Nummer">
-        </mat-form-field>
-      </div>
+              <div class="doubleInputBlock">
+                <mat-form-field appearance="fill">
+                  <mat-label>Straße</mat-label>
+                  <input formControlName="streetName" type="text" matInput placeholder="Straße">
+                </mat-form-field>
 
-      <div class="editButtons">
-        <button *ngIf="!editActive; else EditActive" (click)="editActive = true" mat-raised-button
-          style="width: fit-content;">Edit<mat-icon
-            style="font-size: 15px; height: 15px ; width: 15px; margin-left: 5px;"> border_color</mat-icon></button>
-        <ng-template class="editButtons" #EditActive>
-          <button (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
-          <button [disabled]="this.errorInEdit" mat-raised-button>Save</button>
-        </ng-template>
-      </div>
-    </main>
-  </main>
+                <mat-form-field appearance="fill">
+                  <mat-label>Nummer</mat-label>
+                  <input formControlName="streetNumber" type="text" matInput placeholder="Nummer">
+                </mat-form-field>
+              </div>
+            </section>
+            <div class="editButtons">
+              <button *ngIf="!editActive; else EditActive" (click)="editActive = true" mat-raised-button
+                style="width: fit-content;">Edit<mat-icon
+                  style="font-size: 15px; height: 15px ; width: 15px; margin-left: 5px;"> border_color</mat-icon>
+              </button>
+
+              <ng-template class="editButtons" #EditActive>
+                <button (click)="resetData(); editActive = false" mat-raised-button>Cancel</button>
+                <button [disabled]="this.errorInEdit" mat-raised-button>Save</button>
+              </ng-template>
+            </div>
+          </main>
+        </main>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
 
 
   <ng-template class="container" #NotLoggedIn>
@@ -78,6 +92,13 @@
       <span>Zum Login</span>
     </button>
   </ng-template>
+
+  <pre>
+
+    {{
+  profileForm.value | json
+  }}
+</pre>
 
   <ng-template class="container" #Loading>
     <mat-spinner style="margin: 0 auto;"></mat-spinner>

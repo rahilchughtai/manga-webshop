@@ -51,6 +51,10 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(data));
   }
 
+  getStorageUserData(): User | null {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
   private extractUserData(user: any): User {
     return {
       uid: user.uid,
