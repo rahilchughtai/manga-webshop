@@ -28,16 +28,31 @@ export class ProfileComponent implements OnInit {
     this.profileForm.disable();
   }
 
+  oldFormData = {};
+
   initUserPic() {
     let userPic = this.authService.getStorageUserData()?.photoURL;
     if (userPic) this.profilePic = userPic;
   }
+
+  resetFormData() {
+    this.profileForm.setValue(this.oldFormData);
+  }
+
+  setOldFormData() {
+    this.oldFormData = this.authService.initProfileData(
+      this.authService.getStorageUserData() || {}
+    );
+  }
+
   buildForm() {
     const { email, displayName, firstName, lastName, address } =
       this.authService.getStorageUserData() || {};
     const { streetName, streetNumber, country, plz, ort } = address || {};
+    this.setOldFormData();
+
     this.profileForm = this.fb.group({
-      email: [email, Validators.email],
+      email: [email, [Validators.email, Validators.required]],
       displayName: [displayName, Validators.required],
       firstName: [firstName, Validators.required],
       lastName: [lastName, Validators.required],
@@ -53,6 +68,7 @@ export class ProfileComponent implements OnInit {
 
   saveData() {
     this.authService.updateUserData(this.profileForm.value);
+    this.setOldFormData();
     this.disableEdit();
   }
 
@@ -67,6 +83,7 @@ export class ProfileComponent implements OnInit {
   }
 
   resetData(): void {
+    this.resetFormData();
     this.disableEdit();
     // this.authService.userData = JSON.parse(localStorage.getItem('user')!);
   }

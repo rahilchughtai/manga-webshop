@@ -116,11 +116,22 @@ export class AuthService {
     this.setUserData(newUser);
   }
 
-  private initAdress(address: any): UserAddress {
+  initProfileData(data: any) {
+    const { email, displayName, firstName, lastName, address } = data;
+    return {
+      email: email || '',
+      displayName: displayName || '',
+      firstName: firstName || '',
+      lastName: lastName || '',
+      address: this.initAdress(address),
+    };
+  }
+
+  initAdress(address: any): UserAddress {
     return {
       streetName: address?.streetName || '',
-      streetNumber: address?.streetNumber || 0,
-      plz: address?.plz || 0,
+      streetNumber: address?.streetNumber || '',
+      plz: address?.plz || '',
       ort: address?.ort || '',
       country: address?.country || '',
     };
