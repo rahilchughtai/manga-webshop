@@ -1,0 +1,96 @@
+@import "../../variables";
+
+page-wrapper {
+
+  $heightWallpaper: max(35vw, 400px);
+
+  div.wallpaperInfo {
+
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+
+    top: 55px;
+    left: 0;
+
+    width: 100%;
+    height: $heightWallpaper;
+
+    margin: 0;
+
+
+    @media (max-width: 1500px) {
+      &{
+        background-image: linear-gradient(0deg, rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+            url("../../../assets/home_wallpaper.jpg");
+      }
+    }
+
+    // For mobile usage
+    @media (orientation: portrait) {
+      &{
+        display: none;
+      }
+    }
+
+    background-image: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%),
+        url("../../../assets/home_wallpaper.jpg");
+    background-position: 0 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+
+    div.information {
+
+      @media (max-width: 1500px) {
+        &{
+          margin: auto;
+        }
+      }
+
+      width: 300px;
+      margin-left: 6vw;
+
+      img.logo {
+        width: 90%;
+      }
+
+      div.text {
+        margin-top: 30px;
+
+        display: block;
+
+        @media (max-width: 1500px) {
+          &{
+            display: none;
+          }
+        }
+
+        h2 {
+          margin-left: 20px;
+          margin-bottom: 8px;
+        }
+
+        h1.link{
+          margin-top: 20px;
+
+          cursor: pointer;
+          color: $primary_marking_color;
+
+          text-shadow: -2px 1px 2px rgba(0,0,0,0.8);
+
+          &:hover{
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  div.wallpaperSpacer {
+    pointer-events: none;
+    margin-top: calc(35vw + 55px);
+  }
+
+}
