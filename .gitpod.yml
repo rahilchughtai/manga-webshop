@@ -9,5 +9,11 @@ tasks:
 ports:
   - port: 8000
     onOpen: open-preview
+vscode:
+  extensions:
+    - Angular.ng-template
+    - johnpapa.Angular2
+    - PKief.material-icon-theme
+
 
 
