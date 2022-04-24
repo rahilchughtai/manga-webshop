@@ -4,9 +4,6 @@ div.wrapper {
 
   div.wallpaperInfo {
 
-    display: flex;
-    align-items: center;
-
     top: 55px;
     left: 0;
 
@@ -15,18 +12,10 @@ div.wrapper {
 
     margin: 0;
 
-
     @media (max-width: 1500px) {
       &{
         background-image: linear-gradient(0deg, rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
             url("../../../assets/home_wallpaper.jpg");
-      }
-    }
-
-    // For mobile usage
-    @media (max-width: 500px) {
-      &{
-        display: none;
       }
     }
 
@@ -46,10 +35,23 @@ div.wrapper {
         }
       }
 
+      @media (max-width: 400px) {
+        &{
+          width: 80%;
+        }
+      }
+
       width: 300px;
       margin-left: 6vw;
 
       img.logo {
+
+        @media (max-width: 1500px) {
+          &{
+            width: 100%;
+          }
+        }
+
         width: 90%;
       }
 
@@ -88,7 +90,11 @@ div.wrapper {
   div.spacer {
     width: 100%;
     height: 50px;
+    background-color: $main_color_dark;
   }
 
-
+  div.mangaExampleContent{
+    margin: 40px auto 0 auto;
+    width: 90%;
+  }
 }

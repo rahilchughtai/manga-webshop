@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="wallpaperInfo">
+  <div class="wallpaperInfo" fxLayout="column" fxLayoutAlign="center start">
 
     <div class="information">
 
@@ -17,16 +17,15 @@
   <div class="spacer"></div>
 
 
-  <div class="content">
+  <div class="mangaExampleContent">
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">
         <h1>
-          Es gab einen Fehler bei der Suche
+        Für diesen Suchbegriff gab es leider keine Ergebnisse
         </h1>
       </div>
-      <div fxLayoutGap="18px grid" fxLayout="row wrap">
-        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
-          *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
+      <div fxLayout="row wrap" fxLayoutAlign="center">
+        <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
           <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
           </app-manga-card>
         </div>
@@ -36,10 +35,8 @@
     <ng-template #loadSpinner>
       <mat-spinner></mat-spinner>
     </ng-template>
-
-
-
   </div>
 
+  <div class="spacer"></div>
 
 </div>

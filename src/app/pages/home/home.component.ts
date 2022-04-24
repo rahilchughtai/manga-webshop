@@ -4,13 +4,10 @@ import {
   Pagination,
 } from 'src/app/shared/models/response.model';
 import { Observable, filter, first, map, share, take } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import { FormControl } from '@angular/forms';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
-import { PageEvent } from '@angular/material/paginator';
-import data from 'src/assets/response.json';
+
 
 @Component({
   selector: 'page-home',
@@ -35,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   fetchMangaApiData(term?: string, index?: number, limit?: number) {
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(term, index, 3)
+      .getJikanMangaData(term, index, 10)
       .pipe(share());
     this.mapToPageValue();
   }

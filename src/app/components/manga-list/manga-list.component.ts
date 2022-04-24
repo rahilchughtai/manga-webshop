@@ -23,7 +23,6 @@ export class MangaListComponent implements OnInit {
   JikanApiResponse$!: Observable<JikanApiResponse>;
   public mangaSearchField!: FormControl;
   searchFieldResult!: Observable<string>;
-  gridColumns = 5;
   value = '';
   pageIndex = 0;
   totalRecords = 0;
