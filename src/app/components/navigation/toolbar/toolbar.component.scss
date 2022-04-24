@@ -1,4 +1,4 @@
-@import "../../../variables.scss";
+@use "../../../shared/styles/styles" as *;
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -6,13 +6,7 @@
 mat-toolbar {
   .title {
     cursor: pointer;
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.2em;
-    background: #0000ff;
-    background: -webkit-linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
-    background: -moz-linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
-    background: linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @include gradient-font;
   }
+
 }

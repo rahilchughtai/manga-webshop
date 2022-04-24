@@ -25,6 +25,7 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
+
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
   { path: 'contacts', label: 'Contacts' },
@@ -45,8 +46,7 @@ export const routes = [
     MangaDetailComponent,
     ProfileComponent,
     WrapperComponent,
-    CartButtonComponent
-
+    CartButtonComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
