@@ -1,13 +1,20 @@
-@import "../../../variables.scss";
+@use "../../../variables.scss" as *;
 
+.example-spacer {
+  flex: 1 1 auto;
+}
 
 mat-toolbar {
-
+  /*
+  I dont think these are necessary
+  
   position: fixed;
   z-index: 999;
 
   display: flex;
   justify-content: space-between;
+
+
 
   div.leftpart {
 
@@ -17,15 +24,34 @@ mat-toolbar {
     button {
       margin-left: 10px;
     }
-
-    img.toolbaricon {
+     img.toolbaricon {
       margin-left: 10px;
       height: 40px;
     }
+
+  }
+*/
+
+  img.toolbaricon {
+    cursor: pointer;
+    height: 40px;
+    margin-left: 0.8em;
   }
 
   nav-cart-button {
-    margin-right: 25px;
+    margin-right: 0.8em;
+  }
+
+  .title {
+    margin-left: 0.8em;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.2em;
+    background: #0000ff;
+    background: -webkit-linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
+    background: -moz-linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
+    background: linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
-

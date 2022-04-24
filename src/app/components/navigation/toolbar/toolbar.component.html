@@ -1,10 +1,16 @@
 <mat-toolbar>
 
-  <div class="leftpart">
-    <button (click)="openSidenav()" mat-icon-button aria-label="Menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <img class="toolbaricon" src="../../../../assets/logo_large.svg">
-  </div>
+
+  <button (click)="openSidenav()" mat-icon-button aria-label="Menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span *ngIf="router.url==='/home';else icon" [routerLink]="['home']" class="title">MangaMiracle</span>
+
+    <ng-template #icon>
+    <img [routerLink]="['home']" class="toolbaricon" src="../../../../assets/logo_large.svg">
+  </ng-template>
+
+  <span class="example-spacer"></span>
   <nav-cart-button [authState]="this.authService.isLoggedIn"></nav-cart-button>
 </mat-toolbar>
