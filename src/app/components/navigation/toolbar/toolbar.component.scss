@@ -9,23 +9,23 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
 
+  div.leftpart {
+
+    display: flex;
+    justify-content: left;
+
+    button {
+      margin-left: 10px;
+    }
+
+    img.toolbaricon {
+      margin-left: 10px;
+      height: 40px;
+    }
+  }
+
   nav-cart-button {
     margin-right: 25px;
-  }
-
-  button {
-    margin-left: 10px;
-  }
-
-  img.toolbaricon {
-    height: 40px;
-
-    &.homePage{
-
-      @media (min-width:500px) {
-        display: none;
-      }
-    }
   }
 }
 

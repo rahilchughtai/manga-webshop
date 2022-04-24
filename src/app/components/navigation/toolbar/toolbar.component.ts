@@ -15,8 +15,6 @@ export class ToolbarComponent {
 
   @Output() SideNavToggle = new EventEmitter();
 
-  homePage = window.location.href.includes("/home");
-
   openSidenav() {
     this.SideNavToggle.emit();
   }

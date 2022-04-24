@@ -1,7 +1,10 @@
 <mat-toolbar>
-  <button (click)="openSidenav()" mat-icon-button aria-label="Menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <img class="toolbaricon" [ngClass]="homePage?'homePage':''" src="../../../../assets/logo_large.svg">
+
+  <div class="leftpart">
+    <button (click)="openSidenav()" mat-icon-button aria-label="Menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img class="toolbaricon" src="../../../../assets/logo_large.svg">
+  </div>
   <nav-cart-button [authState]="this.authService.isLoggedIn"></nav-cart-button>
 </mat-toolbar>
