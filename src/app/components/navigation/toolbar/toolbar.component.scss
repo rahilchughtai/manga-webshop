@@ -1,16 +1,31 @@
 @import "../../../variables.scss";
 
+
 mat-toolbar {
 
   position: fixed;
   z-index: 999;
 
-  .example-spacer {
-    flex: 1 1 auto;
+  display: flex;
+  justify-content: space-between;
+
+  nav-cart-button {
+    margin-right: 25px;
   }
 
-  img {
-    margin-left: 15px;
+  button {
+    margin-left: 10px;
+  }
+
+  img.toolbaricon {
     height: 40px;
+
+    &.homePage{
+
+      @media (min-width:500px) {
+        display: none;
+      }
+    }
   }
 }
+
