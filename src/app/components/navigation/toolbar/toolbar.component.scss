@@ -1,36 +1,10 @@
 @use "../../../variables.scss" as *;
 
-.example-spacer {
-  flex: 1 1 auto;
-}
-
 mat-toolbar {
-  /*
-  I dont think these are necessary
-  
-  position: fixed;
-  z-index: 999;
 
-  display: flex;
-  justify-content: space-between;
-
-
-
-  div.leftpart {
-
-    display: flex;
-    justify-content: left;
-
-    button {
-      margin-left: 10px;
-    }
-     img.toolbaricon {
-      margin-left: 10px;
-      height: 40px;
-    }
-
+  .example-spacer {
+    flex: 1 1 auto;
   }
-*/
 
   img.toolbaricon {
     cursor: pointer;

@@ -1,5 +1,4 @@
-<page-wrapper>
-
+<div class="wrapper">
   <div class="wallpaperInfo">
 
     <div class="information">
@@ -15,11 +14,32 @@
 
   </div>
 
+  <div class="spacer"></div>
 
-  <div class="wallpaperSpacer"></div>
 
-  <h1 style="text-align: center;">
-    Text after
-  </h1>
+  <div class="content">
+    <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
+      <div *ngIf="!response.data.length">
+        <h1>
+          Es gab einen Fehler bei der Suche
+        </h1>
+      </div>
+      <div fxLayoutGap="18px grid" fxLayout="row wrap">
+        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
+          *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
+          <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
+          </app-manga-card>
+        </div>
+      </div>
+    </section>
 
-</page-wrapper>
+    <ng-template #loadSpinner>
+      <mat-spinner></mat-spinner>
+    </ng-template>
+
+
+
+  </div>
+
+
+</div>
