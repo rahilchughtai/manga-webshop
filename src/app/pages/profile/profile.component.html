@@ -24,7 +24,7 @@
             <div class="doubleInputBlock">
               <mat-form-field appearance="fill">
                 <mat-label>First Name</mat-label>
-                <input formControlName="firstName" type="text" matInput placeholder="First Name">
+                <input formControlName="firstName" type="email" matInput placeholder="First Name">
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Last Name</mat-label>
@@ -48,7 +48,7 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>PLZ</mat-label>
-                  <input formControlName="plz" type="text" matInput placeholder="PLZ">
+                  <input formControlName="plz" type="number" matInput placeholder="PLZ">
                 </mat-form-field>
               </div>
 
@@ -60,7 +60,7 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>Nummer</mat-label>
-                  <input formControlName="streetNumber" type="text" matInput placeholder="Nummer">
+                  <input formControlName="streetNumber" type="number" matInput placeholder="Nummer">
                 </mat-form-field>
               </div>
               <mat-error *ngIf="this.profileForm.invalid">
