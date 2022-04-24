@@ -6,5 +6,8 @@
 tasks:
   - init: npm install && npm run build
     command: npm run start
+ports:
+  - port: 4200
+    onOpen: open-preview
 
 
