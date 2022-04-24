@@ -1,15 +1,101 @@
-@use "../../shared/styles/styles" as s;
+@use "../../shared/styles/styles" as *;
+@use "../../variables.scss" as *;
+
 .wrapper {
-  h1{
-    text-align: center;
-    padding: 1em;
-    font-size: 2em;
+  margin: 5em 0;
+
+  mat-card {
+    max-width: 800px;
+    margin: auto;
   }
-  margin-top: 5em !important;
-  @include s.page-wrap;
+
+  main {
+    width: 100%;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    width: 15%;
+    min-width: 90px;
+    max-width: 150px;
+
+    border: 5px $primaryGrey solid;
+    border-radius: 30px;
+  }
+
+  div.doubleInputBlock {
+    @media (min-width: 800px) {
+      max-width: 750px;
+      width: 55%;
+      margin: auto;
+
+      display: flex;
+      justify-content: center;
+
+      mat-form-field,
+      div.doubleInputBlockElement {
+        width: 47.5%;
+        min-width: 0;
+
+        &:first-child {
+          margin-right: 2.5%;
+        }
+        &:last-child {
+          margin-left: 2.5%;
+        }
+      }
+    }
+  }
+
+  mat-form-field,
+  div.doubleInputBlockElement {
+    min-width: 300px;
+    max-width: 750px;
+    width: 55%;
+    display: block;
+    margin: 0 auto;
+
+    &.readOnly {
+      margin: 0 auto 1.34375em auto;
+
+      pointer-events: none;
+
+      // Overriting global values
+      ::ng-deep .mat-form-field-underline {
+        display: none;
+      }
+      ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  div.doubleInputBlockElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.34375em;
+
+    button {
+      margin-left: 2%;
+    }
+  }
+
+  .editButtons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 0 min(2%, 20px);
+    }
+  }
 }
-button {
-  margin-top: 2em;
-  padding: 1em;
-  font-size: 2em;
+
+.not-logged-in {
+  h1 {
+    @include gradient-font;
+    font-size: 2.1em;
+  }
 }
