@@ -14,22 +14,19 @@ export class HomeComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
-
   loadedElements = 15;
+
   width = 'width: ' + this.widthCalc() + 'px';
   elementsMoved = 0;
-  leftStyleProperty = 0;
-  shiftValue = 312;
 
-  elementInBox = Math.max(
-    Math.min(Math.floor((window.innerWidth * 0.8) / 312), 10),
-    1
-  );
+  leftStyleValue = 0;
+
+  elementInBox = Math.min(Math.floor((window.innerWidth * 0.8) / 312), 10);
 
   widthCalc(): number {
-    this.elementInBox = Math.max(
-      Math.min(Math.floor((window.innerWidth * 0.8) / 312), 10),
-      1
+    this.elementInBox = Math.min(
+      Math.floor((window.innerWidth * 0.8) / 312),
+      10
     );
     return this.elementInBox * 312;
   }
@@ -38,11 +35,13 @@ export class HomeComponent implements OnInit {
     this.width = 'width: ' + this.widthCalc() + 'px';
   }
 
-  moveElement(right: boolean) {
-    const shift = right ? 1 : -1;
+  moveElement(left: boolean): void {
+    const shift = left ? 1 : -1;
     this.elementsMoved += shift;
-    this.leftStyleProperty = this.elementsMoved * -312;
+    const offset = this.elementsMoved * -312;
+    this.leftStyleValue = offset;
   }
+
   ngOnInit(): void {
     this.fetchMangaApiData();
   }

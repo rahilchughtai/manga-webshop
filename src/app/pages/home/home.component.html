@@ -28,24 +28,24 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <div class="mangaListBox" [style]="width">
-          <div fxLayout="row" fxLayoutAlign="left" class="mangaList" [style.left.px]="leftStyleProperty">
+          <div fxLayout="row" fxLayoutAlign="left" class="mangaList" [style.left.px]=leftStyleValue>
             <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
               <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
               </app-manga-card>
             </div>
           </div>
         </div>
-        <button class="desktop" mat-raised-button (clickD)="moveElement(true)"
+        <button class="desktop" mat-raised-button (click)="moveElement(true)"
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </div>
 
       <div class="buttonBar mobile">
-        <button mat-raised-button (click)="moveElement(false)" [disabled]="(elementsMoved == 0)">
+        <button mat-raised-button (click)="moveElement(true)" [disabled]="(elementsMoved == 0)">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button mat-raised-button (click)="moveElement(true)"
+        <button mat-raised-button (click)="moveElement(false)"
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
