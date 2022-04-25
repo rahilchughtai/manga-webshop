@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "start-gitpod": "ng serve --port 8000 --host 0.0.0.0 --disable-host-check",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
