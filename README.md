@@ -1,17 +1,47 @@
 
 
-# MangaWebshop
+# MangaWebshop: Manga Miracle
 
-Projekt von Rahil Chughtai für Kurs Web-Engineering 2 TINF20AI2.
+Projekt von Rahil Chughtai und Christopher John für Kurs Web-Engineering 2 TINF20AI2.
 Die Applikation stellt eine e-commerce Plattform speziell für die Manga Niche dar.
 Die Manga Daten werden mithilfe der JIKAN-API über REST-API requests gefetched.
 
-- [ ] Firebase Authentication
-- [ ] Favorites
-- [ ] Shopping Cart
-- [ ] Manga Detail View
-- [ ] Profile View
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rahilchughtai/manga-webshop)
+
+Verwendete Technologien
+- Angular 13
+  - Angular Material
+  - Angular Flex layout
+  - Angular Fire
+- Firebase
+  - Firestore
+  - Firebase hosting
+  - Firebase authentication
+- [JikanApi](https://jikan.moe/)
+
+**Features:**
+- Firebase Authentication
+  - [x] Log/Sign in with Google
+  - [ ] Login with Email/Password
+  - [ ] Forgot Password
+  - [ ] Email verification
+- [x] Favorites
+  - [x] Add to favorites
+  - [x] Remove from favorites
+- [ ] Shopping Cart
+  - [x] Add to cart
+  - [ ] View in Cart
+  - [ ] Edit cart
+- [ ] Manga Detail View
+- [x] Profile View
+- [ ] Kommentare/Reviews
+
+
+
+
+
+Generierte Text:
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
 
