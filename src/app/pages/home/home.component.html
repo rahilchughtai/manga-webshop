@@ -16,20 +16,33 @@
 
   <div class="spacer"></div>
 
+  <!-- TODO Fix mobile Interafce size of Cards -->
 
-  <div class="mangaExampleContent">
+  <div class="mangaExampleContent" (window:resize)="listenWidthChange()">
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">
         <h1>
         Für diesen Suchbegriff gab es leider keine Ergebnisse
         </h1>
       </div>
-      <div fxLayout="row wrap" fxLayoutAlign="center">
-        <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
-          <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
-          </app-manga-card>
+      <div class="mangaScrollingTable" fxLayout="row" fxLayoutAlign="center">
+        <button mat-raised-button (click)="moveElementLeft()"  [disabled]="(elementsMoved == 0)"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <div class="mangaListBox" [style]="width">
+          <div fxLayout="row" fxLayoutAlign="left" class="mangaList" [style]="elementsMoved_style">
+            <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
+              <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
+              </app-manga-card>
+            </div>
+          </div>
         </div>
+        <button mat-raised-button (click)="moveElementRight()" [disabled]="(elementsMoved + elementInBox == loadedElements)"><mat-icon>keyboard_arrow_right</mat-icon></button>
       </div>
+
+      <div class="buttonBar" fxLayout="row wrap" fxLayoutAlign="center">
+        <button routerLink="/search" mat-raised-button>Alle Mangas</button>
+        <button routerLink="/favorites" mat-raised-button>Favorieten</button>
+      </div>
+
     </section>
 
     <ng-template #loadSpinner>

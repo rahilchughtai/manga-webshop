@@ -2,12 +2,16 @@
 
 mat-card {
 
+  &:hover {
+    background-color: $primary_marking_color_dark;
+  }
+
   top: 0;
 
   width: fit-content;
   min-width: 250px;
 
-  margin: 0 15px 50px 15px;
+  margin: 20px 15px 30px 15px;
 
   cursor: pointer;
 
@@ -31,17 +35,30 @@ mat-card {
 
       mat-card-title {
         font-size: 1.5em;
-        margin: 0 auto 12px auto;
+        margin: 0 auto 15px auto;
 
         width: 200px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
 
+        &.extendedMargin {
+          margin: 0 auto 43px auto;
+        }
+      }
+    }
+
+    p.price {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin: 20px auto 20px auto;
+      flex: 2;
     }
 
     mat-card-content {
+      background-color: $main_color_mediumdark;
+      padding: 5px;
+
       p.synopsis {
 
         font-size: 1.2em;
@@ -52,7 +69,7 @@ mat-card {
 
         padding: 0.4em;
 
-        max-height: 20vh;
+        max-height: 300px;
 
         width: 300px;
 
@@ -86,14 +103,7 @@ mat-card {
     padding-bottom: 10px;
 
     button {
-      margin: 0 1em;
-    }
-
-    p.price {
-      font-size: 1.8em;
-      font-weight: bold;
-      margin: auto 0 auto 14px;
-      flex: 2;
+      margin: 0 1.5em;
     }
   }
 }

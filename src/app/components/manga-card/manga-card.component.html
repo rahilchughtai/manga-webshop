@@ -2,24 +2,25 @@
   <div class="coreInformation" (click)="mangaClicked()">
     <mat-card-header>
       <mat-card-title [ngClass]="headingEllipsis ? 'text-ellipsis':''" matTooltipPosition="above"
-        matTooltip="{{mangaData.title}}">{{mangaData.title}} </mat-card-title>
-      <mat-card-subtitle *ngIf="mangaData.title!==mangaData.title_english">
+        matTooltip="{{mangaData.title}}"
+        [ngClass]="((mangaData.title===mangaData.title_english || mangaData.title_english==null) && !hasSynopsis)?'extendedMargin':''">
+        {{mangaData.title}} </mat-card-title>
+      <mat-card-subtitle *ngIf="mangaData.title!==mangaData.title_english && mangaData.title_english!=null">
         {{mangaData.title_english}}
       </mat-card-subtitle>
     </mat-card-header>
     <img loading="lazy" [style.max-height.px]="[maxCardHeight]" mat-card-image src={{mangaData.images.jpg.image_url}}
       alt="Manga Image">
-    <mat-card-content>
-      <p *ngIf="hasSynopsis" class="synopsis">
-        {{mangaData.synopsis}}
-      </p>
-
-    </mat-card-content>
-  </div>
-  <mat-card-actions>
     <p class="price">
       {{price | number : '1.2-2'}} €
     </p>
+    <mat-card-content *ngIf="hasSynopsis">
+      <p class="synopsis">
+        {{mangaData.synopsis}}
+      </p>
+    </mat-card-content>
+  </div>
+  <mat-card-actions>
     <button *ngIf="hasInfoButton" (click)="mangaClicked()" class="cart" mat-mini-fab color="primary"
       aria-label="Example icon button with a menu icon">
       <mat-icon>info</mat-icon>

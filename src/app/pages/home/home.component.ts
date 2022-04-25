@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {
   JikanApiResponse,
-  Pagination,
 } from 'src/app/shared/models/response.model';
-import { Observable, filter, first, map, share, take } from 'rxjs';
+import { Observable, share } from 'rxjs';
 
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
+
 
 
 @Component({
@@ -18,13 +18,30 @@ export class HomeComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
-  gridColumns = 5;
-  value = '';
-  pageIndex = 0;
-  totalRecords = 0;
-  pageSize = 0;
-  hasNext = false;
-  paginationData!: Pagination;
+
+  loadedElements = 15;
+  width = "width: " + this.widthCalc() + "px";
+  elementsMoved = 0;
+  elementsMoved_style = "left: 0px;";
+  elementInBox = Math.min(Math.floor(((window.innerWidth * 0.8) / 312)), 10);
+
+  widthCalc() : number{
+    this.elementInBox = Math.min(Math.floor(((window.innerWidth * 0.8) / 312)), 10)
+    return this.elementInBox * 312
+  }
+
+  listenWidthChange() : void {
+    this.width = "width: " + this.widthCalc() + "px";
+  }
+
+  moveElementLeft() : void {
+    this.elementsMoved --;
+    this.elementsMoved_style = "left: " + (this.elementsMoved * -312) + "px";
+  }
+  moveElementRight() : void {
+    this.elementsMoved ++;
+    this.elementsMoved_style = "left: " + (this.elementsMoved * -312) + "px";
+  }
 
   ngOnInit(): void {
     this.fetchMangaApiData();
@@ -32,24 +49,8 @@ export class HomeComponent implements OnInit {
 
   fetchMangaApiData(term?: string, index?: number, limit?: number) {
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(term, index, 10)
+      .getJikanMangaData(term, index, this.loadedElements)
       .pipe(share());
-    this.mapToPageValue();
-  }
-
-  mapToPageValue() {
-    this.JikanApiResponse$.pipe(
-      map((resp) => resp.pagination),
-      take(1)
-    ).subscribe((pag: Pagination) => {
-      this.initializePageValues(pag);
-    });
-  }
-
-  initializePageValues(pag: Pagination) {
-    const { items } = pag;
-    ({ current_page: this.pageIndex } = pag);
-    ({ total: this.totalRecords, count: this.pageSize } = items);
   }
 
   trackByFn(index: number, item: MangaItem) {

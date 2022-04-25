@@ -20,7 +20,7 @@
         Für diesen Suchbegriff gab es leider keine Ergebnisse
         </h1>
       </div>
-      <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="30px">
+      <div fxLayout="row wrap" fxLayoutAlign="center">
         <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
           <app-manga-card [hasSynopsis]="true" [mangaData]="manga">
           </app-manga-card>
