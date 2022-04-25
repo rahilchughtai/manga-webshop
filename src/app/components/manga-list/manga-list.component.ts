@@ -10,7 +10,6 @@ import { FormControl } from '@angular/forms';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { PageEvent } from '@angular/material/paginator';
-import data from 'src/assets/response.json';
 
 @Component({
   selector: 'home-manga-list',
