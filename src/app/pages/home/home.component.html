@@ -16,8 +16,6 @@
 
   <div class="spacer"></div>
 
-  <!-- TODO Fix mobile Interafce size of Cards -->
-
   <div class="mangaExampleContent" (window:resize)="listenWidthChange()">
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">
@@ -26,7 +24,7 @@
         </h1>
       </div>
       <div class="mangaScrollingTable" fxLayout="row" fxLayoutAlign="center">
-        <button mat-raised-button (click)="moveElementLeft()"  [disabled]="(elementsMoved == 0)"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <button class="desktop" mat-raised-button (click)="moveElementLeft()"  [disabled]="(elementsMoved == 0)"><mat-icon>keyboard_arrow_left</mat-icon></button>
         <div class="mangaListBox" [style]="width">
           <div fxLayout="row" fxLayoutAlign="left" class="mangaList" [style]="elementsMoved_style">
             <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
@@ -35,10 +33,16 @@
             </div>
           </div>
         </div>
+        <button class="desktop" mat-raised-button (click)="moveElementRight()" [disabled]="(elementsMoved + elementInBox == loadedElements)"><mat-icon>keyboard_arrow_right</mat-icon></button>
+      </div>
+
+      <div class="buttonBar mobile">
+        <button mat-raised-button (click)="moveElementLeft()"  [disabled]="(elementsMoved == 0)"><mat-icon>keyboard_arrow_left</mat-icon></button>
         <button mat-raised-button (click)="moveElementRight()" [disabled]="(elementsMoved + elementInBox == loadedElements)"><mat-icon>keyboard_arrow_right</mat-icon></button>
       </div>
 
-      <div class="buttonBar" fxLayout="row wrap" fxLayoutAlign="center">
+
+      <div class="buttonBar moreMangasButtons">
         <button routerLink="/search" mat-raised-button>Alle Mangas</button>
         <button routerLink="/favorites" mat-raised-button>Favorieten</button>
       </div>

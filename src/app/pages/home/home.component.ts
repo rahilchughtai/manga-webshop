@@ -23,10 +23,10 @@ export class HomeComponent implements OnInit {
   width = "width: " + this.widthCalc() + "px";
   elementsMoved = 0;
   elementsMoved_style = "left: 0px;";
-  elementInBox = Math.min(Math.floor(((window.innerWidth * 0.8) / 312)), 10);
+  elementInBox = Math.max(Math.min(Math.floor(((window.innerWidth * 0.8) / 312)), 10),1);
 
   widthCalc() : number{
-    this.elementInBox = Math.min(Math.floor(((window.innerWidth * 0.8) / 312)), 10)
+    this.elementInBox = Math.max(Math.min(Math.floor(((window.innerWidth * 0.8) / 312)), 10),1)
     return this.elementInBox * 312
   }
 

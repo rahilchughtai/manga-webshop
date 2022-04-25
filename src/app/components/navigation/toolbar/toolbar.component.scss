@@ -1,4 +1,7 @@
+
 @use "../../../shared/styles/styles" as *;
+@import "../../../variables";
+
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -13,10 +16,16 @@ mat-toolbar {
     cursor: pointer;
     height: 40px;
     margin-left: 0.8em;
+
+    @media (max-width: $mobile_width) {
+      height: 35px;
+    }
   }
 
   nav-cart-button {
     margin-right: 0.8em;
+
+    margin-bottom: -8px;
   }
 
   .title {

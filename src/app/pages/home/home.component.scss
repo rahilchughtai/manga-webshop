@@ -31,13 +31,15 @@ div.wrapper {
 
     div.information {
 
-      @media (max-width: 1500px) {
+      $local_smallerWallpaper: 1500px;
+
+      @media (max-width: $local_smallerWallpaper) {
         &{
           margin: auto;
         }
       }
 
-      @media (max-width: 400px) {
+      @media (max-width: $mobile_width) {
         &{
           width: 80%;
         }
@@ -48,7 +50,7 @@ div.wrapper {
 
       img.logo {
 
-        @media (max-width: 1500px) {
+        @media (max-width: $local_smallerWallpaper) {
           &{
             width: 100%;
           }
@@ -62,7 +64,7 @@ div.wrapper {
 
         display: block;
 
-        @media (max-width: 1500px) {
+        @media (max-width: $local_smallerWallpaper) {
           &{
             display: none;
           }
@@ -104,13 +106,20 @@ div.wrapper {
 
       margin-bottom: 20px;
 
-
       button {
         z-index: 200;
+
+        position: relative;
 
         margin: auto 0;
 
         height: 100px;
+
+        @media (max-width: $mobile_width) {
+          &.desktop{
+            display: none;
+          }
+        }
 
         &:first-child {
           margin-right: -10px;
@@ -137,6 +146,7 @@ div.wrapper {
 
         overflow-x: hidden;
 
+
         div.mangaList {
 
           transition: left 0.5s;
@@ -149,6 +159,20 @@ div.wrapper {
     div.buttonBar {
 
       margin-bottom: 30px;
+
+      display: flex;
+      justify-content: center;
+
+      &.moreMangasButtons {
+        flex-wrap: wrap;
+      }
+
+
+      @media (min-width: $mobile_width) {
+        &.mobile{
+          display: none;
+        }
+      }
 
       button {
         height: 50px;
