@@ -2,7 +2,6 @@
 
 div.wrapper {
   $local_backgroundImage: url("../../../assets/home_wallpaper.jpg");
-
   div.wallpaperInfo {
     top: 55px;
     left: 0;
@@ -62,7 +61,6 @@ div.wrapper {
 
       div.text {
         margin-top: 30px;
-
         display: block;
 
         @media (max-width: $local_smallerWallpaper) {
@@ -106,7 +104,6 @@ div.wrapper {
     text-align: center;
     background-color: $main_color_dark;
   }
-
   div.mangaExampleContent {
     margin: 40px auto 0 auto;
 
@@ -174,66 +171,8 @@ div.wrapper {
       }
     }
   }
-
   div.spacingBox {
     width: 100%;
     margin: 50px 0;
-  }
-
-  div.elementBox {
-    border-radius: 5px;
-    background-color: $main_color_dark;
-    padding: 10px 20px;
-    margin: auto;
-    width: fit-content;
-    max-width: 80%;
-    @media (max-width: $mobile_width) {
-      width: min-content;
-    }
-
-    &.fullWidth {
-      @media (min-width: $mobile_width) {
-        max-width: 100%;
-        width: 100%;
-      }
-    }
-
-    div.element {
-      border-radius: 5px;
-      box-shadow: 0px 5px 6px -3px rgb(0 0 0 / 20%),
-        0px 9px 12px 1px rgb(0 0 0 / 14%), 0px 3px 16px 2px rgb(0 0 0 / 12%);
-      background-color: $main_color;
-      padding: 20px;
-      margin: 15px;
-      width: 250px;
-      text-align: center;
-
-      mat-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 40px;
-        margin-bottom: 5px;
-        border-radius: 100px;
-        padding: 10px;
-        background-color: $primary_marking_color_dark;
-      }
-
-      h2 {
-        margin-bottom: 20px;
-      }
-
-      h3 {
-        margin-bottom: 0px;
-        line-height: 1.3;
-      }
-
-      img {
-        max-width: 200px;
-        max-height: 50px;
-        border-radius: 5px;
-        padding: 10px 20px;
-        background-color: white;
-      }
-    }
   }
 }

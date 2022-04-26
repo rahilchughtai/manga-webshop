@@ -19,10 +19,34 @@ enum ShiftDirection {
 export class HomeComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
+  assetLogoPath = '../../../assets/banking/';
+  suffixes = ['ec', 'mastercard', 'paypal', 'visa'];
+
+  elementTitles = [
+    {
+      icon: 'store icon',
+      headingMain: 'Alles an einem Ort',
+      headingSub:
+        'Finde deine Lieblingsmangas und noch deutlich mehr hier bei uns!',
+    },
+    {
+      icon: 'security icon',
+      headingMain: 'Sicher bezahlen',
+      headingSub: 'Abgesichert durch Paypal, Mastercard, Visa oder EC Card.',
+    },
+    {
+      icon: 'schedule icon',
+      headingMain: 'Schneller Versand',
+      headingSub: 'Versand innerhalb Deutschlands in nur 3 Tagen.',
+    },
+  ];
+
+  imgLogoPaths = this.suffixes.map(
+    (suffix) => `${this.assetLogoPath}${suffix}.png`
+  );
+
   JikanApiResponse$!: Observable<JikanApiResponse>;
-
   direction = ShiftDirection;
-
   loadedElements = 15;
   width = this.widthCalc();
   elementsMoved = 0;

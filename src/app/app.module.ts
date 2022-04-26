@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CartButtonComponent } from './components/navigation/toolbar/cart-button.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { ElementBoxComponent } from './components/elements/element-box.component';
+import { ElementComponent } from './components/elements/element.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { FirebaseServiceModule } from './shared/modules/firebase.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -49,6 +51,8 @@ export const routes = [
     WrapperComponent,
     CartButtonComponent,
     MangaListDisplayComponent,
+    ElementBoxComponent,
+    ElementComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
