@@ -25,7 +25,7 @@ export class MangaListComponent implements OnInit {
   value = '';
   pageIndex = 0;
   totalRecords = 0;
-  pageSize = 0;
+  pageSize = 24;
   hasNext = false;
   paginationData!: Pagination;
 

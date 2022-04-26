@@ -38,7 +38,7 @@ export class MangaApiService {
       .pipe(map((data) => data.manga));
   }
 
-  private createParams(q?: string, indx = 1, limit = 25) {
+  private createParams(q?: string, indx = 1, limit = 24) {
     let params = new HttpParams();
     if (q) {
       console.log('q is set', q);

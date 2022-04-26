@@ -29,7 +29,7 @@
 
     <div [hidden]="!(JikanApiResponse$|async)?.data?.length">
       <mat-paginator showFirstLastButtons="true" [length]="totalRecords" [pageSize]="pageSize"
-        [pageSizeOptions]="[10,25]" (page)="pageEvent($event)" aria-label="Select page">
+        [pageSizeOptions]="[12,24]" (page)="pageEvent($event)" aria-label="Select page">
       </mat-paginator>
     </div>
 
