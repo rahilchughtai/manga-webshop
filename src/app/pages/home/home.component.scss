@@ -1,0 +1,178 @@
+@use "../../shared/styles/customvars" as *;
+
+div.wrapper {
+  $local_backgroundImage: url("../../../assets/home_wallpaper.jpg");
+  div.wallpaperInfo {
+    top: 55px;
+    left: 0;
+    width: 100%;
+    height: max(35vw, 400px);
+    margin: 0;
+
+    @media (max-width: 1500px) {
+      & {
+        background-image: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.4)
+          ),
+          $local_backgroundImage;
+      }
+    }
+
+    background-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      $local_backgroundImage;
+    background-position: 0 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    div.information {
+      $local_smallerWallpaper: 1500px;
+
+      @media (max-width: $local_smallerWallpaper) {
+        & {
+          margin: auto;
+        }
+      }
+
+      @media (max-width: $mobile_width) {
+        & {
+          width: 80%;
+        }
+      }
+
+      width: 300px;
+      margin-left: 6vw;
+
+      img.logo {
+        @media (max-width: $local_smallerWallpaper) {
+          & {
+            width: 100%;
+          }
+        }
+
+        width: 90%;
+      }
+
+      div.text {
+        margin-top: 30px;
+        display: block;
+
+        @media (max-width: $local_smallerWallpaper) {
+          & {
+            display: none;
+          }
+        }
+
+        h2 {
+          margin-left: 20px;
+          margin-bottom: 8px;
+        }
+
+        h1.link {
+          margin-top: 20px;
+          cursor: pointer;
+          color: $primary_marking_color;
+          text-shadow: -2px 1px 2px rgba(0, 0, 0, 0.8);
+
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  div.spacer {
+    width: 100%;
+    height: 50px;
+    background-color: $main_color_dark;
+  }
+
+  h1.headerText {
+    position: relative;
+    font-size: 30px;
+    font-weight: 450;
+    width: fit-content;
+    padding: 15px 25px 5px 25px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: $main_color_dark;
+  }
+  div.mangaExampleContent {
+    margin: 40px auto 0 auto;
+
+    div.mangaScrollingTable {
+      margin-bottom: 20px;
+
+      button {
+        z-index: 200;
+        position: relative;
+        margin: auto 0;
+        height: 100px;
+        @media (max-width: $mobile_width) {
+          &.desktop {
+            display: none;
+          }
+        }
+
+        &:first-child {
+          margin-right: -10px;
+        }
+
+        &:last-child {
+          margin-left: -10px;
+        }
+
+        &:disabled {
+          background-color: $main_color;
+          box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+            0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+        }
+      }
+
+      div.mangaListBox {
+        border-radius: 5px;
+        background-color: $main_color_dark;
+        padding: 0 15px;
+        height: fit-content;
+        overflow-x: hidden;
+        div.mangaList {
+          transition: left 0.5s;
+          position: relative;
+        }
+      }
+    }
+
+    div.buttonBar {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+
+      &.moreMangasButtons {
+        flex-wrap: wrap;
+      }
+
+      @media (min-width: $mobile_width) {
+        &.mobile {
+          display: none;
+        }
+      }
+
+      button {
+        height: 50px;
+        width: 200px;
+        margin: 10px 10px;
+      }
+    }
+  }
+  div.spacingBox {
+    width: 100%;
+    margin: 50px 0;
+  }
+}

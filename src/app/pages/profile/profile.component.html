@@ -8,7 +8,7 @@
       <form [formGroup]="profileForm">
         <main>
           <main>
-            <img [src]="profilePic" />
+            <img (error)="updateUrl($event)" referrerpolicy="no-referrer" [src]="profilePic" />
             <mat-form-field appearance="fill">
               <mat-label>Username</mat-label>
               <input formControlName="displayName" matInput type="text" placeholder="Username">
@@ -17,7 +17,7 @@
             <div class="doubleInputBlock">
               <mat-form-field appearance="fill">
                 <mat-label>E-Mail</mat-label>
-                <input  formControlName="email" type="email" matInput placeholder="E-Mail">
+                <input formControlName="email" type="email" matInput placeholder="E-Mail">
               </mat-form-field>
             </div>
 

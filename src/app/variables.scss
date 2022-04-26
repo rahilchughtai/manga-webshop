@@ -1,5 +1,5 @@
 // Import material theming functions
-@import "~@angular/material/theming";
+@use "~@angular/material/theming" as *;
 
 // Copy the palettes from your selected theme (usually theme.scss).
 $app-primary: mat-palette($mat-grey);
@@ -11,5 +11,12 @@ $primary: mat-color($app-primary);
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);
 $success: #00c851;
-$primaryGrey: #454545;
 
+$main_color: #424242;
+$main_color_mediumdark: #303030;
+$main_color_dark: #212121;
+$primary_marking_color: rgb(194, 23, 91);
+$primary_marking_color_dark: rgb(116, 35, 68);
+
+// Widths
+$mobile_width: 400px;

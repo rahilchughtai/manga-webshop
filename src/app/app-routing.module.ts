@@ -5,7 +5,7 @@ import {FavoritesComponent} from './pages/favorites/favorites.component';
 import {HomeComponent} from './pages/home/home.component';
 import {LoginRegisterComponent} from './pages/login-register/login-register.component';
 import {MangaDetailComponent} from './pages/manga-detail/manga-detail.component';
-import {MangaListComponent} from './components/manga-list/manga-list.component';
+import {MangaListComponent} from './pages/manga-list/manga-list.component';
 import {NgModule} from '@angular/core';
 import {ProfileComponent} from "./pages/profile/profile.component";
 

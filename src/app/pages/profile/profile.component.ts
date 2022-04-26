@@ -4,6 +4,7 @@ import { Observable, take } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user';
+import { defaultAppCheckInstanceFactory } from '@angular/fire/app-check/app-check.module';
 
 type UserType = User | null | undefined;
 
@@ -17,9 +18,9 @@ export class ProfileComponent implements OnInit {
   public profileForm!: FormGroup;
   public addressForm!: FormGroup;
   editActive: Boolean = false;
-
-  profilePic =
+  defaultPic =
     'https://i.pinimg.com/originals/14/49/8e/14498ee653e49627b84352bc03699370.png';
+  profilePic = this.defaultPic;
   userData: Observable<User | null | undefined> = this.authService.userData$;
 
   ngOnInit(): void {
@@ -86,6 +87,10 @@ export class ProfileComponent implements OnInit {
     this.resetFormData();
     this.disableEdit();
     // this.authService.userData = JSON.parse(localStorage.getItem('user')!);
+  }
+
+  updateUrl(err: any) {
+    this.profilePic = this.defaultPic;
   }
 
   //https://www.positronx.io/full-angular-firebase-authentication-system/

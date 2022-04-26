@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CartButtonComponent } from './components/navigation/toolbar/cart-button.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { ElementBoxComponent } from './components/elements/element-box.component';
+import { ElementComponent } from './components/elements/element.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { FirebaseServiceModule } from './shared/modules/firebase.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,7 +18,8 @@ import { LoginRegisterComponent } from './pages/login-register/login-register.co
 import { MangaCardComponent } from './components/manga-card/manga-card.component';
 import { MangaDetailComponent } from './pages/manga-detail/manga-detail.component';
 import { MangaFavoritesService } from './shared/services/manga-favorites.service';
-import { MangaListComponent } from './components/manga-list/manga-list.component';
+import { MangaListComponent } from './pages/manga-list/manga-list.component';
+import { MangaListDisplayComponent } from './components/manga-list-display/manga-list-display.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -47,6 +50,9 @@ export const routes = [
     ProfileComponent,
     WrapperComponent,
     CartButtonComponent,
+    MangaListDisplayComponent,
+    ElementBoxComponent,
+    ElementComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

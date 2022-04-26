@@ -1,0 +1,86 @@
+<div class="wrapper">
+  <div class="wallpaperInfo" fxLayout="column" fxLayoutAlign="center start">
+    <div class="information">
+      <img class="logo" src="../../../assets/logo_large.svg">
+      <div class="text">
+        <h2>Wilkommen zum MangaMiracle, dem besten Manga Webshop der Welt!</h2>
+        <h2>Finde deine Lieblingsmangas über die Suche!</h2>
+        <h1 class="link" routerLink="/search">Hier gehts zur Suche</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="mangaExampleContent" (window:resize)="listenWidthChange()">
+
+    <h1 class="headerText">Unsere Top Picks</h1>
+
+    <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
+
+      <div *ngIf="!response.data.length">
+        <h1>
+          Keine Ergebnisse verfügbar
+        </h1>
+      </div>
+
+      <div class="mangaScrollingTable" fxLayout="row" fxLayoutAlign="center">
+
+        <button class="desktop" mat-raised-button (click)="moveElement(direction.LEFT)"
+          [disabled]="(elementsMoved == 0)">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+
+        <div class="mangaListBox" [style.width.px]="width">
+          <div [style.left.px]=leftStyleValue class="mangaList wrapper ">
+            <list-manga-list-display InputFxLayoutAlign="left" InputfxLayout='row' [synopsis]="false"
+              [MangaArray]="response.data">
+            </list-manga-list-display>
+          </div>
+        </div>
+
+        <button class="desktop" mat-raised-button (click)="moveElement(direction.RIGHT)"
+          [disabled]="(elementsMoved + elementInBox >= loadedElements)">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+
+      </div>
+
+      <div class="buttonBar mobile">
+        <button mat-raised-button (click)="moveElement(direction.LEFT)" [disabled]="(elementsMoved == 0)">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-raised-button (click)="moveElement(direction.RIGHT)"
+          [disabled]="(elementsMoved + elementInBox == loadedElements)">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+
+      <div class="buttonBar moreMangasButtons">
+        <ng-container *ngFor="let linkButton of linkButtons">
+          <button mat-raised-button [routerLink]="linkButton.routeLink"> {{linkButton.buttonText}} </button>
+        </ng-container>
+      </div>
+    </section>
+    <ng-template #loadSpinner>
+      <mat-spinner style="margin: auto;"></mat-spinner>
+    </ng-template>
+
+  </div>
+
+
+  <div class="spacingBox">
+    <h1 class="headerText">Unsere Vorteile</h1>
+    <app-element-box>
+      <app-element *ngFor="let elem of elementTitles" [icon]="elem.icon" [headingMain]="elem.headingMain"
+        [headingSub]="elem.headingSub"></app-element>
+    </app-element-box>
+  </div>
+
+
+  <app-element-box [fullWidth]="true">
+    <app-element *ngFor="let imgPath of imgLogoPaths" [imgPath]="imgPath">
+    </app-element>
+  </app-element-box>
+
+</div>
