@@ -104,6 +104,12 @@ mat-card {
 
     button {
       margin: 0 1.5em;
+
+      transition: filter 0.1s;
+
+      &:hover {
+        filter: brightness(70%)
+      }
     }
   }
 }
