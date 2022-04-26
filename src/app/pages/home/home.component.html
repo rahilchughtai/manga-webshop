@@ -8,7 +8,6 @@
         <h1 class="link" routerLink="/search">Hier gehts zur Suche</h1>
       </div>
     </div>
-
   </div>
   <div class="spacer"></div>
   <div class="mangaExampleContent" (window:resize)="listenWidthChange()">
@@ -27,7 +26,7 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
 
-        <div class="mangaListBox" [style]="width">
+        <div class="mangaListBox" [style.width.px]="width">
           <div [style.left.px]=leftStyleValue class="mangaList wrapper ">
             <list-manga-list-display InputFxLayoutAlign="left" InputfxLayout='row' [synopsis]="false"
               [MangaArray]="response.data">
@@ -52,7 +51,6 @@
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
-
       </div>
 
       <div class="buttonBar moreMangasButtons">
@@ -60,7 +58,6 @@
           <button mat-raised-button [routerLink]="linkButton.routeLink"> {{linkButton.buttonText}} </button>
         </ng-container>
       </div>
-
     </section>
 
     <ng-template #loadSpinner>
@@ -70,5 +67,4 @@
   </div>
 
   <div class="spacer"></div>
-
 </div>

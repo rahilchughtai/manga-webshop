@@ -14,11 +14,15 @@ export class HomeComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
+
   loadedElements = 15;
-  width = 'width: ' + this.widthCalc() + 'px';
+  width = this.widthCalc();
   elementsMoved = 0;
   leftStyleValue = 0;
-  elementInBox = Math.min(Math.floor((window.innerWidth * 0.8) / 312), 10);
+  elementInBox = Math.min(
+    Math.floor((window.innerWidth * 0.8) / 312),
+    this.loadedElements
+  );
 
   linkButtons = [
     { routeLink: '/search', buttonText: 'Alle Mangas' },
@@ -27,20 +31,30 @@ export class HomeComponent implements OnInit {
   ];
 
   widthCalc(): number {
-    this.elementInBox = Math.min(
-      Math.floor((window.innerWidth * 0.8) / 312),
-      10
+    this.elementInBox = Math.max(
+      Math.min(
+        Math.floor((window.innerWidth * 0.8) / 312),
+        this.loadedElements
+      ),
+      1
     );
     return this.elementInBox * 312;
   }
 
   listenWidthChange(): void {
-    this.width = 'width: ' + this.widthCalc() + 'px';
+    this.width = this.widthCalc();
+    this.moveElement(true, true);
   }
 
-  moveElement(left: boolean): void {
-    const shift = left ? 1 : -1;
-    this.elementsMoved += shift;
+  moveElement(left: boolean, noMove?: boolean): void {
+    const shift = noMove ? 0 : left ? 1 : -1;
+    this.elementsMoved = Math.max(
+      Math.min(
+        this.elementsMoved + shift,
+        this.loadedElements - this.elementInBox
+      ),
+      0
+    );
     const offset = this.elementsMoved * -312;
     this.leftStyleValue = offset;
   }
