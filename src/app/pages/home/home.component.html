@@ -26,7 +26,8 @@
 
       <div class="mangaScrollingTable" fxLayout="row" fxLayoutAlign="center">
 
-        <button class="desktop" mat-raised-button (click)="moveElement(direction.LEFT)" [disabled]="(elementsMoved == 0)">
+        <button class="desktop" mat-raised-button (click)="moveElement(direction.LEFT)"
+          [disabled]="(elementsMoved == 0)">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
 
@@ -65,7 +66,7 @@
     </section>
 
     <ng-template #loadSpinner>
-      <mat-spinner></mat-spinner>
+      <mat-spinner style="margin: auto;"></mat-spinner>
     </ng-template>
 
   </div>
@@ -73,49 +74,39 @@
 
   <div class="spacingBox">
     <h1 class="headerText">Unsere Vorteile</h1>
-
     <div class="elementBox" fxLayout="row wrap" fxLayoutAlign="center">
-
       <div class="element">
         <mat-icon aria-hidden="false" aria-label="store icon">store icon</mat-icon>
         <h2>Alles an einem Ort</h2>
         <h3>Finde deine Lieblingsmangas und noch deutlich mehr hier bei uns!</h3>
       </div>
-
       <div class="element">
         <mat-icon aria-hidden="false" aria-label="security icon">security icon</mat-icon>
         <h2>Sicher bezahlen</h2>
         <h3>Abgesichert durch Paypal, Mastercard, Visa oder EC Card.</h3>
       </div>
-
       <div class="element">
         <mat-icon aria-hidden="false" aria-label="schedule icon">schedule icon</mat-icon>
         <h2>Schneller Versand</h2>
         <h3>Versand innerhalb Deutschlands in nur 3 Tagen.</h3>
       </div>
-
     </div>
   </div>
 
 
   <div class="elementBox fullWidth" fxLayout="row wrap" fxLayoutAlign="center">
-
     <div class="element">
       <img src="../../../assets/banking/ec.png">
     </div>
-
     <div class="element">
       <img src="../../../assets/banking/mastercard.png">
     </div>
-
     <div class="element">
       <img src="../../../assets/banking/paypal.png">
     </div>
-
     <div class="element">
       <img src="../../../assets/banking/visa.png">
     </div>
-
   </div>
 
 </div>

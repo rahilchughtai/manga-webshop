@@ -1,4 +1,4 @@
-@use "../../variables" as *;
+@use "../../shared/styles/customvars" as *;
 
 div.wrapper {
   $local_backgroundImage: url("../../../assets/home_wallpaper.jpg");
@@ -142,16 +142,11 @@ div.wrapper {
       div.mangaListBox {
         border-radius: 5px;
         background-color: $main_color_dark;
-
         padding: 0 15px;
-
         height: fit-content;
-
         overflow-x: hidden;
-
         div.mangaList {
           transition: left 0.5s;
-
           position: relative;
         }
       }
@@ -159,7 +154,6 @@ div.wrapper {
 
     div.buttonBar {
       margin-bottom: 30px;
-
       display: flex;
       justify-content: center;
 
@@ -176,7 +170,6 @@ div.wrapper {
       button {
         height: 50px;
         width: 200px;
-
         margin: 10px 10px;
       }
     }
@@ -243,8 +236,4 @@ div.wrapper {
       }
     }
   }
-}
-
-mat-spinner {
-  margin: auto;
 }
