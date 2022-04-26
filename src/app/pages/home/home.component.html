@@ -1,10 +1,7 @@
 <div class="wrapper">
   <div class="wallpaperInfo" fxLayout="column" fxLayoutAlign="center start">
-
     <div class="information">
-
       <img class="logo" src="../../../assets/logo_large.svg">
-
       <div class="text">
         <h2>Wilkommen zum MangaMiracle, dem besten Manga Webshop der Welt!</h2>
         <h2>Finde deine Lieblingsmangas über die Suche!</h2>
@@ -13,31 +10,31 @@
     </div>
 
   </div>
-
   <div class="spacer"></div>
-
   <div class="mangaExampleContent" (window:resize)="listenWidthChange()">
 
-
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
+
       <div *ngIf="!response.data.length">
         <h1>
-          Für diesen Suchbegriff gab es leider keine Ergebnisse
+          Keine Ergebnisse verfügbar
         </h1>
       </div>
+
       <div class="mangaScrollingTable" fxLayout="row" fxLayoutAlign="center">
+
         <button class="desktop" mat-raised-button (click)="moveElement(false)" [disabled]="(elementsMoved == 0)">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <div class="mangaListBox" [style]="width">
 
+        <div class="mangaListBox" [style]="width">
           <div [style.left.px]=leftStyleValue class="mangaList wrapper ">
             <list-manga-list-display InputFxLayoutAlign="left" InputfxLayout='row' [synopsis]="false"
               [MangaArray]="response.data">
             </list-manga-list-display>
           </div>
-
         </div>
+
         <button class="desktop" mat-raised-button (click)="moveElement(true)"
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
@@ -45,20 +42,22 @@
       </div>
 
       <div class="buttonBar mobile">
+
         <button mat-raised-button (click)="moveElement(true)" [disabled]="(elementsMoved == 0)">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
+
         <button mat-raised-button (click)="moveElement(false)"
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
+
       </div>
 
-
       <div class="buttonBar moreMangasButtons">
-        <button routerLink="/search" mat-raised-button>Alle Mangas</button>
-        <button routerLink="/favorites" mat-raised-button>Favoriten</button>
-        <button routerLink="/cart" mat-raised-button>Warenkorb</button>
+        <ng-container *ngFor="let linkButton of linkButtons">
+          <button mat-raised-button [routerLink]="linkButton.routeLink"> {{linkButton.buttonText}} </button>
+        </ng-container>
       </div>
 
     </section>
@@ -66,6 +65,7 @@
     <ng-template #loadSpinner>
       <mat-spinner></mat-spinner>
     </ng-template>
+
   </div>
 
   <div class="spacer"></div>

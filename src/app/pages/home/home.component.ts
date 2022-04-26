@@ -15,13 +15,16 @@ export class HomeComponent implements OnInit {
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
   loadedElements = 15;
-
   width = 'width: ' + this.widthCalc() + 'px';
   elementsMoved = 0;
-
   leftStyleValue = 0;
-
   elementInBox = Math.min(Math.floor((window.innerWidth * 0.8) / 312), 10);
+
+  linkButtons = [
+    { routeLink: '/search', buttonText: 'Alle Mangas' },
+    { routeLink: '/favorites', buttonText: 'Favoriten' },
+    { routeLink: '/cart', buttonText: 'Warenkorb' },
+  ];
 
   widthCalc(): number {
     this.elementInBox = Math.min(
