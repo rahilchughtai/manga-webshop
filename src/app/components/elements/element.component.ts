@@ -4,7 +4,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
   selector: 'app-element',
   template: `
     <div class="element">
-      <mat-icon *ngIf="icon" aria-hidden="false" aria-label="store icon">{{
+      <mat-icon *ngIf="icon" aria-hidden="false" aria-label="icon">{{
         icon
       }}</mat-icon>
       <h2 *ngIf="headingMain">{{ headingMain }}</h2>
