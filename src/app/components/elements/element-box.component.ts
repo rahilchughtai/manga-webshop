@@ -4,7 +4,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   selector: 'app-element-box',
   template: `
-    <div class="elementBox" fxLayout="row wrap" fxLayoutAlign="center">
+    <div [class]="fullWidth?'elementBox fullWidth':'elementBox'" fxLayout="row wrap" fxLayoutAlign="center">
       <ng-content></ng-content>
     </div>
   `,
@@ -23,7 +23,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
         }
 
         &.fullWidth {
-          @media (min-width: $mobile_width) {
+          @media (min-width: calc($mobile_width + 200px)) {
             max-width: 100%;
             width: 100%;
           }
@@ -36,4 +36,5 @@ export class ElementBoxComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+  @Input() fullWidth? : boolean;
 }

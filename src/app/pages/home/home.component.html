@@ -78,24 +78,9 @@
   </div>
 
 
-  <app-element-box>
+  <app-element-box [fullWidth]="true">
     <app-element *ngFor="let imgPath of imgLogoPaths" [imgPath]="imgPath">
     </app-element>
   </app-element-box>
-  <!--
-  <div class="elementBox fullWidth" fxLayout="row wrap" fxLayoutAlign="center">
-    <div class="element">
-      <img src="../../../assets/banking/ec.png">
-    </div>
-    <div class="element">
-      <img src="../../../assets/banking/mastercard.png">
-    </div>
-    <div class="element">
-      <img src="../../../assets/banking/paypal.png">
-    </div>
-    <div class="element">
-      <img src="../../../assets/banking/visa.png">
-    </div>
-  </div> -->
 
 </div>
