@@ -47,7 +47,9 @@ export class HomeComponent implements OnInit {
   }
 
   moveElement(left: boolean, noMove?: boolean): void {
-    const shift = noMove ? 0 : left ? 1 : -1;
+    const direction = left ? 1 : -1;
+    const shift = noMove ? 0 : direction;
+
     this.elementsMoved = Math.max(
       Math.min(
         this.elementsMoved + shift,
