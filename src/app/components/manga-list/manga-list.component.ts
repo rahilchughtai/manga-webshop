@@ -64,7 +64,7 @@ export class MangaListComponent implements OnInit {
   initializePageValues(pag: Pagination) {
     const { items } = pag;
     ({ current_page: this.pageIndex } = pag);
-    ({ total: this.totalRecords, count: this.pageSize } = items);
+    ({ total: this.totalRecords, per_page: this.pageSize } = items);
   }
 
   pageEvent(pageEvent: PageEvent) {
