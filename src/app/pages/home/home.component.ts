@@ -43,16 +43,15 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchMangaApiData();
-  }
-
-  fetchMangaApiData(term?: string, index?: number, limit?: number) {
+    const _ = undefined;
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(term, index, this.loadedElements)
+      .getJikanMangaData(_, _, this.loadedElements)
       .pipe(share());
   }
 
-  trackByFn(index: number, item: MangaItem) {
-    return item.mal_id;
-  }
+  /*   fetchMangaApiData(term?: string, index?: number, limit?: number) {
+    this.JikanApiResponse$ = this.mangaApi
+      .getJikanMangaData(term, index, this.loadedElements)
+      .pipe(share());
+  } */
 }

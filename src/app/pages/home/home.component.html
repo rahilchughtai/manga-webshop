@@ -17,6 +17,8 @@
   <div class="spacer"></div>
 
   <div class="mangaExampleContent" (window:resize)="listenWidthChange()">
+
+
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">
         <h1>
@@ -28,12 +30,13 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <div class="mangaListBox" [style]="width">
-          <div fxLayout="row" fxLayoutAlign="left" class="mangaList" [style.left.px]=leftStyleValue>
-            <div *ngFor="let manga of response.data ;let i=index; trackBy: trackByFn">
-              <app-manga-card [hasSynopsis]="false" [mangaData]="manga">
-              </app-manga-card>
-            </div>
+
+          <div [style.left.px]=leftStyleValue class="mangaList wrapper ">
+            <list-manga-list-display InputFxLayoutAlign="left" InputfxLayout='row' [synopsis]="false"
+              [MangaArray]="response.data">
+            </list-manga-list-display>
           </div>
+
         </div>
         <button class="desktop" mat-raised-button (click)="moveElement(true)"
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
