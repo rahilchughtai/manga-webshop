@@ -36,9 +36,10 @@
         </div>
 
         <button class="desktop" mat-raised-button (click)="moveElement(true)"
-          [disabled]="(elementsMoved + elementInBox == loadedElements)">
+          [disabled]="(elementsMoved + elementInBox >= loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
+
       </div>
 
       <div class="buttonBar mobile">
