@@ -5,6 +5,12 @@ import { JikanApiResponse } from 'src/app/shared/models/response.model';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 
+enum ShiftDirection {
+  NOMOVE = 0,
+  LEFT = -1,
+  RIGHT = 1,
+}
+
 @Component({
   selector: 'page-home',
   templateUrl: './home.component.html',
@@ -14,6 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
+
+  direction = ShiftDirection;
 
   loadedElements = 15;
   width = this.widthCalc();
@@ -43,13 +51,10 @@ export class HomeComponent implements OnInit {
 
   listenWidthChange(): void {
     this.width = this.widthCalc();
-    this.moveElement(true, true);
+    this.moveElement(ShiftDirection.NOMOVE);
   }
 
-  moveElement(left: boolean, noMove?: boolean): void {
-    const direction = left ? 1 : -1;
-    const shift = noMove ? 0 : direction;
-
+  moveElement(shift: ShiftDirection): void {
     this.elementsMoved = Math.max(
       Math.min(
         this.elementsMoved + shift,

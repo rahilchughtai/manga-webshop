@@ -22,7 +22,7 @@
 
       <div class="mangaScrollingTable" fxLayout="row" fxLayoutAlign="center">
 
-        <button class="desktop" mat-raised-button (click)="moveElement(false)" [disabled]="(elementsMoved == 0)">
+        <button class="desktop" mat-raised-button (click)="moveElement(direction.LEFT)" [disabled]="(elementsMoved == 0)">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
 
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <button class="desktop" mat-raised-button (click)="moveElement(true)"
+        <button class="desktop" mat-raised-button (click)="moveElement(direction.RIGHT)"
           [disabled]="(elementsMoved + elementInBox >= loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
@@ -43,11 +43,11 @@
 
       <div class="buttonBar mobile">
 
-        <button mat-raised-button (click)="moveElement(true)" [disabled]="(elementsMoved == 0)">
+        <button mat-raised-button (click)="moveElement(direction.LEFT)" [disabled]="(elementsMoved == 0)">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
 
-        <button mat-raised-button (click)="moveElement(false)"
+        <button mat-raised-button (click)="moveElement(direction.RIGHT)"
           [disabled]="(elementsMoved + elementInBox == loadedElements)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
