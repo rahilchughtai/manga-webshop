@@ -16,7 +16,8 @@ import { LoginRegisterComponent } from './pages/login-register/login-register.co
 import { MangaCardComponent } from './components/manga-card/manga-card.component';
 import { MangaDetailComponent } from './pages/manga-detail/manga-detail.component';
 import { MangaFavoritesService } from './shared/services/manga-favorites.service';
-import { MangaListComponent } from './components/manga-list/manga-list.component';
+import { MangaListComponent } from './pages/manga-list/manga-list.component';
+import { MangaListDisplayComponent } from './components/manga-list-display/manga-list-display.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -25,7 +26,6 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
-import { MangaListDisplayComponent } from './components/manga-list/manga-list-display/manga-list-display.component';
 
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
