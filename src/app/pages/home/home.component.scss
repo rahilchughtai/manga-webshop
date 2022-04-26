@@ -1,46 +1,48 @@
-@import "../../variables";
+@use "../../variables" as *;
 
 div.wrapper {
-
   $local_backgroundImage: url("../../../assets/home_wallpaper.jpg");
 
   div.wallpaperInfo {
-
     top: 55px;
     left: 0;
-
     width: 100%;
     height: max(35vw, 400px);
-
     margin: 0;
 
     @media (max-width: 1500px) {
-      &{
-        background-image: linear-gradient(0deg, rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
-            $local_backgroundImage;
+      & {
+        background-image: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.4)
+          ),
+          $local_backgroundImage;
       }
     }
 
-
-    background-image: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%),
-        $local_backgroundImage;
+    background-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      $local_backgroundImage;
     background-position: 0 50%;
     background-size: cover;
     background-repeat: no-repeat;
 
-
     div.information {
-
       $local_smallerWallpaper: 1500px;
 
       @media (max-width: $local_smallerWallpaper) {
-        &{
+        & {
           margin: auto;
         }
       }
 
       @media (max-width: $mobile_width) {
-        &{
+        & {
           width: 80%;
         }
       }
@@ -49,9 +51,8 @@ div.wrapper {
       margin-left: 6vw;
 
       img.logo {
-
         @media (max-width: $local_smallerWallpaper) {
-          &{
+          & {
             width: 100%;
           }
         }
@@ -65,7 +66,7 @@ div.wrapper {
         display: block;
 
         @media (max-width: $local_smallerWallpaper) {
-          &{
+          & {
             display: none;
           }
         }
@@ -75,15 +76,13 @@ div.wrapper {
           margin-bottom: 8px;
         }
 
-        h1.link{
+        h1.link {
           margin-top: 20px;
-
           cursor: pointer;
           color: $primary_marking_color;
+          text-shadow: -2px 1px 2px rgba(0, 0, 0, 0.8);
 
-          text-shadow: -2px 1px 2px rgba(0,0,0,0.8);
-
-          &:hover{
+          &:hover {
             color: white;
           }
         }
@@ -95,45 +94,32 @@ div.wrapper {
     width: 100%;
     height: 50px;
     background-color: $main_color_dark;
-
   }
 
   h1.headerText {
-
     position: relative;
-
     font-size: 30px;
     font-weight: 450;
     width: fit-content;
-
     padding: 15px 25px 5px 25px;
     margin: 0 auto;
-
     text-align: center;
-
     background-color: $main_color_dark;
   }
 
-
   div.mangaExampleContent {
-
     margin: 40px auto 0 auto;
 
-    div.mangaScrollingTable{
-
+    div.mangaScrollingTable {
       margin-bottom: 20px;
 
       button {
         z-index: 200;
-
         position: relative;
-
         margin: auto 0;
-
         height: 100px;
-
         @media (max-width: $mobile_width) {
-          &.desktop{
+          &.desktop {
             display: none;
           }
         }
@@ -148,13 +134,12 @@ div.wrapper {
 
         &:disabled {
           background-color: $main_color;
-          box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+          box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+            0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
         }
       }
 
-
       div.mangaListBox {
-
         border-radius: 5px;
         background-color: $main_color_dark;
 
@@ -164,9 +149,7 @@ div.wrapper {
 
         overflow-x: hidden;
 
-
         div.mangaList {
-
           transition: left 0.5s;
 
           position: relative;
@@ -175,7 +158,6 @@ div.wrapper {
     }
 
     div.buttonBar {
-
       margin-bottom: 30px;
 
       display: flex;
@@ -185,9 +167,8 @@ div.wrapper {
         flex-wrap: wrap;
       }
 
-
       @media (min-width: $mobile_width) {
-        &.mobile{
+        &.mobile {
           display: none;
         }
       }
@@ -202,32 +183,22 @@ div.wrapper {
   }
 
   div.spacingBox {
-
     width: 100%;
     margin: 50px 0;
-
   }
 
   div.elementBox {
-
     border-radius: 5px;
-
     background-color: $main_color_dark;
-
     padding: 10px 20px;
     margin: auto;
-
     width: fit-content;
     max-width: 80%;
-
-
     @media (max-width: $mobile_width) {
-
       width: min-content;
     }
 
     &.fullWidth {
-
       @media (min-width: $mobile_width) {
         max-width: 100%;
         width: 100%;
@@ -235,27 +206,20 @@ div.wrapper {
     }
 
     div.element {
-
       border-radius: 5px;
-
-      box-shadow: 0px 5px 6px -3px rgb(0 0 0 / 20%), 0px 9px 12px 1px rgb(0 0 0 / 14%), 0px 3px 16px 2px rgb(0 0 0 / 12%);
+      box-shadow: 0px 5px 6px -3px rgb(0 0 0 / 20%),
+        0px 9px 12px 1px rgb(0 0 0 / 14%), 0px 3px 16px 2px rgb(0 0 0 / 12%);
       background-color: $main_color;
-
       padding: 20px;
-
       margin: 15px;
-
       width: 250px;
-
       text-align: center;
 
-      mat-icon{
+      mat-icon {
         width: 40px;
         height: 40px;
         font-size: 40px;
-
         margin-bottom: 5px;
-
         border-radius: 100px;
         padding: 10px;
         background-color: $primary_marking_color_dark;
@@ -273,9 +237,7 @@ div.wrapper {
       img {
         max-width: 200px;
         max-height: 50px;
-
         border-radius: 5px;
-
         padding: 10px 20px;
         background-color: white;
       }
@@ -283,6 +245,6 @@ div.wrapper {
   }
 }
 
-mat-spinner{
+mat-spinner {
   margin: auto;
 }
