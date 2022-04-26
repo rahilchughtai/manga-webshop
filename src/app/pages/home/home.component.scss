@@ -98,6 +98,22 @@ div.wrapper {
 
   }
 
+  h1.headerText {
+
+    position: relative;
+
+    font-size: 30px;
+    font-weight: 450;
+    width: fit-content;
+
+    padding: 15px 25px 5px 25px;
+    margin: 0 auto;
+
+    text-align: center;
+
+    background-color: $main_color_dark;
+  }
+
 
   div.mangaExampleContent {
 
@@ -185,6 +201,13 @@ div.wrapper {
     }
   }
 
+  div.spacingBox {
+
+    width: 100%;
+    margin: 50px 0;
+
+  }
+
   div.elementBox {
 
     border-radius: 5px;
@@ -192,8 +215,8 @@ div.wrapper {
     background-color: $main_color_dark;
 
     padding: 10px 20px;
+    margin: auto;
 
-    margin: 50px auto 0 auto;
     width: fit-content;
     max-width: 80%;
 
