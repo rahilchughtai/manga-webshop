@@ -1,7 +1,6 @@
 @use "../../shared/styles/styles" as s;
 
 div.mangaList {
-
   h1 {
     padding: 2em;
     text-align: center;
@@ -10,6 +9,7 @@ div.mangaList {
     @include s.gradient-font;
   }
   .content {
+    max-width: 90%;
     padding: 16px;
     margin: auto;
   }
