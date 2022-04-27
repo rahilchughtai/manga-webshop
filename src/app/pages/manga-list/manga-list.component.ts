@@ -20,7 +20,7 @@ export class MangaListComponent implements OnInit {
   constructor(private mangaApi: MangaApiService) {}
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
-  public mangaSearchField!: FormControl;
+  mangaSearchField!: FormControl;
   searchFieldResult!: Observable<string>;
   value = '';
   pageIndex = 0;

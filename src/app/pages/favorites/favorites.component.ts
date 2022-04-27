@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { Observable, Subscription, take } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MangaFavoritesService } from 'src/app/shared/services/manga-favorites.service';
@@ -16,7 +16,19 @@ export class FavoritesComponent implements OnInit {
     private mangaFav: MangaFavoritesService
   ) {}
 
-  favoriteMangas: Observable<MangaItem[]> = this.mangaFav.currentMangaFavsObservable;
+  favoriteMangas: Observable<MangaItem[]> =
+    this.mangaFav.currentMangaFavsObservable;
+
+  clearFavorites() {
+    this.mangaFav.clearAllFavorites();
+  }
+
+  get userHasFavorites(): Observable<boolean> {
+    return this.favoriteMangas.pipe(
+      take(1),
+      map((favs: MangaItem[]) => favs.length !== 0)
+    );
+  }
 
   ngOnInit(): void {}
 }

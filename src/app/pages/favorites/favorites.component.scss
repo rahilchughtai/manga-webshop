@@ -1,0 +1,11 @@
+@use "../../shared/styles/styles" as s;
+
+.wrapper {
+  @include s.page-wrap;
+
+  h1 {
+    @include s.gradient-font;
+    font-size: 2rem;
+    margin: 0.6em;
+  }
+}

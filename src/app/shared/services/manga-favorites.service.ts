@@ -15,7 +15,7 @@ export class MangaFavoritesService {
     return JSON.parse(localStorage.getItem('favorites') || '[]');
   }
 
-  setMangaFavs(favMangas: MangaItem[]) {
+  private setMangaFavs(favMangas: MangaItem[]) {
     localStorage.setItem('favorites', JSON.stringify(favMangas));
     this.mangaFavSource.next(favMangas);
   }
@@ -26,11 +26,15 @@ export class MangaFavoritesService {
 
   removeMangaFromFavs(mangaItem: MangaItem) {
     if (!this.getStorageFavs()) return;
-    
+
     const updatedFavs = [...this.getStorageFavs(), mangaItem].filter(
       (manga: MangaItem) => manga.mal_id !== mangaItem.mal_id
     );
     this.setMangaFavs(updatedFavs);
+  }
+
+  clearAllFavorites() {
+    this.setMangaFavs([]);
   }
 
   checkIsMangaFav(mangaItem: MangaItem): boolean {

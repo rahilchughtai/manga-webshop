@@ -19,7 +19,7 @@ export class MangaListDisplayComponent implements OnInit {
 
   @Input() InputFxLayoutAlign = 'center';
   @Input() InputfxLayout = 'row wrap';
-  @Input() MangaArray!: MangaItem[];
+  @Input() MangaArray: MangaItem[] = [];
   @Input() synopsis: boolean = false;
 
   ngOnInit(): void {}

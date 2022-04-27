@@ -94,8 +94,17 @@
 }
 
 .not-logged-in {
+  max-width: 80%;
+  margin: auto;
   h1 {
     @include gradient-font;
     font-size: 2.1em;
+  }
+  button {
+    display: flex;
+    margin: auto;
+    margin-top: 2em;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
   }
 }

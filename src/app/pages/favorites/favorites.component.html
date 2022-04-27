@@ -1,9 +1,12 @@
-<page-wrapper>
+<div class="wrapper">
+
   <h1>
-    {{(favoriteMangas | async)?.length ? 'Deine Favoriten' : 'Füge deine Lieblingsmangas hinzu!'}}
+    {{(userHasFavorites|async) ? 'Deine Favoriten' : 'Füge deine Lieblingsmangas hinzu!'}}
   </h1>
+  <button *ngIf="userHasFavorites|async" (click)="clearFavorites()" mat-raised-button color="warn">
+    <mat-icon>delete</mat-icon>
+    Clear All
+  </button>
   <list-manga-list-display style="margin-top: 1em;" [MangaArray]="(favoriteMangas | async) || []">
   </list-manga-list-display>
-
-</page-wrapper>
-
+</div>

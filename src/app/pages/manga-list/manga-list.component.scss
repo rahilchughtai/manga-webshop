@@ -1,9 +1,12 @@
+@use "../../shared/styles/styles" as s;
+
 div.mangaList {
   h1 {
     padding: 2em;
     text-align: center;
     font-size: 2rem;
     font-family: "Montserrat", sans-serif;
+    @include s.gradient-font;
   }
   .content {
     padding: 16px;
