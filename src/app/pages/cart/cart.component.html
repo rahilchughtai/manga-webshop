@@ -1,10 +1,11 @@
 <h1>Dein Warenkorb</h1>
 
-<div class="wrapper" *ngIf="(shoppingCartData | async) as cart else noCartData" class="wrapper">
+<div class="wrapper" *ngIf="(shoppingCartData | async)?.length as cart else noCartData" class="wrapper">
   <button (click)="emptyMyCart()" mat-raised-button color="warn">
     Warenkorb leeren
   </button>
 
+  {{cart|json}}
   <div>
     <ul *ngIf="authService.isLoggedIn">
       <li style="margin-top: 2em;" *ngFor="let cartItem of shoppingCartData | async">
@@ -17,6 +18,7 @@
 </div>
 
 <ng-template #noCartData>
+
   <div class="wrapper">
     <h2>
       {{authService.isLoggedIn ? 'Füge tolle Mangas zu deinem Warenkorb hinzu' :
