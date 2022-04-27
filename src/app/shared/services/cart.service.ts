@@ -108,6 +108,6 @@ export class CartService {
   removeMangaFromCart() {}
 
   emptyCart() {
-    this.userRef?.update({ shoppingCart: [] });
+    this.userRef?.update({ shoppingCart: null });
   }
 }
