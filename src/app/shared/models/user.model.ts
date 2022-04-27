@@ -1,6 +1,6 @@
-import {MangaItem} from './manga-item.model';
+import {CartItem, MangaItem} from './manga-item.model';
 
-export interface User {
+export interface MangaUser {
   uid: string;
 
   email: string;
@@ -12,7 +12,7 @@ export interface User {
   lastName?: string;
   address?: UserAddress;
   favorites?: MangaItem[];
-  shoppingCart?: MangaItem[];
+  shoppingCart?: CartItem[];
 }
 
 export interface UserAddress {

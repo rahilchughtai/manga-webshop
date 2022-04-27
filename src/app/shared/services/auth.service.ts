@@ -5,8 +5,8 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Injectable, NgZone } from '@angular/core';
+import { MangaUser, UserAddress } from '../models/user.model';
 import { Observable, of, switchMap, take, throwError } from 'rxjs';
-import { User, UserAddress } from '../models/user';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  userData$: Observable<User | undefined | null>;
+  userData$: Observable<MangaUser | undefined | null>;
 
   // See https://www.positronx.io/full-angular-firebase-authentication-system/
   private redirectHome = 'home';
@@ -44,19 +44,19 @@ export class AuthService {
    * Helper functions here
    */
 
-  private getFireUserDocument(uid: string): AngularFirestoreDocument<User> {
-    return this.afs.doc<User>(`users/${uid}`);
+  private getFireUserDocument(uid: string): AngularFirestoreDocument<MangaUser> {
+    return this.afs.doc<MangaUser>(`users/${uid}`);
   }
 
   private setLocalStorageUserData(data: any) {
     localStorage.setItem('user', JSON.stringify(data));
   }
 
-  getStorageUserData(): User | null {
+  getStorageUserData(): MangaUser | null {
     return JSON.parse(localStorage.getItem('user') || '{}');
   }
 
-  private extractUserData(user: any): User {
+  private extractUserData(user: any): MangaUser {
     return {
       uid: user.uid,
       email: user.email,
@@ -152,7 +152,7 @@ export class AuthService {
       userData;
     const userRef = this.getFireUserDocument(uid);
     const newAddress = this.initAdress(address);
-    const data: User = {
+    const data: MangaUser = {
       uid,
       email,
       displayName,

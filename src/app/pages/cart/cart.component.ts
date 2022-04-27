@@ -16,11 +16,15 @@ export class CartComponent implements OnInit {
     public authService: AuthService
   ) {}
 
-  shoppingCartData!: Observable<CartItem[]> | undefined;
+  shoppingCartData: Observable<CartItem[]> | undefined = undefined;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
       this.shoppingCartData = this.cartService.getCart();
     }
+  }
+
+  emptyMyCart() {
+    this.cartService.emptyCart();
   }
 }

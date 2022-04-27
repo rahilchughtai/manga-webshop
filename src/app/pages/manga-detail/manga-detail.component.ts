@@ -1,7 +1,6 @@
 import { CartItem, MangaItem } from 'src/app/shared/models/manga-item.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription, take } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -9,6 +8,7 @@ import { CartService } from 'src/app/shared/services/cart.service';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
+import { take } from 'rxjs';
 
 interface cartFormInformation {
   quantity: number;
@@ -20,7 +20,7 @@ interface cartFormInformation {
   templateUrl: './manga-detail.component.html',
   styleUrls: ['./manga-detail.component.scss'],
 })
-export class MangaDetailComponent implements OnInit, OnDestroy {
+export class MangaDetailComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
@@ -42,20 +42,15 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
     return [...Array(n).keys()].map((i) => i + 1).reverse();
   };
 
-  cartSubscription!: Subscription | undefined;
   cartData!: CartItem[];
   loading = true;
   mangaId: string | null = '';
   mangaData!: MangaItem;
-  volumeArr!: number[];
+  volumeArr: number[] = [];
   quantityMax = this.makeArray(10);
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn) {
-      this.cartSubscription = this.cartService
-        .getCart()
-        ?.pipe(take(1))
-        ?.subscribe((data) => (this.cartData = data));
     }
     this.mangaId = this.route.snapshot.paramMap.get('mid');
     this.mangaApi
@@ -66,12 +61,6 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
         this.volumeArr = this.makeArray(mangaItem.volumes);
         this.loading = false;
       });
-  }
-
-  ngOnDestroy(): void {
-    if (this.auth.isLoggedIn) {
-      this.cartSubscription?.unsubscribe();
-    }
   }
 
   get cartFormData(): cartFormInformation {
@@ -93,7 +82,7 @@ export class MangaDetailComponent implements OnInit, OnDestroy {
       volume,
     };
 
-    this.cartService.addMangaToCart(this.cartData, newCartData);
+    this.cartService.addMangaToCart(newCartData);
     this.snack.openSnackBar(`Added ${this.mangaData.title} to your cart!`);
   }
 }

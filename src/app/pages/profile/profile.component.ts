@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, take } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { User } from 'src/app/shared/models/user';
+import { MangaUser } from 'src/app/shared/models/user.model';
 import { defaultAppCheckInstanceFactory } from '@angular/fire/app-check/app-check.module';
 
-type UserType = User | null | undefined;
+type UserType = MangaUser | null | undefined;
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   defaultPic =
     'https://i.pinimg.com/originals/14/49/8e/14498ee653e49627b84352bc03699370.png';
   profilePic = this.defaultPic;
-  userData: Observable<User | null | undefined> = this.authService.userData$;
+  userData: Observable<MangaUser | null | undefined> = this.authService.userData$;
 
   ngOnInit(): void {
     this.initUserPic();
