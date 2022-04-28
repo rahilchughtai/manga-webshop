@@ -91,9 +91,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const _ = undefined;
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(_, _, this.loadedElements)
+      .getJikanMangaData({ limit: this.loadedElements })
       .pipe(share());
   }
 

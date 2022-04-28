@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  JikanApiRequestParam,
   JikanApiResponse,
   Pagination,
 } from 'src/app/shared/models/response.model';
@@ -40,12 +41,12 @@ export class MangaListComponent implements OnInit {
       .subscribe((term) => {
         this.fetchMangaApiData(term);
       });
-    this.fetchMangaApiData();
+    this.fetchMangaApiData({});
   }
 
-  fetchMangaApiData(term?: string, index?: number, limit?: number) {
+  fetchMangaApiData(params: JikanApiRequestParam) {
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(term, index, limit)
+      .getJikanMangaData(params)
       .pipe(share());
     this.mapToPageValue();
   }
@@ -67,11 +68,11 @@ export class MangaListComponent implements OnInit {
 
   pageEvent(pageEvent: PageEvent) {
     const { pageIndex, pageSize } = pageEvent;
-    this.fetchMangaApiData(
-      this.mangaSearchField.value,
-      pageIndex + 1,
-      pageSize
-    );
+    this.fetchMangaApiData({
+      q: this.mangaSearchField.value,
+      page: pageIndex + 1,
+      limit: pageSize,
+    });
   }
 
   trackByFn(index: number, item: MangaItem) {

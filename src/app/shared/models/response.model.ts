@@ -21,3 +21,30 @@ export interface JikanApiResponse {
 export interface JikanMangaByIdResponse {
   data: MangaItem;
 }
+
+export type OrderMethod = 'asc' | 'desc';
+export type OrderAttribute =
+  | 'mal_id'
+  | 'title'
+  | 'start_date'
+  | 'end_date'
+  | 'chapters'
+  | 'volumes'
+  | 'score'
+  | 'scored_by'
+  | 'rank'
+  | 'popularity'
+  | 'members'
+  | 'favorites';
+
+export interface JikanApiRequestParam {
+  type?: string;
+  sfw?: boolean;
+  genres_exclude?: string;
+  page?: number;
+  limit?: number;
+  sort?: OrderMethod;
+  q?: string;
+  genres?: string;
+  order_by?: OrderAttribute;
+}
