@@ -1,6 +1,7 @@
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -31,7 +32,8 @@ import { NgModule } from '@angular/core';
     MatProgressSpinnerModule,
     MatSliderModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule,
   ],
 })
 export class MaterialModule {}
