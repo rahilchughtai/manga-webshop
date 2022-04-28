@@ -45,7 +45,9 @@ export class MangaApiService {
       params = params.append('q', q);
     }
     params = params
+
       .append('sfw', true)
+      .append('genres_exclude', '9,49,12')  // Excluding explicit adult genres ;)
       .append('order_by', 'score')
       .append('type', 'manga')
       .append('sort', 'desc')

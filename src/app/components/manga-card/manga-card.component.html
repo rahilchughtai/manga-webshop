@@ -16,7 +16,7 @@
     </p>
     <mat-card-content *ngIf="hasSynopsis">
       <p class="synopsis">
-        {{mangaData.synopsis}}
+        {{mangaData.synopsis || "Für diesen Titel ist keine Zusammenfassung verfügbar"}}
       </p>
     </mat-card-content>
   </div>

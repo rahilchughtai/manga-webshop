@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, map, take } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { CartButtonComponent } from 'src/app/components/navigation/toolbar/cart-button.component';
 import { CartItem } from 'src/app/shared/models/manga-item.model';
 import { CartService } from 'src/app/shared/services/cart.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -16,11 +17,15 @@ export class CartComponent implements OnInit {
     public authService: AuthService
   ) {}
 
-  shoppingCartData!: Observable<CartItem[]> | undefined;
+  shoppingCartData: Observable<CartItem[]> | undefined = undefined;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
       this.shoppingCartData = this.cartService.getCart();
     }
+  }
+
+  emptyMyCart() {
+    this.cartService.emptyCart();
   }
 }
