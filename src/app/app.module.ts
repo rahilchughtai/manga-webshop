@@ -28,6 +28,7 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
+import { MangaFilterFormComponent } from './components/manga-filter-form/manga-filter-form.component';
 
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
@@ -53,6 +54,7 @@ export const routes = [
     MangaListDisplayComponent,
     ElementBoxComponent,
     ElementComponent,
+    MangaFilterFormComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

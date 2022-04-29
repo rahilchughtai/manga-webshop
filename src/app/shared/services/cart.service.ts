@@ -11,7 +11,6 @@ import { CartItem } from '../models/manga-item.model';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
 import { arrayUnion } from '@angular/fire/firestore';
-import { resourceUsage } from 'process';
 
 @Injectable({
   providedIn: 'root',

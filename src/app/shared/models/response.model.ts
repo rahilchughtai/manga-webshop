@@ -37,6 +37,24 @@ export type OrderAttribute =
   | 'members'
   | 'favorites';
 
+export type StatusType =
+  | 'publishing'
+  | 'complete'
+  | 'hiatus'
+  | 'discontinued'
+  | 'upcoming';
+
+export const AllMangaStatusTypes = [
+  'publishing',
+  'complete',
+  'hiatus',
+  'discontinued',
+  'upcoming',
+] as const;
+
+
+export type MangaStatusType = typeof AllMangaStatusTypes[number];
+
 export interface JikanApiRequestParam {
   type?: string;
   sfw?: boolean;
@@ -45,6 +63,7 @@ export interface JikanApiRequestParam {
   limit?: number;
   sort?: OrderMethod;
   q?: string;
+  status?: MangaStatusType;
   genres?: string;
   order_by?: OrderAttribute;
 }
