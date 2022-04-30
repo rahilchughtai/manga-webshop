@@ -5,9 +5,9 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span *ngIf="router.url==='/home';else icon" [routerLink]="['home']" class="title">MangaMiracle</span>
-
-    <ng-template #icon>
+  <span *ngIf="router.url==='/home' || router.url==='/' ;else icon" [routerLink]="['home']"
+    class="title">MangaMiracle</span>
+  <ng-template #icon>
     <img [routerLink]="['home']" class="toolbaricon" src="../../../../assets/logo_large.svg">
   </ng-template>
 

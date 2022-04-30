@@ -2,13 +2,12 @@ import {
   AllMangaStatusTypes,
   JikanApiRequestParam,
   JikanApiResponse,
+  MangaQueryFormData,
   Pagination,
 } from 'src/app/shared/models/response.model';
 import { Component, OnInit } from '@angular/core';
-import {
-  GenreItem,
-  MangaGenresSorted,
-} from '../../shared/utils/genres';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { GenreItem, MangaGenresSorted } from '../../shared/utils/genres';
 import {
   Observable,
   filter,
@@ -21,7 +20,6 @@ import {
 } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import { FormControl } from '@angular/forms';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { PageEvent } from '@angular/material/paginator';
@@ -32,66 +30,34 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./manga-list.component.scss'],
 })
 export class MangaListComponent implements OnInit {
-  constructor(private mangaApi: MangaApiService) {}
+  constructor(private mangaApi: MangaApiService, private fb: FormBuilder) {}
 
-  formStatusTypes = AllMangaStatusTypes;
-  formMangaGenres = MangaGenresSorted;
-  formPublishingYears = this.publishingYears();
+  QueryForm!: FormGroup;
 
   JikanApiResponse$!: Observable<JikanApiResponse>;
-  mangaSearchField!: FormControl;
-  searchFieldResult!: Observable<string>;
-  value = '';
   pageIndex = 0;
   totalRecords = 0;
   pageSize = 24;
   hasNext = false;
   paginationData!: Pagination;
 
-  myControl = new FormControl();
-  filteredGenre!: Observable<GenreItem[]>;
+  get mangaSerachTerm() {
+    return this.QueryForm.get('mangaSearchTerm');
+  }
 
   ngOnInit(): void {
-    this.setFilteredGenre();
-    this.mangaSearchField = new FormControl();
-    this.mangaSearchField.valueChanges
-      .pipe(
-        debounceTime(800),
-        distinctUntilChanged(),
-        filter((term) => term.length > 3 || term.length === 0)
-      )
-      .subscribe((term: string) => {
-        this.fetchMangaApiData({ q: term });
+    this.QueryForm = this.fb.group({
+      mangaGenre: [[]],
+      mangaStatus: [null],
+      mangaSearchTerm: [''],
+    });
+    this.QueryForm.valueChanges
+      .pipe(debounceTime(1200), distinctUntilChanged())
+      .subscribe((formData: MangaQueryFormData) => {
+        const apiQueryData = this.mangaApi.formDataToSearchQuery(formData);
+        this.fetchMangaApiData(apiQueryData);
       });
     this.fetchMangaApiData({});
-  }
-
-  private publishingYears() {
-    const years = [];
-    for (let year = 2023; year >= 1945; year--) {
-      years.push(year);
-    }
-    return years;
-  }
-
-  setFilteredGenre() {
-    this.filteredGenre = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => (typeof value === 'string' ? value : value.name)),
-      map((name) => (name ? this._filter(name) : this.formMangaGenres.slice()))
-    );
-  }
-
-  displayFn(item: GenreItem): string {
-    return item && item.name ? item.name : '';
-  }
-
-  private _filter(value: string): GenreItem[] {
-    console.log(value);
-    const filterValue = value.toLowerCase();
-    return this.formMangaGenres.filter((genreItem) =>
-      genreItem.name.toLowerCase().startsWith(filterValue)
-    );
   }
 
   fetchMangaApiData(params: JikanApiRequestParam) {
@@ -118,10 +84,13 @@ export class MangaListComponent implements OnInit {
 
   pageEvent(pageEvent: PageEvent) {
     const { pageIndex, pageSize } = pageEvent;
+    const formQueryData = this.mangaApi.formDataToSearchQuery(
+      this.QueryForm.value
+    );
     this.fetchMangaApiData({
-      q: this.mangaSearchField.value,
       page: pageIndex + 1,
       limit: pageSize,
+      ...formQueryData,
     });
   }
 

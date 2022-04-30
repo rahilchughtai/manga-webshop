@@ -1,7 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'nav-toolbar',
@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  constructor(public authService: AuthService, public router: Router) {}
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    public route: ActivatedRoute
+  ) {}
 
   @Output() SideNavToggle = new EventEmitter();
 

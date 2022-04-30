@@ -1,3 +1,4 @@
+import { GenreItem } from '../utils/genres';
 import { MangaItem } from './manga-item.model';
 
 export interface Items {
@@ -23,6 +24,7 @@ export interface JikanMangaByIdResponse {
 }
 
 export type OrderMethod = 'asc' | 'desc';
+
 export type OrderAttribute =
   | 'mal_id'
   | 'title'
@@ -36,6 +38,7 @@ export type OrderAttribute =
   | 'popularity'
   | 'members'
   | 'favorites';
+  
 
 export type StatusType =
   | 'publishing'
@@ -53,6 +56,9 @@ export const AllMangaStatusTypes = [
 ] as const;
 
 
+
+
+
 export type MangaStatusType = typeof AllMangaStatusTypes[number];
 
 export interface JikanApiRequestParam {
@@ -66,4 +72,10 @@ export interface JikanApiRequestParam {
   status?: MangaStatusType;
   genres?: string;
   order_by?: OrderAttribute;
+}
+
+export interface MangaQueryFormData {
+  mangaStatus: MangaStatusType | null;
+  mangaSearchTerm: string;
+  mangaGenre: GenreItem[];
 }

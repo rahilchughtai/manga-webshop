@@ -1,50 +1,10 @@
 <div class="mangaList">
   <h1> Entdecke spannende Manga!</h1>
-
   <div class="search-bar">
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
-      <input [formControl]="mangaSearchField" type="search" class="form-control" placeholder="One Piece..." matInput
-        type="text">
-      <button *ngIf="mangaSearchField.value" matSuffix mat-icon-button (click)="mangaSearchField.setValue('')">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-    
-    <mat-form-field appearance="fill">
-      <mat-label>Genres</mat-label>
-      <mat-select [formControl]="myControl" multiple>
-        <mat-select-trigger>
-          {{myControl?.value?.length>0 ? (myControl.value[0].name ) : ''}}
-          <span *ngIf="myControl.value?.length > 1" class="example-additional-selection">
-            (+{{myControl.value.length - 1}} {{myControl.value?.length === 2 ? 'other' : 'others'}})
-          </span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let genre of formMangaGenres" [value]="genre">{{genre.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Status</mat-label>
-      <mat-select name="status">
-        <mat-option [value]="''">Any</mat-option>
-        <mat-option *ngFor="let status of formStatusTypes " [value]="status">
-          {{status | titlecase}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Publishing Year</mat-label>
-      <mat-select name="year">
-        <mat-option [value]="''">Any</mat-option>
-        <mat-option *ngFor="let year of formPublishingYears " [value]="year">
-          {{year}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <list-manga-filter-form [QueryFormGroup]="QueryForm">
+    </list-manga-filter-form>
   </div>
-
+  
   <div class="content">
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">

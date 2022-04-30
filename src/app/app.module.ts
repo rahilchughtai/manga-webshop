@@ -12,12 +12,14 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { FirebaseServiceModule } from './shared/modules/firebase.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { GenreDisplayComponent } from './components/manga-filter-form/genre-display.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginRegisterComponent } from './pages/login-register/login-register.component';
 import { MangaCardComponent } from './components/manga-card/manga-card.component';
 import { MangaDetailComponent } from './pages/manga-detail/manga-detail.component';
 import { MangaFavoritesService } from './shared/services/manga-favorites.service';
+import { MangaFilterFormComponent } from './components/manga-filter-form/manga-filter-form.component';
 import { MangaListComponent } from './pages/manga-list/manga-list.component';
 import { MangaListDisplayComponent } from './components/manga-list-display/manga-list-display.component';
 import { MaterialModule } from './shared/modules/material.module';
@@ -28,7 +30,6 @@ import { SidenavListComponent } from './components/navigation/sidenav-list/siden
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
-import { MangaFilterFormComponent } from './components/manga-filter-form/manga-filter-form.component';
 
 export const routes = [
   { path: 'accounts', label: 'Accounts' },
@@ -54,6 +55,7 @@ export const routes = [
     MangaListDisplayComponent,
     ElementBoxComponent,
     ElementComponent,
+    GenreDisplayComponent,
     MangaFilterFormComponent,
   ],
   imports: [

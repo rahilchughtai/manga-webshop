@@ -8,9 +8,11 @@ import {
   JikanApiRequestParam,
   JikanApiResponse,
   JikanMangaByIdResponse,
+  MangaQueryFormData,
 } from '../models/response.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 
+import { GenreItem } from '../utils/genres';
 import { Injectable } from '@angular/core';
 import { MangaItem } from '../models/manga-item.model';
 
@@ -20,16 +22,7 @@ import { MangaItem } from '../models/manga-item.model';
 export class MangaApiService {
   constructor(private http: HttpClient) {}
 
-  private BASE_API_V3 = 'https://jikan1.p.rapidapi.com';
   private BASE_API_V4 = 'https://api.jikan.moe/v4';
-
-  private myHeaders = new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('X-RapidAPI-Host', 'jikan1.p.rapidapi.com')
-    .set(
-      'X-RapidAPI-Key',
-      '7ef1c787c1mshb98412eba5e164ep19d4f9jsna1f4519e52e1'
-    );
 
   private get standardParams(): JikanApiRequestParam {
     return {
@@ -50,22 +43,29 @@ export class MangaApiService {
     };
   }
 
-  private createParams(q?: string, indx = 1, limit = 24) {
-    let params = new HttpParams();
-    if (q) {
-      console.log('q is set', q);
-      params = params.append('q', q);
-    }
-    params = params
-      .append('sfw', true)
-      .append('genres_exclude', '9,49,12') // Excluding explicit adult genres ;)
-      .append('type', 'manga')
+  private mangaStatusToParam() {}
 
-      .append('sort', 'desc')
-      .append('order_by', 'score')
-      .append('page', indx)
-      .append('limit', limit);
-    return params;
+  private mangaGenreToParam(genres: GenreItem[]): string {
+    if (!genres.length) return '';
+    let genreParams = '';
+    genres.forEach((genre, idx) => {
+      genreParams += genre.mal_id;
+      if (idx !== genres.length - 1) genreParams += ',';
+    });
+
+    return genreParams;
+  }
+
+  formDataToSearchQuery(formData: MangaQueryFormData): JikanApiRequestParam {
+    const { mangaGenre, mangaStatus, mangaSearchTerm } = formData;
+
+    const requestData: JikanApiRequestParam = {
+      q: mangaSearchTerm,
+      genres: this.mangaGenreToParam(mangaGenre),
+      ...(mangaStatus !== null && { status: mangaStatus }),
+    };
+    return requestData;
+
   }
 
   getJikanMangaData(

@@ -1,0 +1,51 @@
+<form [formGroup]="QueryFormGroup">
+  <!--   <pre>
+    {{ QueryFormGroup.value | json
+    }}
+    {{QueryFormGroup.dirty|json}}
+  </pre> -->
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
+    <input formControlName="mangaSearchTerm" type="search" class="form-control" placeholder="One Piece..." matInput
+      type="text">
+    <button *ngIf="mangaSearchTerm?.value" matSuffix mat-icon-button (click)="this.mangaSearchTerm?.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Genres</mat-label>
+    <mat-select formControlName="mangaGenre" multiple>
+      <mat-select-trigger>
+        <form-genre-display [mangaGenre]="this.mangaGenre">
+        </form-genre-display>
+      </mat-select-trigger>
+      <mat-option *ngFor="let genre of formMangaGenres" [value]="genre">{{genre.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="mangaStatus">
+      <mat-option *ngFor="let status of formStatusTypes " [value]="status">
+        {{status | titlecase}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<mat-chip-list aria-label="Query Chips">
+  <mat-chip *ngIf="this.mangaSearchTerm?.value!==''" color="primary" selected> Search: {{this.mangaSearchTerm?.value}}
+  </mat-chip>
+  <mat-chip *ngIf="this.mangaGenre?.value?.length" color="primary" selected>
+    <form-genre-display [mangaGenre]="this.mangaGenre">
+    </form-genre-display>
+  </mat-chip>
+  <mat-chip *ngIf="this.mangaStatus?.value" color="primary" selected>{{this.mangaStatus?.value | titlecase}}</mat-chip>
+  <mat-chip *ngIf="formHasChanged" (click)="clearQueryValues()" color="accent">
+    <mat-chip-avatar>
+      <mat-icon>close</mat-icon>
+    </mat-chip-avatar>
+    Clear All
+  </mat-chip>
+</mat-chip-list>
