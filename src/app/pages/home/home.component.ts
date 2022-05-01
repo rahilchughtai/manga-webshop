@@ -3,7 +3,6 @@ import { Observable, share } from 'rxjs';
 
 import { JikanApiResponse } from 'src/app/shared/models/response.model';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
-import { MangaItem } from 'src/app/shared/models/manga-item.model';
 
 enum ShiftDirection {
   NOMOVE = 0,

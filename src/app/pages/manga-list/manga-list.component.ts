@@ -1,13 +1,11 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-  AllMangaStatusTypes,
   JikanApiRequestParam,
   JikanApiResponse,
   MangaQueryFormData,
   Pagination,
 } from 'src/app/shared/models/response.model';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { GenreItem, MangaGenresSorted } from '../../shared/utils/genres';
 import {
   Observable,
   filter,
@@ -41,7 +39,7 @@ export class MangaListComponent implements OnInit {
   hasNext = false;
   paginationData!: Pagination;
 
-  get mangaSerachTerm() {
+  get mangaSearchTerm() {
     return this.QueryForm.get('mangaSearchTerm');
   }
 
@@ -50,14 +48,21 @@ export class MangaListComponent implements OnInit {
       mangaGenre: [[]],
       mangaStatus: [null],
       mangaSearchTerm: [''],
+      mangaOrderBy: [],
+      mangaSortMethod: 'desc',
     });
+
+    this.subscribeToFormChanges();
+    this.fetchMangaApiData({});
+  }
+
+  subscribeToFormChanges() {
     this.QueryForm.valueChanges
       .pipe(debounceTime(1200), distinctUntilChanged())
       .subscribe((formData: MangaQueryFormData) => {
         const apiQueryData = this.mangaApi.formDataToSearchQuery(formData);
         this.fetchMangaApiData(apiQueryData);
       });
-    this.fetchMangaApiData({});
   }
 
   fetchMangaApiData(params: JikanApiRequestParam) {

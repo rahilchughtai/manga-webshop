@@ -56,20 +56,20 @@
         </button>
       </div>
 
-      <div class="buttonBar moreMangasButtons">
+      <div style="margin-top: 5rem;" class="buttonBar moreMangasButtons">
         <ng-container *ngFor="let linkButton of linkButtons">
           <button mat-raised-button [routerLink]="linkButton.routeLink"> {{linkButton.buttonText}} </button>
         </ng-container>
       </div>
+
     </section>
     <ng-template #loadSpinner>
       <mat-spinner style="margin: auto;"></mat-spinner>
     </ng-template>
-
   </div>
 
 
-  <div class="spacingBox">
+  <div style="margin-top: 5rem;" class="spacingBox">
     <h1 class="headerText">Unsere Vorteile</h1>
     <app-element-box>
       <app-element *ngFor="let elem of elementTitles" [icon]="elem.icon" [headingMain]="elem.headingMain"
@@ -78,7 +78,7 @@
   </div>
 
 
-  <app-element-box [fullWidth]="true">
+  <app-element-box style="margin-top: 5rem;" [fullWidth]="true">
     <app-element *ngFor="let imgPath of imgLogoPaths" [imgPath]="imgPath">
     </app-element>
   </app-element-box>

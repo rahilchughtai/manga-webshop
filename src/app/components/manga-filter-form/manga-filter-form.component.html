@@ -1,9 +1,5 @@
 <form [formGroup]="QueryFormGroup">
-  <!--   <pre>
-    {{ QueryFormGroup.value | json
-    }}
-    {{QueryFormGroup.dirty|json}}
-  </pre> -->
+
   <mat-form-field class="example-form-field" appearance="fill">
     <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
     <input formControlName="mangaSearchTerm" type="search" class="form-control" placeholder="One Piece..." matInput
@@ -32,8 +28,27 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Order By</mat-label>
+    <mat-select formControlName="mangaOrderBy">
+      <mat-option *ngFor="let orderAttribute of formOrderByAttributes " [value]="orderAttribute">
+        {{orderAttribute | titlecase | snakeCaseToSpace}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button (click)="btnSortMethodClick()" mat-raised-button>
+    Sort <mat-icon> {{sortMethod==='asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+  </button>
+
 </form>
 
+<!-- <pre>
+  {{QueryFor
+    mGroup.value | json }}
+</pre> -->
 <mat-chip-list aria-label="Query Chips">
   <mat-chip *ngIf="this.mangaSearchTerm?.value!==''" color="primary" selected> Search: {{this.mangaSearchTerm?.value}}
   </mat-chip>
@@ -41,11 +56,15 @@
     <form-genre-display [mangaGenre]="this.mangaGenre">
     </form-genre-display>
   </mat-chip>
-  <mat-chip *ngIf="this.mangaStatus?.value" color="primary" selected>{{this.mangaStatus?.value | titlecase}}</mat-chip>
+  <mat-chip *ngIf="this.mangaStatus?.value" color="primary" selected>Status: {{this.mangaStatus?.value | titlecase}}
+  </mat-chip>
+
+  <mat-chip *ngIf="this.mangaOrderBy?.value" color="primary" selected> Order by: {{this.mangaOrderBy?.value | titlecase
+    |
+    snakeCaseToSpace}}</mat-chip>
+
   <mat-chip *ngIf="formHasChanged" (click)="clearQueryValues()" color="accent">
-    <mat-chip-avatar>
-      <mat-icon>close</mat-icon>
-    </mat-chip-avatar>
-    Clear All
+    <mat-icon>close</mat-icon>
+    Reset filters
   </mat-chip>
 </mat-chip-list>
