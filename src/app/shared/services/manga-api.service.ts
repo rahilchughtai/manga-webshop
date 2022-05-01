@@ -57,15 +57,22 @@ export class MangaApiService {
   }
 
   formDataToSearchQuery(formData: MangaQueryFormData): JikanApiRequestParam {
-    const { mangaGenre, mangaStatus, mangaSearchTerm } = formData;
+    const {
+      mangaGenre,
+      mangaStatus,
+      mangaSearchTerm,
+      mangaOrderBy,
+      mangaSortMethod,
+    } = formData;
 
     const requestData: JikanApiRequestParam = {
       q: mangaSearchTerm,
       genres: this.mangaGenreToParam(mangaGenre),
       ...(mangaStatus !== null && { status: mangaStatus }),
+      ...(mangaOrderBy !== null && { order_by: mangaOrderBy }),
+      sort: mangaSortMethod,
     };
     return requestData;
-
   }
 
   getJikanMangaData(

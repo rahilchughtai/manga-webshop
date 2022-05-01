@@ -29,13 +29,3 @@ function yearToPrice(year: number): number {
       return 7;
   }
 }
-
-export const defaultQueryForm = {
-  mangaPublishingYear: [],
-  mangaGenre: [[]],
-  mangaStatus: [''],
-  mangaSearchTerm: [''],
-};
-
-
-

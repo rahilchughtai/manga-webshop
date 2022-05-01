@@ -1,3 +1,9 @@
+import {
+  MangaOrderByAttributeType,
+  MangaSortMethod,
+  MangaStatusType,
+} from './filter.model';
+
 import { GenreItem } from '../utils/genres';
 import { MangaItem } from './manga-item.model';
 
@@ -23,59 +29,23 @@ export interface JikanMangaByIdResponse {
   data: MangaItem;
 }
 
-export type OrderMethod = 'asc' | 'desc';
-
-export type OrderAttribute =
-  | 'mal_id'
-  | 'title'
-  | 'start_date'
-  | 'end_date'
-  | 'chapters'
-  | 'volumes'
-  | 'score'
-  | 'scored_by'
-  | 'rank'
-  | 'popularity'
-  | 'members'
-  | 'favorites';
-  
-
-export type StatusType =
-  | 'publishing'
-  | 'complete'
-  | 'hiatus'
-  | 'discontinued'
-  | 'upcoming';
-
-export const AllMangaStatusTypes = [
-  'publishing',
-  'complete',
-  'hiatus',
-  'discontinued',
-  'upcoming',
-] as const;
-
-
-
-
-
-export type MangaStatusType = typeof AllMangaStatusTypes[number];
-
 export interface JikanApiRequestParam {
   type?: string;
   sfw?: boolean;
   genres_exclude?: string;
   page?: number;
   limit?: number;
-  sort?: OrderMethod;
+  sort?: MangaSortMethod;
   q?: string;
   status?: MangaStatusType;
   genres?: string;
-  order_by?: OrderAttribute;
+  order_by?: MangaOrderByAttributeType;
 }
 
 export interface MangaQueryFormData {
   mangaStatus: MangaStatusType | null;
   mangaSearchTerm: string;
   mangaGenre: GenreItem[];
+  mangaOrderBy: MangaOrderByAttributeType | null;
+  mangaSortMethod: MangaSortMethod;
 }
