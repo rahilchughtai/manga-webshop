@@ -27,15 +27,10 @@ import { NgModule } from '@angular/core';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
+import { SnakeCaseToSpacePipe } from './shared/pipes/snake-case-to-space.pipe';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
-
-export const routes = [
-  { path: 'accounts', label: 'Accounts' },
-  { path: 'contacts', label: 'Contacts' },
-  { path: 'activities', label: 'Activities' },
-];
 
 @NgModule({
   declarations: [
@@ -57,6 +52,7 @@ export const routes = [
     ElementComponent,
     GenreDisplayComponent,
     MangaFilterFormComponent,
+    SnakeCaseToSpacePipe,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
