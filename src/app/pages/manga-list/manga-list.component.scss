@@ -17,9 +17,11 @@ div.mangaList {
   .search-bar {
     display: flex;
     justify-content: center;
+    mat-form-field{
+      margin: 1em;
+    }
   }
   .example-form-field {
-    width: 60vw;
   }
 
   mat-paginator {

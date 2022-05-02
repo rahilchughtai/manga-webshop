@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, share } from 'rxjs';
 
-import { JikanApiResponse } from 'src/app/shared/models/response.model';
+import { JikanApiResponse } from 'src/app/shared/models/manga-api.model';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
-import { MangaItem } from 'src/app/shared/models/manga-item.model';
 
 enum ShiftDirection {
   NOMOVE = 0,
@@ -91,9 +90,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const _ = undefined;
     this.JikanApiResponse$ = this.mangaApi
-      .getJikanMangaData(_, _, this.loadedElements)
+      .getJikanMangaData({ limit: this.loadedElements })
       .pipe(share());
   }
 

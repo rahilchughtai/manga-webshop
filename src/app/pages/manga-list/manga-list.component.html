@@ -1,18 +1,10 @@
 <div class="mangaList">
   <h1> Entdecke spannende Manga!</h1>
-
   <div class="search-bar">
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
-      <input [formControl]="mangaSearchField" type="search" class="form-control" placeholder="One Piece..." matInput
-        type="text">
-      <button *ngIf="mangaSearchField.value" matSuffix mat-icon-button (click)="mangaSearchField.setValue('')">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <list-manga-filter-form [QueryFormGroup]="QueryForm">
+    </list-manga-filter-form>
   </div>
-
-
+  
   <div class="content">
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">

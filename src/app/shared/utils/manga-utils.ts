@@ -3,6 +3,16 @@ export function getPriceByPublishingDate(startDate: Date): number {
   return yearToPrice(year);
 }
 
+function publishingYears() {
+  const years = [];
+  for (let year = 2023; year >= 1945; year--) {
+    years.push(year);
+  }
+  return years;
+}
+
+export const MangaPublishingYears = publishingYears();
+
 function yearToPrice(year: number): number {
   switch (true) {
     case year <= 1990:

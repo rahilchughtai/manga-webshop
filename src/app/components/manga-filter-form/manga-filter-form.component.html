@@ -1,0 +1,72 @@
+<form [formGroup]="QueryFormGroup">
+
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
+    <input formControlName="mangaSearchTerm" type="search" class="form-control" placeholder="One Piece..." matInput
+      type="text">
+    <button *ngIf="mangaSearchTerm?.value" matSuffix mat-icon-button (click)="mangaSearchTerm?.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Genres</mat-label>
+    <mat-select formControlName="mangaGenre" multiple>
+      <mat-select-trigger>
+        <form-genre-display [mangaGenre]="mangaGenre">
+        </form-genre-display>
+      </mat-select-trigger>
+      <mat-option *ngFor="let genre of formMangaGenres" [value]="genre">{{genre.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="mangaStatus">
+      <mat-option *ngFor="let status of formStatusTypes " [value]="status">
+        {{status | titlecase}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Order By</mat-label>
+    <mat-select formControlName="mangaOrderBy">
+      <mat-option *ngFor="let orderAttribute of formOrderByAttributes " [value]="orderAttribute">
+        {{orderAttribute | titlecase | snakeCaseToSpace}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button (click)="btnSortMethodClick()" mat-raised-button>
+    Sort <mat-icon> {{sortMethod==='asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+  </button>
+
+</form>
+
+<!-- <pre>
+  {{QueryFormGroup.value | json }}
+</pre> -->
+
+<mat-chip-list aria-label="Query Chips">
+  <form-filter-chip [filterFormControl]="mangaSearchTerm" [defaultValue]="''">
+    Search: {{mangaSearchTerm?.value}}
+  </form-filter-chip>
+  <form-filter-chip [displayCondition]="mangaGenre?.value.length!==0" [defaultValue]="[]"
+    [filterFormControl]="mangaGenre">
+    <form-genre-display [mangaGenre]="mangaGenre">
+    </form-genre-display>
+  </form-filter-chip>
+  <form-filter-chip [filterFormControl]="mangaStatus">
+    {{mangaStatus?.value | titlecase}}
+  </form-filter-chip>
+  <form-filter-chip [filterFormControl]="mangaOrderBy">
+    Order by: {{mangaOrderBy?.value | titlecase | snakeCaseToSpace}}
+  </form-filter-chip>
+
+  <mat-chip class="chip-clear" *ngIf="formHasChanged" (click)="clearQueryValues()" color="accent">
+    Clear all filter settings
+    <mat-icon>close</mat-icon>
+  </mat-chip>
+</mat-chip-list>

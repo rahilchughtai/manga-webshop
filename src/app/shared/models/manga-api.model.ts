@@ -1,3 +1,9 @@
+import {
+  MangaOrderByAttributeType,
+  MangaSortMethod,
+  MangaStatusType,
+} from './filter.model';
+
 import { MangaItem } from './manga-item.model';
 
 export interface Items {
@@ -21,3 +27,17 @@ export interface JikanApiResponse {
 export interface JikanMangaByIdResponse {
   data: MangaItem;
 }
+
+export interface JikanApiRequestParam {
+  type?: string;
+  sfw?: boolean;
+  genres_exclude?: string;
+  page?: number;
+  limit?: number;
+  sort?: MangaSortMethod;
+  q?: string;
+  status?: MangaStatusType;
+  genres?: string;
+  order_by?: MangaOrderByAttributeType;
+}
+

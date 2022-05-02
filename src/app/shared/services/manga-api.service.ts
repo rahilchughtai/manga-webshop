@@ -1,3 +1,4 @@
+import { GenreItem, MangaQueryFormData } from '../models/filter.model';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -5,9 +6,10 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import {
+  JikanApiRequestParam,
   JikanApiResponse,
   JikanMangaByIdResponse,
-} from '../models/response.model';
+} from '../models/manga-api.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
@@ -19,71 +21,67 @@ import { MangaItem } from '../models/manga-item.model';
 export class MangaApiService {
   constructor(private http: HttpClient) {}
 
-  private BASE_API_V3 = 'https://jikan1.p.rapidapi.com';
   private BASE_API_V4 = 'https://api.jikan.moe/v4';
 
-  private myHeaders = new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('X-RapidAPI-Host', 'jikan1.p.rapidapi.com')
-    .set(
-      'X-RapidAPI-Key',
-      '7ef1c787c1mshb98412eba5e164ep19d4f9jsna1f4519e52e1'
-    );
-
-  getMangaData() {
-    return this.http
-      .get<any>(`${this.BASE_API_V3}/genre/manga/1/1`, {
-        headers: this.myHeaders,
-      })
-      .pipe(map((data) => data.manga));
+  private get standardParams(): JikanApiRequestParam {
+    return {
+      type: 'manga',
+      sfw: true,
+      genres_exclude: '9,49,12',
+      page: 1,
+      limit: 24,
+      order_by: 'score',
+      sort: 'desc',
+    };
   }
 
-  private createParams(q?: string, indx = 1, limit = 24) {
-    let params = new HttpParams();
-    if (q) {
-      console.log('q is set', q);
-      params = params.append('q', q);
-    }
-    params = params
-
-      .append('sfw', true)
-      .append('genres_exclude', '9,49,12')  // Excluding explicit adult genres ;)
-      .append('order_by', 'score')
-      .append('type', 'manga')
-      .append('sort', 'desc')
-      .append('page', indx)
-      .append('limit', limit);
-
-    return params;
+  private overwriteParams(params: JikanApiRequestParam) {
+    return {
+      ...this.standardParams,
+      ...params,
+    };
   }
 
-  /**
-   * Current LIVE endpoint for querying data
-   * @param pageIndex
-   * @param limit
-   * @returns
-   */
+  private mangaStatusToParam() {}
+
+  private mangaGenreToParam(genres: GenreItem[]): string {
+    if (!genres.length) return '';
+    let genreParams = '';
+    genres.forEach((genre, idx) => {
+      genreParams += genre.mal_id;
+      if (idx !== genres.length - 1) genreParams += ',';
+    });
+
+    return genreParams;
+  }
+
+  formDataToSearchQuery(formData: MangaQueryFormData): JikanApiRequestParam {
+    const {
+      mangaGenre,
+      mangaStatus,
+      mangaSearchTerm,
+      mangaOrderBy,
+      mangaSortMethod,
+    } = formData;
+
+    const requestData: JikanApiRequestParam = {
+      q: mangaSearchTerm,
+      genres: this.mangaGenreToParam(mangaGenre),
+      ...(mangaStatus !== null && { status: mangaStatus }),
+      ...(mangaOrderBy !== null && { order_by: mangaOrderBy }),
+      sort: mangaSortMethod,
+    };
+    return requestData;
+  }
+
   getJikanMangaData(
-    q?: string,
-    pageIndex?: number,
-    limit?: number
+    requestParams: JikanApiRequestParam
   ): Observable<JikanApiResponse> {
-    const params = this.createParams(q, pageIndex, limit);
+    const jikanParams = this.overwriteParams(requestParams);
     return this.http
-      .get<any>(`${this.BASE_API_V4}/manga`, {
-        params,
-      })
+      .get<any>(`${this.BASE_API_V4}/manga`, { params: jikanParams })
       .pipe(catchError(this.errorHandler));
   }
-
-  /*Mock Service Functions
-  getMockMangaData(): Observable<MangaItem[]> {
-    console.log('Using mockMangaData!');
-    return this.http
-      .get<any>('/assets/response.json')
-      .pipe(map((data) => data.data));
-  }
-  */
 
   getJikanMangaById(mid: any): Observable<MangaItem> {
     const mal_id = parseInt(mid);
@@ -92,17 +90,6 @@ export class MangaApiService {
       .get<JikanMangaByIdResponse>(`${this.BASE_API_V4}/manga/${mal_id}`)
       .pipe(map((data) => data.data));
   }
-
-  /*
-  getMockMangaById(mid: any) {
-    const mal_id = parseInt(mid);
-    return this.http.get<any>('/assets/response.json').pipe(
-      catchError(this.errorHandler),
-      map((result) =>
-        result.data.find((manga: MangaItem) => manga.mal_id === mal_id)
-      )
-    );
-  }*/
 
   private errorHandler(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -119,4 +106,30 @@ export class MangaApiService {
       () => new Error('Something bad happened; please try again later.')
     );
   }
+
+  /*Mock Service Functions
+  getMockMangaData(): Observable<MangaItem[]> {
+    console.log('Using mockMangaData!');
+    return this.http
+      .get<any>('/assets/response.json')
+      .pipe(map((data) => data.data));
+  }
+
+  getMangaData() {
+    return this.http
+      .get<any>(`${this.BASE_API_V3}/genre/manga/1/1`, {
+        headers: this.myHeaders,
+      })
+      .pipe(map((data) => data.manga));
+  }
+
+  getMockMangaById(mid: any) {
+    const mal_id = parseInt(mid);
+    return this.http.get<any>('/assets/response.json').pipe(
+      catchError(this.errorHandler),
+      map((result) =>
+        result.data.find((manga: MangaItem) => manga.mal_id === mal_id)
+      )
+    );
+  }*/
 }

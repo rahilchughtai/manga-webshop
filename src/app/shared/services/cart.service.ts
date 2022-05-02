@@ -11,7 +11,6 @@ import { CartItem } from '../models/manga-item.model';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
 import { arrayUnion } from '@angular/fire/firestore';
-import { resourceUsage } from 'process';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +29,7 @@ export class CartService {
         map((data: any) => data.shoppingCart)
       )
       .subscribe((cartData: CartItem[]) => {
-        // Check if the same Manga Volume is already in the card...
+        // Check if the same Manga Volume is already in the cart...
         const itemIsInCart = this.isItemInCart(cartData, newCartItem);
         if (itemIsInCart === false) {
           // Add it as a new shopping cart entry

@@ -44,7 +44,9 @@ export class AuthService {
    * Helper functions here
    */
 
-  private getFireUserDocument(uid: string): AngularFirestoreDocument<MangaUser> {
+  private getFireUserDocument(
+    uid: string
+  ): AngularFirestoreDocument<MangaUser> {
     return this.afs.doc<MangaUser>(`users/${uid}`);
   }
 
@@ -143,6 +145,7 @@ export class AuthService {
         ...(fireUser && { ...fireUser }),
         ...userData,
       };
+      delete newUser.shoppingCart;
       this.setLocalStorageUserData(newUser);
     });
   }
