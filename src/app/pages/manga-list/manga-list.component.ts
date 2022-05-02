@@ -3,9 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   JikanApiRequestParam,
   JikanApiResponse,
-  MangaQueryFormData,
   Pagination,
-} from 'src/app/shared/models/response.model';
+} from 'src/app/shared/models/manga-api.model';
+import {
+  MangaQueryFormData,
+  defaultQueryFormValues,
+} from 'src/app/shared/models/filter.model';
 import {
   Observable,
   filter,
@@ -44,16 +47,27 @@ export class MangaListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.QueryForm = this.fb.group({
-      mangaGenre: [[]],
-      mangaStatus: [null],
-      mangaSearchTerm: [''],
-      mangaOrderBy: [],
-      mangaSortMethod: 'desc',
-    });
-
+    this.setFormData();
     this.subscribeToFormChanges();
     this.fetchMangaApiData({});
+  }
+
+  private setFormData() {
+    const {
+      mangaGenre,
+      mangaStatus,
+      mangaSearchTerm,
+      mangaOrderBy,
+      mangaSortMethod,
+    } = defaultQueryFormValues;
+
+    this.QueryForm = this.fb.group({
+      mangaGenre: [mangaGenre],
+      mangaStatus: [mangaStatus],
+      mangaSearchTerm: [mangaSearchTerm],
+      mangaOrderBy: [mangaOrderBy],
+      mangaSortMethod: [mangaSortMethod],
+    });
   }
 
   subscribeToFormChanges() {

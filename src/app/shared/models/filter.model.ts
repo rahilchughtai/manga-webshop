@@ -1,3 +1,5 @@
+
+
 export type MangaSortMethod = 'asc' | 'desc';
 
 export const AllOrderBySortByAttributes = [
@@ -23,5 +25,29 @@ export const AllMangaStatus = [
   'upcoming',
 ] as const;
 
+
+export interface GenreItem {
+  mal_id: number;
+  name: string;
+}
+
+
 export type MangaStatusType = typeof AllMangaStatus[number];
-export type MangaOrderByAttributeType = typeof AllOrderBySortByAttributes[number];
+export type MangaOrderByAttributeType =
+  typeof AllOrderBySortByAttributes[number];
+
+export interface MangaQueryFormData {
+  mangaStatus: MangaStatusType | null;
+  mangaSearchTerm: string;
+  mangaGenre: GenreItem[];
+  mangaOrderBy: MangaOrderByAttributeType | null;
+  mangaSortMethod: MangaSortMethod;
+}
+
+export const defaultQueryFormValues: MangaQueryFormData = {
+  mangaGenre: [],
+  mangaStatus: null,
+  mangaSearchTerm: '',
+  mangaOrderBy: null,
+  mangaSortMethod: 'desc',
+};

@@ -1,3 +1,4 @@
+import { GenreItem, MangaQueryFormData } from '../models/filter.model';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -8,11 +9,9 @@ import {
   JikanApiRequestParam,
   JikanApiResponse,
   JikanMangaByIdResponse,
-  MangaQueryFormData,
-} from '../models/response.model';
+} from '../models/manga-api.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 
-import { GenreItem } from '../utils/genres';
 import { Injectable } from '@angular/core';
 import { MangaItem } from '../models/manga-item.model';
 

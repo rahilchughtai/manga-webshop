@@ -1,3 +1,15 @@
-mat-form-field{
+mat-form-field {
   margin: 0 1em;
+}
+
+mat-chip {
+  mat-icon {
+    display: none;
+  }
+}
+
+mat-chip:hover {
+  mat-icon {
+    display: block;
+  }
 }

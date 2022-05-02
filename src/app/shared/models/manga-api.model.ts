@@ -4,7 +4,6 @@ import {
   MangaStatusType,
 } from './filter.model';
 
-import { GenreItem } from '../utils/genres';
 import { MangaItem } from './manga-item.model';
 
 export interface Items {
@@ -42,10 +41,3 @@ export interface JikanApiRequestParam {
   order_by?: MangaOrderByAttributeType;
 }
 
-export interface MangaQueryFormData {
-  mangaStatus: MangaStatusType | null;
-  mangaSearchTerm: string;
-  mangaGenre: GenreItem[];
-  mangaOrderBy: MangaOrderByAttributeType | null;
-  mangaSortMethod: MangaSortMethod;
-}

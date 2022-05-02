@@ -1,17 +1,18 @@
 import {
   AllMangaStatus,
   AllOrderBySortByAttributes,
+  GenreItem,
   MangaOrderByAttributeType,
   MangaSortMethod,
   MangaStatusType,
+  defaultQueryFormValues,
 } from 'src/app/shared/models/filter.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { GenreItem, MangaGenresSorted } from 'src/app/shared/utils/genres';
 import { Observable, map, startWith } from 'rxjs';
 
+import { MangaGenresSorted } from 'src/app/shared/utils/genres';
 import { MangaPublishingYears } from 'src/app/shared/utils/manga-utils';
-import { MangaQueryFormData } from 'src/app/shared/models/response.model';
 
 @Component({
   selector: 'list-manga-filter-form',
@@ -33,13 +34,6 @@ export class MangaFilterFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  defaultQueryFormValues: MangaQueryFormData = {
-    mangaGenre: [],
-    mangaStatus: null,
-    mangaSearchTerm: '',
-    mangaOrderBy: null,
-    mangaSortMethod: 'desc',
-  };
 
   btnSortMethodClick() {
     this.sortMethod = this.sortMethod === 'asc' ? 'desc' : 'asc';
@@ -63,14 +57,14 @@ export class MangaFilterFormComponent implements OnInit {
     return this.QueryFormGroup.get('mangaSortBy');
   }
   clearQueryValues() {
-    this.QueryFormGroup.setValue(this.defaultQueryFormValues);
+    this.QueryFormGroup.setValue(defaultQueryFormValues);
     this.sortMethod = 'desc';
   }
 
   get formHasChanged() {
     return (
       JSON.stringify(this.QueryFormGroup.value) !==
-      JSON.stringify(this.defaultQueryFormValues)
+      JSON.stringify(defaultQueryFormValues)
     );
   }
 }

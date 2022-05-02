@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { AbstractControl } from '@angular/forms';
-import { GenreItem } from 'src/app/shared/utils/genres';
 
 @Component({
   selector: 'form-genre-display',

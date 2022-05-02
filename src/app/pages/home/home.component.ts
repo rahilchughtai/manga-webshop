@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, share } from 'rxjs';
 
-import { JikanApiResponse } from 'src/app/shared/models/response.model';
+import { JikanApiResponse } from 'src/app/shared/models/manga-api.model';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 
 enum ShiftDirection {

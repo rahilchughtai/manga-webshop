@@ -1,7 +1,4 @@
-export interface GenreItem {
-  mal_id: number;
-  name: string;
-}
+import { GenreItem } from "../models/filter.model";
 
 const MangaGenres: GenreItem[] = [
   {
