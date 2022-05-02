@@ -31,6 +31,7 @@ import { SnakeCaseToSpacePipe } from './shared/pipes/snake-case-to-space.pipe';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
+import { FilterChipComponent } from './components/manga-filter-form/filter-chip.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { environment } from '../environments/environment';
     GenreDisplayComponent,
     MangaFilterFormComponent,
     SnakeCaseToSpacePipe,
+    FilterChipComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

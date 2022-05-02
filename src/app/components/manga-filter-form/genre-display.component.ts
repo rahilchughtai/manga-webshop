@@ -6,17 +6,17 @@ import { AbstractControl } from '@angular/forms';
   selector: 'form-genre-display',
   template: `
     {{
-      this.mangaGenre?.value?.length > 0 ? this.mangaGenre?.value[0].name : ''
+      mangaGenre?.value?.length > 0 ? mangaGenre?.value[0].name : ''
     }}
     <span
-      *ngIf="this.mangaGenre?.value?.length > 1"
+      *ngIf="mangaGenre?.value?.length > 1"
       class="example-additional-selection"
     >
-      (+{{ this.mangaGenre?.value?.length - 1 }}
-      {{ this.mangaGenre?.value?.length === 2 ? 'other' : 'others' }})
+      (+{{ mangaGenre?.value?.length - 1 }}
+      {{ mangaGenre?.value?.length === 2 ? 'other' : 'others' }})
     </span>
   `,
-  styles: [],
+
 })
 export class GenreDisplayComponent {
   constructor() {}

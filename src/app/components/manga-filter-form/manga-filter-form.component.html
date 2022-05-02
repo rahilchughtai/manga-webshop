@@ -4,7 +4,7 @@
     <mat-label>Suche nach deinem Lieblingsmaga</mat-label>
     <input formControlName="mangaSearchTerm" type="search" class="form-control" placeholder="One Piece..." matInput
       type="text">
-    <button *ngIf="mangaSearchTerm?.value" matSuffix mat-icon-button (click)="this.mangaSearchTerm?.setValue('')">
+    <button *ngIf="mangaSearchTerm?.value" matSuffix mat-icon-button (click)="mangaSearchTerm?.setValue('')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -13,7 +13,7 @@
     <mat-label>Genres</mat-label>
     <mat-select formControlName="mangaGenre" multiple>
       <mat-select-trigger>
-        <form-genre-display [mangaGenre]="this.mangaGenre">
+        <form-genre-display [mangaGenre]="mangaGenre">
         </form-genre-display>
       </mat-select-trigger>
       <mat-option *ngFor="let genre of formMangaGenres" [value]="genre">{{genre.name}}</mat-option>
@@ -45,36 +45,28 @@
 
 </form>
 
-<pre>
+<!-- <pre>
   {{QueryFormGroup.value | json }}
-</pre>
+</pre> -->
 
 <mat-chip-list aria-label="Query Chips">
-
-  <mat-chip (click)="this.mangaSearchTerm?.setValue('')" *ngIf="this.mangaSearchTerm?.value!==''" color="primary"
-    selected> Search: {{this.mangaSearchTerm?.value}}
-    <mat-icon>close</mat-icon>
-  </mat-chip>
-
-  <mat-chip (click)="this.mangaGenre?.setValue([])" *ngIf="this.mangaGenre?.value?.length" color="primary" selected>
-    <form-genre-display [mangaGenre]="this.mangaGenre">
+  <form-filter-chip [filterFormControl]="mangaSearchTerm" [defaultValue]="''">
+    Search: {{mangaSearchTerm?.value}}
+  </form-filter-chip>
+  <form-filter-chip [displayCondition]="mangaGenre?.value.length!==0" [defaultValue]="[]"
+    [filterFormControl]="mangaGenre">
+    <form-genre-display [mangaGenre]="mangaGenre">
     </form-genre-display>
+  </form-filter-chip>
+  <form-filter-chip [filterFormControl]="mangaStatus">
+    {{mangaStatus?.value | titlecase}}
+  </form-filter-chip>
+  <form-filter-chip [filterFormControl]="mangaOrderBy">
+    Order by: {{mangaOrderBy?.value | titlecase | snakeCaseToSpace}}
+  </form-filter-chip>
+
+  <mat-chip class="chip-clear" *ngIf="formHasChanged" (click)="clearQueryValues()" color="accent">
+    Clear all filter settings
     <mat-icon>close</mat-icon>
   </mat-chip>
-
-  <mat-chip (click)="this.mangaStatus?.setValue(null)" *ngIf="this.mangaStatus?.value" color="primary" selected>Status:
-    {{this.mangaStatus?.value | titlecase}}
-    <mat-icon>close</mat-icon>
-  </mat-chip>
-
-  <mat-chip (click)="this.mangaOrderBy?.setValue(null)" *ngIf="this.mangaOrderBy?.value" color="primary" selected> Order
-    by: {{this.mangaOrderBy?.value | titlecase | snakeCaseToSpace}}
-    <mat-icon>close</mat-icon>
-  </mat-chip>
-
-  <mat-chip *ngIf="formHasChanged" (click)="clearQueryValues()" color="accent">
-    Clear all Filters
-    <mat-icon>close</mat-icon>
-  </mat-chip>
-
 </mat-chip-list>
