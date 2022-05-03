@@ -15,10 +15,10 @@ export class SidenavListComponent implements OnInit {
 
   links = [
     { routerLink: 'home', icon: 'home', title: 'Home' },
-    { routerLink: 'profile', icon: 'account_circle', title: 'Profile' },
+    { routerLink: 'profile', icon: 'account_circle', title: 'Profil' },
     { routerLink: 'search', icon: 'auto_stories', title: 'Mangas' },
-    { routerLink: 'favorites', icon: 'star', title: 'Favorites' },
-    { routerLink: 'cart', icon: 'shopping_cart', title: 'Cart' },
+    { routerLink: 'favorites', icon: 'favorite', title: 'Favoriten' },
+    { routerLink: 'cart', icon: 'shopping_cart', title: 'Warenkorb' },
   ];
   onToggleClose() {
     this.closeSideNav.emit();

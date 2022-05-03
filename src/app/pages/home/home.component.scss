@@ -148,31 +148,34 @@ div.wrapper {
         }
       }
     }
-
-    div.buttonBar {
-      margin-bottom: 30px;
-      display: flex;
-      justify-content: center;
-
-      &.moreMangasButtons {
-        flex-wrap: wrap;
-      }
-
-      @media (min-width: $mobile_width) {
-        &.mobile {
-          display: none;
-        }
-      }
-
-      button {
-        height: 50px;
-        width: 200px;
-        margin: 10px 10px;
-      }
-    }
   }
   div.spacingBox {
     width: 100%;
     margin: 50px 0;
+  }
+}
+
+div.buttonBar {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+
+  &.moreMangasButtons {
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: $mobile_width) {
+    &.mobile {
+      display: none;
+    }
+  }
+
+  button {
+    padding: 1em;
+    height: 150px;
+    width: 250px;
+    margin: 1.5em;
+    font-size: 1.5em;
+    font-family: "Montserrat", sans-serif;
   }
 }

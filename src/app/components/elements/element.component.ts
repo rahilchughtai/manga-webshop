@@ -39,6 +39,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
         h2 {
           margin-bottom: 20px;
+          font-family: 'Montserrat', sans-serif;
         }
 
         h3 {

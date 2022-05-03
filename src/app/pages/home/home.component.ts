@@ -56,9 +56,9 @@ export class HomeComponent implements OnInit {
   );
 
   linkButtons = [
-    { routeLink: '/search', buttonText: 'Alle Mangas' },
-    { routeLink: '/favorites', buttonText: 'Favoriten' },
-    { routeLink: '/cart', buttonText: 'Warenkorb' },
+    { routeLink: '/search', buttonText: 'Suche', icon:'search' },
+    { routeLink: '/favorites', buttonText: 'Favoriten', icon:'favorite' },
+    { routeLink: '/cart', buttonText: 'Warenkorb', icon:'shopping_cart' },
   ];
 
   widthCalc(): number {

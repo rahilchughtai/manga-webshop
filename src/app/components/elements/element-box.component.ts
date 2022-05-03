@@ -4,7 +4,11 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   selector: 'app-element-box',
   template: `
-    <div [class]="fullWidth?'elementBox fullWidth':'elementBox'" fxLayout="row wrap" fxLayoutAlign="center">
+    <div
+      [class]="fullWidth ? 'elementBox fullWidth' : 'elementBox'"
+      fxLayout="row wrap"
+      fxLayoutAlign="center"
+    >
       <ng-content></ng-content>
     </div>
   `,
@@ -12,6 +16,8 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
     `
       @use '../../shared/styles/customvars' as *;
       .elementBox {
+
+
         border-radius: 5px;
         background-color: $main_color_dark;
         padding: 10px 20px;
@@ -36,5 +42,5 @@ export class ElementBoxComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-  @Input() fullWidth? : boolean;
+  @Input() fullWidth?: boolean;
 }

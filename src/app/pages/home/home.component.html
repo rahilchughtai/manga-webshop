@@ -56,20 +56,24 @@
         </button>
       </div>
 
-      <div style="margin-top: 5rem;" class="buttonBar moreMangasButtons">
-        <ng-container *ngFor="let linkButton of linkButtons">
-          <button mat-raised-button [routerLink]="linkButton.routeLink"> {{linkButton.buttonText}} </button>
-        </ng-container>
-      </div>
-
     </section>
     <ng-template #loadSpinner>
       <mat-spinner style="margin: auto;"></mat-spinner>
     </ng-template>
   </div>
 
+  <h1 style="margin-top: 2em;" class="headerText">Navigation</h1>
+  <app-element-box>
+    <div class="buttonBar moreMangasButtons btnNaviation">
+      <button *ngFor="let linkButton of linkButtons" mat-raised-button [routerLink]="linkButton.routeLink">
+        {{linkButton.buttonText}}
+        <mat-icon>{{linkButton.icon}} </mat-icon>
+      </button>
+    </div>
+  </app-element-box>
 
-  <div style="margin-top: 5rem;" class="spacingBox">
+
+  <div class="spacingBox">
     <h1 class="headerText">Unsere Vorteile</h1>
     <app-element-box>
       <app-element *ngFor="let elem of elementTitles" [icon]="elem.icon" [headingMain]="elem.headingMain"
