@@ -1,3 +1,5 @@
+import {} from '../models/manga-item.model';
+
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -7,7 +9,7 @@ import { Observable, map, of, take } from 'rxjs';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from './auth.service';
-import { CartItem } from '../models/manga-item.model';
+import { CartItem } from '../models/cart.model';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
 import { arrayUnion } from '@angular/fire/firestore';
@@ -22,7 +24,7 @@ export class CartService {
   ) {}
 
   addMangaToCart(newCartItem: CartItem) {
-    const cart = this.userRef
+    this.userRef
       ?.valueChanges()
       .pipe(
         take(1),
@@ -68,8 +70,6 @@ export class CartService {
   getCartCount(): Observable<number> | undefined {
     return this.getCart()?.pipe(map((data) => (data || []).length));
   }
-
-
 
   /**
    *

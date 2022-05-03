@@ -1,4 +1,5 @@
-import {CartItem, MangaItem} from './manga-item.model';
+import { CartItem } from './cart.model';
+import {MangaItem} from './manga-item.model';
 
 export interface MangaUser {
   uid: string;

@@ -3,7 +3,7 @@ import { Observable, map, take } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartButtonComponent } from 'src/app/components/navigation/toolbar/cart-button.component';
-import { CartItem } from 'src/app/shared/models/manga-item.model';
+import { CartItem } from 'src/app/shared/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
