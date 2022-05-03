@@ -10,3 +10,9 @@ export interface CartItem extends CartFormInformation {
   subtotal:number;
 }
 
+
+
+export enum CartIncDec {
+  INC = 1,
+  DEC = -1,
+}

@@ -4,17 +4,43 @@
   <button (click)="emptyMyCart()" mat-raised-button color="warn">
     Warenkorb leeren
   </button>
+
+
+
   <div>
     <ul *ngIf="authService.isLoggedIn">
-      <li style="margin-top: 2em;" *ngFor="let cartItem of cart">
-        Title: {{cartItem.mangaData.title}} <br>
-        Volume: {{cartItem.volume}} <br>
-        Quantity: {{cartItem.quantity}}<br>
-        Subtotal: {{cartItem.subtotal}}
+      <li style="margin-top: 2em;" *ngFor="let cartItem of cart; let ind=index">
+        <img height="150px" matBadge="4" matBadgeOverlap="false" [src]="cartItem.mangaData.images.jpg.image_url">
+        <p>
+          Title: {{cartItem.mangaData.title}}
+        </p>
+        <p>
+          Volume: #{{cartItem.volume}}
+        </p>
+        <p>
+          Anzahl {{cartItem.quantity}} stck.
+        </p>
+        <p>
+          Subtotal: {{cartItem.subtotal}} €
+        </p>
+        <button (click)="changeQuantity(ind,IncDec.INC)" mat-raised-button>
+          +
+        </button>
+        <button *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC)" mat-raised-button>
+          -
+        </button>
       </li>
     </ul>
+    <p style="font-size: 3em;">
+      Total: {{OrderTotal | async}}
+    </p>
   </div>
+
+  <button style="margin-top: 5em;" mat-raised-button>
+    To Checkout
+  </button>
 </div>
+
 
 <ng-template #noCartData>
   <div class="wrapper">

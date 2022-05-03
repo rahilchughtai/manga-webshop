@@ -5,11 +5,11 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
+import { CartIncDec, CartItem } from '../models/cart.model';
 import { Observable, map, of, take } from 'rxjs';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from './auth.service';
-import { CartItem } from '../models/cart.model';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
 import { arrayUnion } from '@angular/fire/firestore';
@@ -68,6 +68,24 @@ export class CartService {
 
   getCart(): Observable<CartItem[]> | undefined {
     return this.userRef?.valueChanges().pipe(map((data) => data.shoppingCart));
+  }
+
+  incrementItemQuantityInCart(index: number, incOrDec: CartIncDec) {
+    this.userRef
+      ?.valueChanges()
+      .pipe(
+        take(1),
+        map((data: any) => data.shoppingCart)
+      )
+      .subscribe((cartData: CartItem[]) => {
+        const item = cartData[index];
+        item.quantity = item.quantity += incOrDec;
+        item.subtotal = item.subtotal +=
+          incOrDec * getMangaPrice(item.mangaData);
+        return this.userRef?.update({
+          shoppingCart: cartData,
+        });
+      });
   }
 
   getCartCount(): Observable<number> | undefined {

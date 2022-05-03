@@ -10,3 +10,15 @@ h1 {
 .wrapper {
   @include s.page-wrap;
 }
+
+ul {
+  list-style-type: none;
+
+  li {
+    padding: 2em;
+    border: 1px pink solid;
+    p {
+      font-size: 2em;
+    }
+  }
+}
