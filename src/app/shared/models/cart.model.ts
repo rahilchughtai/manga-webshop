@@ -7,5 +7,6 @@ export interface CartFormInformation {
 
 export interface CartItem extends CartFormInformation {
   mangaData: MangaItem;
+  subtotal:number;
 }
 

@@ -13,6 +13,7 @@ import { CartItem } from '../models/cart.model';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
 import { arrayUnion } from '@angular/fire/firestore';
+import { getMangaPrice } from '../utils/manga-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,6 @@ export class CartService {
     private authService: AuthService,
     private afs: AngularFirestore
   ) {}
-
   addMangaToCart(newCartItem: CartItem) {
     this.userRef
       ?.valueChanges()
@@ -34,7 +34,6 @@ export class CartService {
         // Check if the same Manga Volume is already in the cart...
         const itemIsInCart = this.isItemInCart(cartData, newCartItem);
         if (itemIsInCart === false) {
-          // Add it as a new shopping cart entry
           return this.userRef?.update({
             shoppingCart: arrayUnion(newCartItem),
           });
@@ -51,7 +50,11 @@ export class CartService {
     index: number
   ) {
     const item = currentCart[index];
-    const newItem = { ...item, quantity: item.quantity + newCartItem.quantity };
+    const newItem = {
+      ...item,
+      quantity: item.quantity + newCartItem.quantity,
+      subtotal: item.subtotal + newCartItem.subtotal,
+    };
     currentCart[index] = newItem;
     this.userRef?.update({ shoppingCart: currentCart });
   }
