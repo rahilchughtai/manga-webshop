@@ -1,5 +1,5 @@
-<mat-card class="mat-elevation-z9">
-  <div [matBadge]="mangaData.score" class="coreInformation" (click)="mangaClicked()">
+<mat-card [matBadge]="mangaData.score" class="mat-elevation-z9">
+  <div  class="coreInformation" (click)="mangaClicked()">
     <mat-card-header>
       <mat-card-title [ngClass]="headingEllipsis ? 'text-ellipsis':''" matTooltipPosition="above"
         matTooltip="{{mangaData.title}}"
