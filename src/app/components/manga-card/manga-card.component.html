@@ -1,5 +1,5 @@
 <mat-card class="mat-elevation-z9">
-  <div  [matBadge]="mangaData.score" class="coreInformation" (click)="mangaClicked()">
+  <div [matBadge]="mangaData.score" class="coreInformation" (click)="mangaClicked()">
     <mat-card-header>
       <mat-card-title [ngClass]="headingEllipsis ? 'text-ellipsis':''" matTooltipPosition="above"
         matTooltip="{{mangaData.title}}"
@@ -18,7 +18,13 @@
       <p class="synopsis">
         {{mangaData.synopsis || "Für diesen Titel ist keine Zusammenfassung verfügbar"}}
       </p>
-      
+
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip *ngFor="let genre of mangaData.genres">
+          {{genre.name| titlecase}}
+        </mat-chip>
+      </mat-chip-list>
+
     </mat-card-content>
   </div>
   <mat-card-actions>
