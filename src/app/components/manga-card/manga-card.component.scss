@@ -1,7 +1,6 @@
 @use "../../variables.scss" as *;
 
 mat-card {
-
   &:hover {
     background-color: $primary_marking_color_dark;
   }
@@ -16,7 +15,6 @@ mat-card {
   cursor: pointer;
 
   div.coreInformation {
-
     margin: auto;
 
     width: fit-content;
@@ -26,18 +24,17 @@ mat-card {
       object-fit: contain;
     }
 
-    mat-card-header{
+    mat-card-header {
       display: block;
 
       ::ng-deep .mat-card-header-text {
         margin: 0 auto;
       }
 
-      mat-card-title {
-        font-size: 1.5em;
-        margin: 0 auto 15px auto;
+      @mixin text-overflow {
+        margin: 0 auto 10px auto;
 
-        width: 200px;
+        max-width: 200px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -45,6 +42,13 @@ mat-card {
         &.extendedMargin {
           margin: 0 auto 43px auto;
         }
+      }
+      mat-card-subtitle {
+        @include text-overflow;
+      }
+      mat-card-title {
+        font-size: 1.5em;
+        @include text-overflow;
       }
     }
 
@@ -60,7 +64,6 @@ mat-card {
       padding: 5px;
 
       p.synopsis {
-
         font-size: 1.2em;
         line-height: 1.2em;
 
@@ -85,19 +88,15 @@ mat-card {
 
         &::-webkit-scrollbar-thumb {
           background-color: $primary_marking_color;
-
         }
       }
-
     }
   }
 
-
-  mat-card-actions:last-child  {
-
+  mat-card-actions:last-child {
     bottom: 0;
 
-    display:flex;
+    display: flex;
     justify-content: center;
 
     padding-bottom: 10px;
@@ -108,8 +107,21 @@ mat-card {
       transition: filter 0.1s;
 
       &:hover {
-        filter: brightness(70%)
+        filter: brightness(70%);
       }
     }
   }
+}
+
+.mat-badge-content {
+  font-size: 1em;
+  width: auto;
+  display: grid;
+  min-width: 32px;
+  min-height: 28px;
+  text-align: center;
+  align-items: center;
+  padding: 8px 6px;
+  top: -20px;
+  right: -22px;
 }
