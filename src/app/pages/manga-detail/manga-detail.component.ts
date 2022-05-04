@@ -42,7 +42,7 @@ export class MangaDetailComponent implements OnInit {
   mangaId: string | null = '';
   mangaData!: MangaItem;
   volumeArr: number[] = [];
-  quantityMax = makeNumbersArray(10);
+  quantityMax = makeNumbersArray(100);
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn) {

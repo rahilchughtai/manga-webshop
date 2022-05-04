@@ -30,7 +30,8 @@
             <mat-option *ngFor="let quantity of makeArray(100)" [value]="quantity">{{quantity}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)" mat-raised-button>
+        <button [disabled]="cartItem.quantity>=100" (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)"
+          mat-raised-button>
           <mat-icon>add</mat-icon>
         </button>
         <p>
