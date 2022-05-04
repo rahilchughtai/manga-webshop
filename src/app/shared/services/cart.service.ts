@@ -6,7 +6,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { CartIncDec, CartItem } from '../models/cart.model';
-import { Observable, map, of, take } from 'rxjs';
+import { Observable, catchError, map, of, take } from 'rxjs';
 import { calculateMangaSubtotal, getMangaPrice } from '../utils/manga-utils';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 import { FieldValue } from 'firebase/firestore';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
+import { SnackbarService } from './snackbar.service';
 import { arrayUnion } from '@angular/fire/firestore';
 
 @Injectable({
@@ -22,11 +23,12 @@ import { arrayUnion } from '@angular/fire/firestore';
 export class CartService {
   constructor(
     private authService: AuthService,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private snackBar: SnackbarService
   ) {}
 
   addMangaToCart(newCartItem: CartItem) {
-    this.getCart()
+    return this.getCart()
       ?.pipe(take(1))
       .subscribe((cartData: CartItem[]) => {
         const itemIsInCart = this.isItemInCart(cartData, newCartItem);
@@ -34,7 +36,16 @@ export class CartService {
           return this.updateShoppingCart(arrayUnion(newCartItem));
         }
         const itemIndex = +itemIsInCart;
-        return this.addToExistingCart(cartData, newCartItem, itemIndex);
+        try {
+          return this.addToExistingCart(cartData, newCartItem, itemIndex);
+        } catch (error) {
+          return this.snackBar.openSnackBar(
+            'Du kannst nicht mehr als 100 Stück eines Produktes bestellen',
+            'snackbar-warn',
+            'Verstanden',
+            3000
+          );
+        }
       });
   }
 
@@ -49,6 +60,9 @@ export class CartService {
       quantity: item.quantity + newCartItem.quantity,
       subtotal: item.subtotal + newCartItem.subtotal,
     };
+    if (newItem.quantity > 100) {
+      throw new Error('Quantity Exceeded');
+    }
     currentCart[index] = newItem;
     return this.updateShoppingCart(currentCart);
   }
@@ -68,18 +82,17 @@ export class CartService {
     this.updateShoppingCart(null);
   }
 
+  checkLimitExceed() {}
+
   removeItemFromCart(index: number) {
     this.getCart()
       ?.pipe(take(1))
       .subscribe((cartData: CartItem[]) => {
         cartData.splice(index, 1);
-        const newCartData= cartData.length ? cartData : null
+        const newCartData = cartData.length ? cartData : null;
         return this.updateShoppingCart(newCartData);
       });
   }
-
-
-
 
   setItemQuantityInCart(index: number, newQuantity: number) {
     this.getCart()
