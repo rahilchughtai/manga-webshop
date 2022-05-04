@@ -73,9 +73,13 @@ export class CartService {
       ?.pipe(take(1))
       .subscribe((cartData: CartItem[]) => {
         cartData.splice(index, 1);
-        return this.updateShoppingCart(cartData);
+        const newCartData= cartData.length ? cartData : null
+        return this.updateShoppingCart(newCartData);
       });
   }
+
+
+
 
   setItemQuantityInCart(index: number, newQuantity: number) {
     this.getCart()
