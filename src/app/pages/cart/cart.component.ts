@@ -1,10 +1,12 @@
 import { CartIncDec, CartItem } from 'src/app/shared/models/cart.model';
 import { Component, OnInit } from '@angular/core';
-import { Observable, map, of, reduce, take } from 'rxjs';
+import { Observable, map, of, reduce, take, tap } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartButtonComponent } from 'src/app/components/navigation/toolbar/cart-button.component';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { MatSelectChange } from '@angular/material/select';
+import { makeNumbersArray } from 'src/app/shared/utils/manga-utils';
 
 const ELEMENT_DATA = [
   { image: 1, name: 'Hydrogen', quantity: 1.0079, total: 'H' },
@@ -30,16 +32,17 @@ export class CartComponent implements OnInit {
     public authService: AuthService
   ) {}
 
+  makeArray = makeNumbersArray;
+  initialQuantities: number[] = [];
   displayedColumns: string[] = ['', 'name', 'quantity', 'total'];
   dataSource = ELEMENT_DATA;
-
-  IncDec=CartIncDec;
+  initialQuantity = 5;
+  IncDec = CartIncDec;
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;
   OrderTotal: Observable<number> | undefined = undefined;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
-      const accumulator = (acc: number, curr: number) => acc + curr;
       this.shoppingCartData = this.cartService.getCart();
       this.OrderTotal = this.shoppingCartData?.pipe(
         map((item: CartItem[]) => item.map((item) => item.subtotal)),
@@ -50,11 +53,16 @@ export class CartComponent implements OnInit {
     }
   }
 
-  changeQuantity(index: number,inc:CartIncDec) {
-    this.cartService.incrementItemQuantityInCart(index,inc);
+  changeQuantity(index: number, inc: CartIncDec, quantity: number) {
+    if (inc == this.IncDec.DEC && quantity === 1) {
+      return this.cartService.removeItemFromCart(index);
+    }
+    this.cartService.setItemQuantityInCart(index, quantity + inc);
   }
 
-
+  cartQuantityChange(event: MatSelectChange, index: number) {
+    this.cartService.setItemQuantityInCart(index, event.value);
+  }
 
   emptyMyCart() {
     this.cartService.emptyCart();

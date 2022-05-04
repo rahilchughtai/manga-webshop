@@ -12,27 +12,35 @@
       <li style="margin-top: 2em;" *ngFor="let cartItem of cart; let ind=index">
         <img height="150px" matBadge="4" matBadgeOverlap="false" [src]="cartItem.mangaData.images.jpg.image_url">
         <p>
-          Title: {{cartItem.mangaData.title}}
+          Titel: {{cartItem.mangaData.title}}
         </p>
         <p>
-          Volume: #{{cartItem.volume}}
+          Volumen: #{{cartItem.volume}}
         </p>
         <p>
-          Anzahl {{cartItem.quantity}} stck.
+          Stückpreis: {{cartItem.mangaData.published.from | mangaDateToPrice}}€
         </p>
-        <p>
-          Subtotal: {{cartItem.subtotal}} €
-        </p>
-        <button (click)="changeQuantity(ind,IncDec.INC)" mat-raised-button>
-          +
+        <button *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC, cartItem.quantity)"
+          mat-raised-button>
+          <mat-icon>{{cartItem.quantity===1? 'delete':'remove'}}</mat-icon>
         </button>
-        <button *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC)" mat-raised-button>
-          -
+        <mat-form-field style="width: 100px; margin-top: 2em;" appearance="fill">
+          <mat-label>Anzahl</mat-label>
+          <mat-select (selectionChange)="cartQuantityChange($event, ind)" [(value)]=" cartItem.quantity">
+            <mat-option *ngFor="let quantity of makeArray(100)" [value]="quantity">{{quantity}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)" mat-raised-button>
+          <mat-icon>add</mat-icon>
         </button>
+        <p>
+          Zwischensumme {{cartItem.subtotal}} €
+        </p>
       </li>
     </ul>
-    <p style="font-size: 3em;">
-      Total: {{OrderTotal | async}}
+    <hr>
+    <p style="font-size: 3em; margin: 1em;">
+      Total: {{OrderTotal | async}} €
     </p>
   </div>
 
