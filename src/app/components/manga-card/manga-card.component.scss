@@ -1,6 +1,14 @@
 @use "../../variables.scss" as *;
 
 mat-card {
+  ::ng-deep .mat-badge-content {
+    padding: 0.2em;
+    $badge-size: 30px;
+    width: $badge-size;
+    height: $badge-size;
+    line-height: $badge-size;
+  }
+
   &:hover {
     background-color: $primary_marking_color_dark;
   }
@@ -63,6 +71,15 @@ mat-card {
       background-color: $main_color_mediumdark;
       padding: 5px;
 
+      ::ng-deep .mat-chip-list-wrapper {
+        margin: 0.8em 0;
+        justify-content: center;
+        max-width: 300px;
+        mat-chip {
+          font-size: 0.8em;
+        }
+      }
+
       p.synopsis {
         font-size: 1.2em;
         line-height: 1.2em;
@@ -111,17 +128,4 @@ mat-card {
       }
     }
   }
-}
-
-.mat-badge-content {
-  font-size: 1em;
-  width: auto;
-  display: grid;
-  min-width: 32px;
-  min-height: 28px;
-  text-align: center;
-  align-items: center;
-  padding: 8px 6px;
-  top: -20px;
-  right: -22px;
 }

@@ -33,7 +33,7 @@
 
         <div class="mangaListBox" [style.width.px]="width">
           <div [style.left.px]=leftStyleValue class="mangaList wrapper ">
-            <list-manga-list-display InputFxLayoutAlign="left" InputfxLayout='row' [synopsis]="false"
+            <list-manga-list-display [badge]="false" InputFxLayoutAlign="left" InputfxLayout='row' [synopsis]="false"
               [MangaArray]="response.data">
             </list-manga-list-display>
           </div>

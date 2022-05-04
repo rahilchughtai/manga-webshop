@@ -24,6 +24,7 @@ export class MangaCardComponent implements OnInit {
 
   @Input() mangaData!: MangaItem;
   @Input() hasSynopsis = true;
+  @Input() showBadge=true;
   @Input() hasInfoButton = true;
   @Input() maxCardHeight = 300;
   @Input() maxCardWidth = 400;
@@ -33,6 +34,7 @@ export class MangaCardComponent implements OnInit {
   isFavorite = false;
 
   ngOnInit(): void {
+    
     this.price = getPriceByPublishingDate(this.mangaData.published.from);
     this.isFavorite = this.mangaFavService.checkIsMangaFav(this.mangaData);
   }

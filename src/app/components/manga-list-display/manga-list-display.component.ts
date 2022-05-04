@@ -8,7 +8,7 @@ import { MangaItem } from 'src/app/shared/models/manga-item.model';
   template: `
     <div [fxLayout]="InputfxLayout" [fxLayoutAlign]="InputFxLayoutAlign">
       <div *ngFor="let manga of MangaArray; let i = index; trackBy: trackByFn">
-        <app-manga-card [hasSynopsis]="synopsis" [mangaData]="manga">
+        <app-manga-card [showBadge]="badge" [hasSynopsis]="synopsis" [mangaData]="manga">
         </app-manga-card>
       </div>
     </div>
@@ -21,6 +21,7 @@ export class MangaListDisplayComponent implements OnInit {
   @Input() InputfxLayout = 'row wrap';
   @Input() MangaArray: MangaItem[] = [];
   @Input() synopsis: boolean = false;
+  @Input() badge=false;
 
   ngOnInit(): void {}
 

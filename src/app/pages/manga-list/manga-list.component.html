@@ -4,7 +4,7 @@
     <list-manga-filter-form [QueryFormGroup]="QueryForm">
     </list-manga-filter-form>
   </div>
-  
+
   <div class="content">
     <section *ngIf="JikanApiResponse$ | async as response; else loadSpinner">
       <div *ngIf="!response.data.length">
@@ -13,7 +13,7 @@
         </h1>
       </div>
 
-      <list-manga-list-display InputFxLayoutAlign="center" InputfxLayout="row wrap" [synopsis]="true"
+      <list-manga-list-display [badge]="true" InputFxLayoutAlign="center" InputfxLayout="row wrap" [synopsis]="true"
         [MangaArray]="response.data">
       </list-manga-list-display>
 
