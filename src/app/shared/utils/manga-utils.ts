@@ -43,8 +43,6 @@ export function getMangaPrice(manga: MangaItem): number {
 }
 
 export function calculateMangaSubtotal(quantity: number, manga: MangaItem) {
-  console.log(quantity, getMangaPrice(manga));
-  console.warn(quantity * getMangaPrice(manga));
   return quantity * getMangaPrice(manga);
 }
 
