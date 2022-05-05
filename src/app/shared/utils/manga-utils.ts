@@ -1,3 +1,5 @@
+import { MangaItem } from '../models/manga-item.model';
+
 export function getPriceByPublishingDate(startDate: Date): number {
   const year = new Date(startDate).getFullYear();
   return yearToPrice(year);
@@ -20,7 +22,8 @@ function yearToPrice(year: number): number {
     case year <= 2000:
       return 6.5;
     case year <= 2005:
-      return 6.99;
+      return 7;
+
     case year < 2010:
       return 8;
     case year <= 2022:
@@ -28,4 +31,26 @@ function yearToPrice(year: number): number {
     default:
       return 7;
   }
+}
+
+/**
+ *
+ * @param manga
+ * @returns The price of a given Manga
+ */
+export function getMangaPrice(manga: MangaItem): number {
+  return getPriceByPublishingDate(manga.published.from);
+}
+
+export function calculateMangaSubtotal(quantity: number, manga: MangaItem) {
+  console.log(quantity, getMangaPrice(manga));
+  console.warn(quantity * getMangaPrice(manga));
+  return quantity * getMangaPrice(manga);
+}
+
+export function makeNumbersArray(n: number | undefined): number[] {
+  if (n === undefined) {
+    n = 1;
+  }
+  return [...Array(n).keys()].map((i) => i + 1).reverse();
 }

@@ -5,13 +5,16 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { Observable, map, of, take } from 'rxjs';
+import { CartIncDec, CartItem } from '../models/cart.model';
+import { Observable, catchError, map, of, take } from 'rxjs';
+import { calculateMangaSubtotal, getMangaPrice } from '../utils/manga-utils';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from './auth.service';
-import { CartItem } from '../models/cart.model';
+import { FieldValue } from 'firebase/firestore';
 import { Injectable } from '@angular/core';
 import { MangaUser } from '../models/user.model';
+import { SnackbarService } from './snackbar.service';
 import { arrayUnion } from '@angular/fire/firestore';
 
 @Injectable({
@@ -20,28 +23,29 @@ import { arrayUnion } from '@angular/fire/firestore';
 export class CartService {
   constructor(
     private authService: AuthService,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private snackBar: SnackbarService
   ) {}
 
   addMangaToCart(newCartItem: CartItem) {
-    this.userRef
-      ?.valueChanges()
-      .pipe(
-        take(1),
-        map((data: any) => data.shoppingCart)
-      )
+    return this.getCart()
+      ?.pipe(take(1))
       .subscribe((cartData: CartItem[]) => {
-        // Check if the same Manga Volume is already in the cart...
         const itemIsInCart = this.isItemInCart(cartData, newCartItem);
         if (itemIsInCart === false) {
-          // Add it as a new shopping cart entry
-          return this.userRef?.update({
-            shoppingCart: arrayUnion(newCartItem),
-          });
+          return this.updateShoppingCart(arrayUnion(newCartItem));
         }
-        // Otherwise, add it by increasing quantity
         const itemIndex = +itemIsInCart;
-        return this.addToExistingCart(cartData, newCartItem, itemIndex);
+        try {
+          return this.addToExistingCart(cartData, newCartItem, itemIndex);
+        } catch (error) {
+          return this.snackBar.openSnackBar(
+            'Du kannst nicht mehr als 100 Stück eines Produktes bestellen',
+            'snackbar-warn',
+            'Verstanden',
+            3000
+          );
+        }
       });
   }
 
@@ -51,9 +55,16 @@ export class CartService {
     index: number
   ) {
     const item = currentCart[index];
-    const newItem = { ...item, quantity: item.quantity + newCartItem.quantity };
+    const newItem = {
+      ...item,
+      quantity: item.quantity + newCartItem.quantity,
+      subtotal: item.subtotal + newCartItem.subtotal,
+    };
+    if (newItem.quantity > 100) {
+      throw new Error('Quantity Exceeded');
+    }
     currentCart[index] = newItem;
-    this.userRef?.update({ shoppingCart: currentCart });
+    return this.updateShoppingCart(currentCart);
   }
 
   get userRef(): AngularFirestoreDocument<any> | undefined {
@@ -64,11 +75,44 @@ export class CartService {
   }
 
   getCart(): Observable<CartItem[]> | undefined {
-    return this.userRef?.valueChanges().pipe(map((data) => data.shoppingCart));
+    return this.userRef?.valueChanges().pipe(this.mapToCart());
+  }
+
+  emptyCart() {
+    this.updateShoppingCart(null);
+  }
+
+  checkLimitExceed() {}
+
+  removeItemFromCart(index: number) {
+    this.getCart()
+      ?.pipe(take(1))
+      .subscribe((cartData: CartItem[]) => {
+        cartData.splice(index, 1);
+        const newCartData = cartData.length ? cartData : null;
+        return this.updateShoppingCart(newCartData);
+      });
+  }
+
+  setItemQuantityInCart(index: number, newQuantity: number) {
+    this.getCart()
+      ?.pipe(take(1))
+      .subscribe((cartData: CartItem[]) => {
+        const item = cartData[index];
+        item.quantity = newQuantity;
+        item.subtotal = calculateMangaSubtotal(item.quantity, item.mangaData);
+        return this.updateShoppingCart(cartData);
+      });
   }
 
   getCartCount(): Observable<number> | undefined {
     return this.getCart()?.pipe(map((data) => (data || []).length));
+  }
+
+  private mapToCart = () => map((data: any) => data.shoppingCart);
+
+  private updateShoppingCart(newCart: CartItem[] | FieldValue | null) {
+    return this.userRef?.update({ shoppingCart: newCart });
   }
 
   /**
@@ -81,7 +125,6 @@ export class CartService {
     currentCart: CartItem[],
     newCartItem: CartItem
   ): boolean | number {
-    console.log(currentCart, newCartItem);
     if (!currentCart) {
       return false;
     }
@@ -105,8 +148,4 @@ export class CartService {
   }
 
   removeMangaFromCart() {}
-
-  emptyCart() {
-    this.userRef?.update({ shoppingCart: null });
-  }
 }

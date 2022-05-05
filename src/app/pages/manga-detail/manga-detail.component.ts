@@ -1,6 +1,13 @@
-import { CartFormInformation, CartItem } from 'src/app/shared/models/cart.model';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  CartFormInformation,
+  CartItem,
+} from 'src/app/shared/models/cart.model';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  calculateMangaSubtotal,
+  makeNumbersArray,
+} from 'src/app/shared/utils/manga-utils';
 
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -8,7 +15,6 @@ import { CartService } from 'src/app/shared/services/cart.service';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
-import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
 import { take } from 'rxjs';
 
 @Component({
@@ -31,19 +37,12 @@ export class MangaDetailComponent implements OnInit {
     quantity: ['', Validators.required],
   });
 
-  private makeArray = (n: number | undefined) => {
-    if (n === undefined) {
-      n = 1;
-    }
-    return [...Array(n).keys()].map((i) => i + 1).reverse();
-  };
-
   cartData!: CartItem[];
   loading = true;
   mangaId: string | null = '';
   mangaData!: MangaItem;
   volumeArr: number[] = [];
-  quantityMax = this.makeArray(10);
+  quantityMax = makeNumbersArray(100);
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn) {
@@ -54,7 +53,7 @@ export class MangaDetailComponent implements OnInit {
       .pipe(take(1))
       .subscribe((mangaItem) => {
         this.mangaData = mangaItem;
-        this.volumeArr = this.makeArray(mangaItem.volumes);
+        this.volumeArr = makeNumbersArray(mangaItem.volumes);
         this.loading = false;
       });
   }
@@ -76,6 +75,7 @@ export class MangaDetailComponent implements OnInit {
       mangaData: this.mangaData,
       quantity,
       volume,
+      subtotal: calculateMangaSubtotal(quantity, this.mangaData),
     };
 
     this.cartService.addMangaToCart(newCartData);
