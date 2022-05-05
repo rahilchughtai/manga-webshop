@@ -7,5 +7,12 @@ export interface CartFormInformation {
 
 export interface CartItem extends CartFormInformation {
   mangaData: MangaItem;
+  subtotal:number;
 }
 
+
+
+export enum CartIncDec {
+  INC = 1,
+  DEC = -1,
+}

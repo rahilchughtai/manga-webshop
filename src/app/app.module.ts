@@ -32,6 +32,7 @@ import { ToolbarComponent } from './components/navigation/toolbar/toolbar.compon
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
 import { FilterChipComponent } from './components/manga-filter-form/filter-chip.component';
+import { MangaDateToPricePipe } from './shared/pipes/manga-date-to-price.pipe';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { FilterChipComponent } from './components/manga-filter-form/filter-chip.
     MangaFilterFormComponent,
     SnakeCaseToSpacePipe,
     FilterChipComponent,
+    MangaDateToPricePipe,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
