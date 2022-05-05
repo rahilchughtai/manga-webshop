@@ -1,3 +1,5 @@
+import { GenreItem } from './filter.model';
+
 export interface MangaItem {
   mal_id: number;
   url: string;
@@ -16,9 +18,8 @@ export interface MangaItem {
   serialization: any[];
   popularity: number;
   favorites: number;
+  genres: GenreItem[];
 }
-
-
 
 export interface Published {
   from: Date;
