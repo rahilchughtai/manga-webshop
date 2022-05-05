@@ -38,7 +38,7 @@ export class CartComponent implements OnInit {
 
   changeQuantity(index: number, inc: CartIncDec, quantity: number) {
     if (inc == this.IncDec.DEC && quantity === 1) {
-      return this.cartService.removeItemFromCart(index);
+      return this.removeMangaFromCart(index);
     }
     this.cartService.setItemQuantityInCart(index, quantity + inc);
   }
@@ -47,6 +47,9 @@ export class CartComponent implements OnInit {
     this.cartService.setItemQuantityInCart(index, event.value);
   }
 
+  removeMangaFromCart(index: number) {
+    return this.cartService.removeItemFromCart(index);
+  }
   emptyMyCart() {
     this.cartService.emptyCart();
   }

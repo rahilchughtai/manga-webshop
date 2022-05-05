@@ -20,7 +20,7 @@
         <p>
           Stückpreis: {{cartItem.mangaData.published.from | mangaDateToPrice}}€
         </p>
-        <button *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC, cartItem.quantity)"
+        <button color="accent" *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC, cartItem.quantity)"
           mat-raised-button>
           <mat-icon>{{cartItem.quantity===1? 'delete':'remove'}}</mat-icon>
         </button>
@@ -30,10 +30,15 @@
             <mat-option *ngFor="let quantity of makeArray(100)" [value]="quantity">{{quantity}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button [disabled]="cartItem.quantity>=100" (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)"
-          mat-raised-button>
+        <button color="accent" [disabled]="cartItem.quantity>=100"
+          (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)" mat-raised-button>
           <mat-icon>add</mat-icon>
         </button>
+        <br>
+        <button (click)="removeMangaFromCart(ind)" color="warn" style="text-align: center;" mat-raised-button>
+          <mat-icon>close</mat-icon>
+        </button>
+
         <p>
           Zwischensumme {{cartItem.subtotal}} €
         </p>
