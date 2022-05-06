@@ -17,6 +17,9 @@ div.mangaList {
   .search-bar {
     display: flex;
     justify-content: center;
+
+    margin-bottom: 10px;
+
     mat-form-field{
       margin: 1em;
     }
@@ -28,6 +31,6 @@ div.mangaList {
     margin-top: 2em;
   }
   mat-spinner {
-    margin: auto;
+    margin: 50px auto 0 auto;
   }
 }

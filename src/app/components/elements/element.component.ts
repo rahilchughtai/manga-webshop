@@ -22,7 +22,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
         box-shadow: 0px 5px 6px -3px rgb(0 0 0 / 20%),
           0px 9px 12px 1px rgb(0 0 0 / 14%), 0px 3px 16px 2px rgb(0 0 0 / 12%);
         background-color: $main_color;
-        padding: 20px;
+        padding: 15px;
         margin: 15px;
         width: 250px;
         text-align: center;
@@ -48,10 +48,10 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
         }
 
         img {
-          max-width: 200px;
-          max-height: 50px;
+          max-width: 140px;
+          max-height: 35px;
           border-radius: 5px;
-          padding: 10px 20px;
+          padding: 10px 15px;
           background-color: white;
         }
       }

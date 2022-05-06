@@ -98,8 +98,17 @@ svg#clouds {
 }
 
 
-mat-sidenav-container,
-mat-sidenav-content,
-mat-sidenav {
-  height: 100%;
+nav-footer {
+  position: absolute;
+  bottom: 0;
+  height:150px;
+  width: 100%;
+}
+
+mat-sidenav-container, mat-sidenav-content{
+  min-height: 100vh;
+}
+
+main {
+  padding-bottom:150px;
 }
