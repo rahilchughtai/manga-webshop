@@ -1,13 +1,39 @@
-<page-wrapper>
-
-  <h1 style="text-align: center; margin: 2em;">
-    Login/Registriere dich, um tolle Mangas zu kaufen.
-  </h1>
+<h1 style="text-align: center; margin: 2em;">
+  Login/Registriere dich, um tolle Mangas zu kaufen.
+</h1>
 
 
-  <button (click)="authService.GoogleAuth()" color="warn" mat-raised-button mat-button
-    style="text-align: center; padding: 1rem; margin-left: 2em;">
-    <mat-icon style="width: 50px; height:30px">login</mat-icon> Login With Google
-  </button>
+<button (click)="authService.GoogleAuth()" color="warn" mat-raised-button mat-button
+  style="text-align: center; padding: 1rem; margin-left: 2em;">
+  <mat-icon style="width: 50px; height:30px">login</mat-icon> Login With Google
+</button>
 
-</page-wrapper>
+
+<div fxLayout="column">
+  <div fxLayoutAlign="center" fxLayout="row">
+    <form [formGroup]="loginForm">
+      <mat-card class="login-card mat-elevation-z8">
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-content fxLayout="column">
+          <mat-form-field>
+            <input matInput formControlName="email" type="email" placeholder="E-mail" autocomplete="email"
+              readonly="false">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="password" type="password" placeholder="Password" autocomplete="password">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button (click)="authService.GoogleAuth()"  mat-raised-button color="warn" type="button">Login with
+              Google</button>
+            <button [disabled]="loginForm.invalid" (click)="LoginWithEmail()" mat-raised-button color="primary" type="submit">
+              <mat-icon>check</mat-icon>Login
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+
+  </div>
+</div>
