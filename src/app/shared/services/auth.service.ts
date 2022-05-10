@@ -9,6 +9,7 @@ import { MangaUser, UserAddress } from '../models/user.model';
 import { Observable, of, switchMap, take, throwError } from 'rxjs';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { MatPasswordStrengthComponent } from '@angular-material-extensions/password-strength';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -83,7 +84,7 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null ? true : false;
   }
 
   get userId(): number {
@@ -153,28 +154,35 @@ export class AuthService {
   setUserData(userData: any) {
     const { uid, email, displayName, photoURL, firstName, lastName, address } =
       userData;
+
+    console.log('uid of the user', uid);
+
     const userRef = this.getFireUserDocument(uid);
     const newAddress = this.initAdress(address);
     const data: MangaUser = {
       uid,
       email,
       displayName,
-      photoURL,
+      ...(photoURL && { photoURL }),
       ...(firstName && { firstName }),
       ...(lastName && { lastName }),
       ...(address && { address: newAddress }),
     };
 
+    console.log(userData);
+
     this.mergeLocalStorageData(data);
     return userRef.set(data, { merge: true });
   }
 
-  /*
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
+          this.userData$
+            .pipe(take(1))
+            .subscribe((val) => this.setLocalStorageUserData(val));
           this.router.navigate([this.redirectHome]);
         });
       })
@@ -183,11 +191,19 @@ export class AuthService {
       });
   }
 
-  SignUp(email: string, password: string) {
+  SignUp(userData: any) {
     return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(userData.email, userData.password)
       .then((result) => {
-        this.SendVerificationMail();
+        this.ngZone.run(() => {
+          this.router.navigate([this.redirectHome]);
+        });
+        const userWithUid = {
+          uid: result.user?.uid,
+          ...userData,
+        };
+        const { password, ...user } = userWithUid;
+        this.setUserData(user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -212,5 +228,7 @@ export class AuthService {
         window.alert(error);
       });
   }
-  */
+
+  /*
+   */
 }

@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   userData: Observable<MangaUser | null | undefined> = this.authService.userData$;
   oldFormData = {};
 
-  
+
   ngOnInit(): void {
     this.initUserPic();
     this.buildForm();

@@ -11,29 +11,98 @@
 
 <div fxLayout="column">
   <div fxLayoutAlign="center" fxLayout="row">
-    <form [formGroup]="loginForm">
-      <mat-card class="login-card mat-elevation-z8">
-        <mat-card-title>Login</mat-card-title>
-        <mat-card-content fxLayout="column">
-          <mat-form-field>
-            <input matInput formControlName="email" type="email" placeholder="E-mail" autocomplete="email"
-              readonly="false">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="password" type="password" placeholder="Password" autocomplete="password">
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            <button (click)="authService.GoogleAuth()"  mat-raised-button color="warn" type="button">Login with
-              Google</button>
-            <button [disabled]="loginForm.invalid" (click)="LoginWithEmail()" mat-raised-button color="primary" type="submit">
-              <mat-icon>check</mat-icon>Login
-            </button>
-          </div>
-        </mat-card-actions>
-      </mat-card>
-    </form>
+    <mat-tab-group>
+      <mat-tab label="Login">
+
+        <form [formGroup]="loginForm">
+          <mat-card class="login-card mat-elevation-z8">
+            <mat-card-title>Login</mat-card-title>
+            <mat-card-content fxLayout="column">
+              <mat-form-field>
+                <input matInput formControlName="email" type="email" placeholder="E-mail" autocomplete="email"
+                  readonly="false">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="password" type="password" placeholder="Password"
+                  autocomplete="password">
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button (click)="authService.GoogleAuth()" mat-raised-button color="warn" type="button">Login with
+                  Google</button>
+                <button [disabled]="loginForm.invalid" (click)="LoginWithEmail()" mat-raised-button color="primary"
+                  type="submit">
+                  <mat-icon>check</mat-icon>Login
+                </button>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </form>
+
+      </mat-tab>
+      <mat-tab label="Register">
+
+        <form [formGroup]="registerForm">
+          <mat-card class="login-card mat-elevation-z8">
+            <mat-card-title>Register</mat-card-title>
+            <mat-card-content fxLayout="column">
+              <mat-form-field>
+                <input matInput formControlName="email" type="email" placeholder="E-mail" autocomplete="email"
+                  readonly="false">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="password" type="password" placeholder="Password"
+                  autocomplete="password">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="firstName" type="string" placeholder="First Name">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="lastName" type="string" placeholder="Last Name">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="displayName" type="string" placeholder="Display Name">
+              </mat-form-field>
+
+              <ng-container formGroupName="address">
+                <mat-form-field>
+                  <mat-label>Land</mat-label>
+                  <input formControlName="country" type="text" matInput placeholder="Land">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Ort</mat-label>
+                  <input formControlName="ort" type="text" matInput placeholder="Ort">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>PLZ</mat-label>
+                  <input formControlName="plz" type="number" matInput placeholder="PLZ">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Straße</mat-label>
+                  <input formControlName="streetName" type="text" matInput placeholder="Straße">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Nummer</mat-label>
+                  <input formControlName="streetNumber" type="number" matInput placeholder="Nummer">
+                </mat-form-field>
+              </ng-container>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button (click)="authService.GoogleAuth()" mat-raised-button color="warn" type="button">Sign Up with
+                  Google</button>
+                <button [disabled]="registerForm.invalid" (click)="SignUp()" mat-raised-button color="primary"
+                  type="submit">
+                  Sign Up <mat-icon>check</mat-icon>
+                </button>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </form>
+
+      </mat-tab>
+    </mat-tab-group>
 
   </div>
 </div>
