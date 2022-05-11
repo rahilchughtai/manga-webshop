@@ -100,6 +100,12 @@ svg#clouds {
 mat-sidenav {
   background: none;
   width: 100%;
+
+  pointer-events: none;
+
+  &:not(.mat-drawer-side){
+    box-shadow: none;
+  }
 }
 
 nav-footer {

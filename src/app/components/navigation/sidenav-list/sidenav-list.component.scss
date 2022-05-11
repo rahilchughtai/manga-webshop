@@ -2,19 +2,20 @@
 
 mat-nav-list  {
 
+
+  pointer-events: all;
   position: fixed;
 
   height: 100%;
-  width: fit-content;
 
   padding: 0;
 
   background-color: $main_color_mediumdark;
+  box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%), 0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%);
 
   @media (  max-width: $mobile_width) {
     width: 100%;
   }
-
 
   button {
 
