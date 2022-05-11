@@ -1,16 +1,15 @@
-<style>
-  span {
-    font-family: "Montserrat", sans-serif;
-    margin-left: 0.3em;
-  }
-</style>
 <mat-nav-list class="sidenav-list">
+
+  <button mat-raised-button (click)="onToggleClose()">
+    <mat-icon>close icon</mat-icon>
+  </button>
+
   <div *ngFor="let link of links">
     <a mat-list-item [routerLink]="link.routerLink" (click)="onToggleClose()">
       <mat-icon>{{link.icon}}</mat-icon>
       <span>{{link.title}}</span>
     </a>
-    <hr>
+
   </div>
 
   <a mat-list-item (click)="onToggleClose(); authService.SignOut()">
@@ -20,5 +19,5 @@
     <span> {{authService.isLoggedIn ? 'Sign Out': 'Login/Register'}}
     </span>
   </a>
-  <hr>
+
 </mat-nav-list>

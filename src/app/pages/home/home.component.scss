@@ -156,7 +156,9 @@ div.wrapper {
 }
 
 div.buttonBar {
-  margin: 0;
+
+  width: fit-content;
+  margin: auto;
   display: flex;
   justify-content: center;
 
@@ -170,6 +172,12 @@ div.buttonBar {
     }
   }
 
+  &.mobile {
+    button {
+      width: 120px;
+    }
+  }
+
   button {
     padding: 15px;
     height: fit-content;
@@ -177,5 +185,10 @@ div.buttonBar {
     margin: 15px;
     font-size: 1.5em;
     font-family: "Montserrat", sans-serif;
+
+    &.navigation{
+      padding: 30px 50px;
+      width: 280px;
+    }
   }
 }

@@ -2,8 +2,9 @@
 
 div.wrapper{
 
-
   text-align: center;
+
+  height: 100px;
   width: 100%;
 
   @media (max-width: calc($mobile_width + 200px)) {
@@ -16,6 +17,10 @@ div.wrapper{
 
   img {
     width: 100px;
+
+    @media (max-width: calc($mobile_width + 200px)) {
+      display: none;
+    }
   }
 
   h5 {

@@ -97,11 +97,15 @@ svg#clouds {
   }
 }
 
+mat-sidenav {
+  background: none;
+  width: 100%;
+}
 
 nav-footer {
   position: absolute;
   bottom: 0;
-  height:150px;
+  height:100px;
   width: 100%;
 }
 
@@ -110,5 +114,5 @@ mat-sidenav-container, mat-sidenav-content{
 }
 
 main {
-  padding-bottom:150px;
+  padding-bottom:100px;
 }
