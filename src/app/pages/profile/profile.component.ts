@@ -40,10 +40,12 @@ export class ProfileComponent implements OnInit {
     this.profileForm.setValue(this.oldFormData);
   }
 
-  setOldFormData() {
-    this.oldFormData = this.authService.initProfileData(
-      this.authService.getStorageUserData() || {}
-    );
+  setOldFormData(data?: any) {
+    let formData = this.authService.getStorageUserData() || {};
+    if (data) {
+      formData = data;
+    }
+    this.oldFormData = this.authService.initProfileData(formData);
   }
 
   buildForm() {
@@ -68,8 +70,9 @@ export class ProfileComponent implements OnInit {
   }
 
   saveData() {
+    this.profileForm.controls['email'].enable();
     this.authService.updateUserData(this.profileForm.value);
-    this.setOldFormData();
+    this.setOldFormData(this.profileForm.value);
     this.disableEdit();
   }
 
@@ -87,7 +90,6 @@ export class ProfileComponent implements OnInit {
   resetData(): void {
     this.resetFormData();
     this.disableEdit();
-    // this.authService.userData = JSON.parse(localStorage.getItem('user')!);
   }
 
   updateUrl(err: any) {
