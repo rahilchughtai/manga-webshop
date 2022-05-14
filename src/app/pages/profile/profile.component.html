@@ -63,11 +63,7 @@
                   <input formControlName="streetNumber" type="number" matInput placeholder="Nummer">
                 </mat-form-field>
               </div>
-              <mat-error *ngIf="this.profileForm.invalid">
-                <p style="text-align: center;">
-                  Please fill out all required feels and check if theyre correct;
-                </p>
-              </mat-error>
+
             </section>
             <div class="editButtons">
               <button *ngIf="!editActive; else EditActive" (click)="activateEdit()" mat-raised-button
