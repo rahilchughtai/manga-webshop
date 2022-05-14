@@ -21,16 +21,6 @@
                   autocomplete="password">
               </mat-form-field>
             </mat-card-content>
-
-
-            <mat-error *ngIf="this.loginForm.invalid">
-              <p style="text-align: center;">
-                Bitte überprüfe deine Eingaben auf Korrekheit und fülle alle notwendigen Felder aus.
-              </p>
-            </mat-error>
-
-
-
             <mat-card-actions>
               <div fxLayout="row" fxLayoutAlign="space-between center">
                 <button (click)="authService.GoogleAuth()" mat-raised-button color="warn" type="button">Login with
