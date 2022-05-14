@@ -30,7 +30,7 @@ export class LoginRegisterComponent implements OnInit {
       streetNumber: ['', Validators.required],
       country: ['', Validators.required],
       ort: ['', Validators.required],
-      plz: ['', Validators.required],
+      plz: ['', [Validators.required, Validators.maxLength(5)]],
     }),
   });
 

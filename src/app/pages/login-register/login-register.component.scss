@@ -1,4 +1,11 @@
+@use "../../shared/styles/styles" as *;
+
 .example-button-row button,
 .example-button-row a {
   margin-right: 8px;
+}
+
+h1 {
+  @include gradient-font;
+  font-size: 2.1em;
 }

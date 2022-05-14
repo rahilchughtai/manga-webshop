@@ -21,9 +21,9 @@ export class ProfileComponent implements OnInit {
   defaultPic =
     'https://i.pinimg.com/originals/14/49/8e/14498ee653e49627b84352bc03699370.png';
   profilePic = this.defaultPic;
-  userData: Observable<MangaUser | null | undefined> = this.authService.userData$;
+  userData: Observable<MangaUser | null | undefined> =
+    this.authService.userData$;
   oldFormData = {};
-
 
   ngOnInit(): void {
     this.initUserPic();
@@ -80,6 +80,7 @@ export class ProfileComponent implements OnInit {
 
   activateEdit() {
     this.profileForm.enable();
+    this.profileForm.controls['email'].disable();
     this.editActive = true;
   }
 
