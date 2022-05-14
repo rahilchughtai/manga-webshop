@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import { SnakeCaseToSpacePipe } from './shared/pipes/snake-case-to-space.pipe';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
+import { FooterComponent } from './components/navigation/footer/footer.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
 import { FilterChipComponent } from './components/manga-filter-form/filter-chip.component';
@@ -41,6 +42,7 @@ import { MangaDateToPricePipe } from './shared/pipes/manga-date-to-price.pipe';
     MangaCardComponent,
     SidenavListComponent,
     ToolbarComponent,
+    FooterComponent,
     HomeComponent,
     LoginRegisterComponent,
     FavoritesComponent,

@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 @Component({
   selector: 'nav-sidenav-list',
   templateUrl: './sidenav-list.component.html',
-  styles: [],
+  styleUrls: ['./sidenav-list.component.scss'],
 })
 export class SidenavListComponent implements OnInit {
   constructor(public authService: AuthService) {}

@@ -156,7 +156,9 @@ div.wrapper {
 }
 
 div.buttonBar {
-  margin-bottom: 30px;
+
+  width: fit-content;
+  margin: auto;
   display: flex;
   justify-content: center;
 
@@ -164,18 +166,29 @@ div.buttonBar {
     flex-wrap: wrap;
   }
 
-  @media (min-width: $mobile_width) {
+  @media (min-width: calc($mobile_width + 1px)) {
     &.mobile {
       display: none;
     }
   }
 
+  &.mobile {
+    button {
+      width: 120px;
+    }
+  }
+
   button {
-    padding: 1em;
-    height: 150px;
-    width: 250px;
-    margin: 1.5em;
-    font-size: 1.5em;
+    padding: 15px;
+    height: fit-content;
+    width: 200px;
+    margin: 15px;
+    font-size: 1.8em;
     font-family: "Montserrat", sans-serif;
+
+    &.navigation{
+      padding: 40px 50px;
+      width: 280px;
+    }
   }
 }

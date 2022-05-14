@@ -1,4 +1,17 @@
-mat-form-field {
-  margin: 0 1em;
-}
 
+form {
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+
+  margin: auto;
+
+  mat-form-field, button {
+    margin: 0 1em;
+  }
+
+  button {
+    width: 100px;
+    height: 50px;
+  }
+}

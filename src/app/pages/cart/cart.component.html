@@ -1,6 +1,7 @@
-<h1>Dein Warenkorb</h1>
+<h1 class="headerText">Dein Warenkorb</h1>
 
 <div class="wrapper" *ngIf="(shoppingCartData | async) as cart else noCartData" class="wrapper">
+
   <button (click)="emptyMyCart()" mat-raised-button color="warn">
     Warenkorb leeren
   </button>
