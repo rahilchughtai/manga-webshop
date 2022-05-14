@@ -5,10 +5,15 @@ h1 {
   @include s.gradient-font;
   font-size: 2rem;
   margin: 1em;
+
+  &.headerText{
+    margin-top: 70px;
+  }
 }
 
-.wrapper {
+div.wrapper {
   @include s.page-wrap;
+  margin-top: 40px;
 }
 
 ul {

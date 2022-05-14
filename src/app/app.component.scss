@@ -97,9 +97,28 @@ svg#clouds {
   }
 }
 
-
-mat-sidenav-container,
-mat-sidenav-content,
 mat-sidenav {
-  height: 100%;
+  background: none;
+  width: 100%;
+
+  pointer-events: none;
+
+  &:not(.mat-drawer-side){
+    box-shadow: none;
+  }
+}
+
+nav-footer {
+  position: absolute;
+  bottom: 0;
+  height:100px;
+  width: 100%;
+}
+
+mat-sidenav-container, mat-sidenav-content{
+  min-height: 100vh;
+}
+
+main {
+  padding-bottom:100px;
 }

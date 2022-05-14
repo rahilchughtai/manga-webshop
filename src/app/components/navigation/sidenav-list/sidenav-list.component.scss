@@ -1,0 +1,57 @@
+@use "../../../shared/styles/customvars" as *;
+
+mat-nav-list  {
+
+
+  pointer-events: all;
+  position: fixed;
+
+  height: 100%;
+
+  padding: 0;
+
+  background-color: $main_color_mediumdark;
+  box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%), 0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%);
+
+  @media (  max-width: $mobile_width) {
+    width: 100%;
+  }
+
+  button {
+
+    display: none;
+
+    @media (  max-width: $mobile_width) {
+      display: block;
+
+      width: 50px;
+      height: 50px;
+
+      margin: 20px auto 30px auto;
+    }
+  }
+
+  a {
+
+    @media (  max-width: $mobile_width) {
+      display: flex;
+      justify-content: center;
+
+      padding: 10px 0;
+    }
+
+    padding: 20px 0;
+
+    border-bottom: solid 1px white;
+
+    &:hover {
+      background-color: $primary_marking_color_dark;
+    }
+
+    span {
+      font-size: 1.3em;
+      font-family: "Montserrat", sans-serif;
+      margin-left: 0.5em;
+    }
+  }
+}

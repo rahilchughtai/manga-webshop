@@ -8,5 +8,9 @@
     @include s.gradient-font;
     font-size: 2rem;
     margin: 0.6em;
+
+    &.headerText{
+      margin-top: 70px;
+    }
   }
 }

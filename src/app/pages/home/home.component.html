@@ -58,14 +58,15 @@
 
     </section>
     <ng-template #loadSpinner>
-      <mat-spinner style="margin: auto;"></mat-spinner>
+      <mat-spinner style="margin: 50px auto;"></mat-spinner>
     </ng-template>
   </div>
 
   <h1 style="margin-top: 2em;" class="headerText">Navigation</h1>
   <app-element-box>
     <div class="buttonBar moreMangasButtons btnNaviation">
-      <button *ngFor="let linkButton of linkButtons" mat-raised-button [routerLink]="linkButton.routeLink">
+      <button *ngFor="let linkButton of linkButtons" mat-raised-button [routerLink]="linkButton.routeLink"
+        class="navigation">
         {{linkButton.buttonText}}
         <mat-icon>{{linkButton.icon}} </mat-icon>
       </button>

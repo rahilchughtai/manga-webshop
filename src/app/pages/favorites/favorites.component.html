@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h1>
+  <h1 class="headerText">
     {{(userHasFavorites|async) ? 'Deine Favoriten' : 'Füge deine Lieblingsmangas hinzu!'}}
   </h1>
   <button *ngIf="userHasFavorites|async" (click)="clearFavorites()" mat-raised-button color="warn">
