@@ -1,5 +1,4 @@
-@use "../../variables.scss" as *;
-
+@use "../../shared/styles/customvars" as *;
 
 mat-card {
   ::ng-deep .mat-badge-content {

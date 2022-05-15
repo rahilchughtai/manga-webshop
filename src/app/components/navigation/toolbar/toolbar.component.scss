@@ -1,13 +1,11 @@
-
 @use "../../../shared/styles/styles" as *;
-@import "../../../variables";
+@use "../../../shared/styles/customvars" as *;
 
 .example-spacer {
   flex: 1 1 auto;
 }
 
 mat-toolbar {
-
   .example-spacer {
     flex: 1 1 auto;
   }
@@ -34,5 +32,4 @@ mat-toolbar {
     font-size: 1.2em;
     @include gradient-font;
   }
-
 }
