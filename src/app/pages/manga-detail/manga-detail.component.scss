@@ -1,24 +1,139 @@
-.spinner-wrap {
+@use "../../shared/styles/customvars" as *;
+
+div.spinner-wrap {
   margin-top: 5em;
 }
-.example-spacer {
-  flex: 1 1 auto;
-}
 
-.publishing {
-  color: blue;
-}
-.finished {
-  color: green;
-}
+div.mangaPage {
+
+  margin: 100px auto 0 auto;
+  width: 100%;
+  max-width: 1500px;
+
+  div.leftPage {
+
+    margin: 0 3% 0 5%;
+    width: 300px;
+
+    @mixin text-overflow {
+      margin: 0 auto 10px auto;
+
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.extendedMargin {
+        margin: 0 auto 20px auto;
+      }
+    }
+
+    mat-card-title{
+      @include text-overflow;
+    }
+    mat-card-subtitle {
+      @include text-overflow;
+    }
+
+    img {
+      width: 300px;
+    }
 
 
-mat-grid-tile {
-  background: lightblue;
-}
+    div.icons {
 
-.wrapper{
-  max-width: 50%;
-  margin: auto;
-  display: flex;
+      margin: -20px auto 0 auto;
+      position: relative;
+
+      p.badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: $primary_marking_color;
+        border-radius: 50%;
+        vertical-align: middle;
+
+        font-size: 2em;
+        padding: 10px;
+      }
+
+      p.badge:before {
+        content:'';
+        float: left;
+        width: auto;
+        padding-bottom: 100%;
+      }
+
+      button {
+        position: absolute;
+        top: 20px;
+        left:100px;
+
+        margin: -20px auto 0 auto;
+
+        mat-icon {
+          margin-top: -3px;
+
+          height: 35px;
+          width: 35px;
+          font-size: 35px;
+        }
+      }
+    }
+  }
+
+  div.rightPage {
+
+    margin: 0 5% 0 3%;
+    max-width: 600px;
+
+    p.synopsis {
+      background-color: $main_color_dark;
+
+      padding: 10px;
+      margin-bottom: 20px;
+
+      max-height: 500px;
+
+      font-size: 1.2em;
+      line-height: 1.2em;
+
+      overflow-y: scroll;
+      text-align: left;
+    }
+
+    p.price {
+      font-size: 1.6em;
+
+      margin-bottom: -5px;
+
+      font-weight: bold;
+
+      background-color: $main_color_dark;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    mat-chip-list {
+      margin-bottom: 50px;
+
+      align-items: center;
+    }
+
+    div.buy {
+
+      mat-form-field {
+        // Prevent vertiacal centering problem with padding of children element
+        margin-top: 18.8px;
+        padding-right: 10px;
+      }
+
+      button {
+        margin: auto 0 auto 0;
+
+        height: 50px;
+      }
+    }
+  }
 }

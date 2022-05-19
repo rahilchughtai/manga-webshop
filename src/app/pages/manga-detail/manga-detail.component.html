@@ -1,29 +1,71 @@
 <section *ngIf="!loading; else loadSpinner">
-  <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="true" [mangaData]="mangaData">
-  </app-manga-card>
-  <form [formGroup]="cartMangaPurchaseForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Manga Volume</mat-label>
-      <mat-select formControlName="volume">
-        <mat-option *ngFor="let volume of volumeArr" [value]="volume">
-          Volume No: {{volume}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Quantity</mat-label>
-      <mat-select formControlName="quantity">
-        <mat-option *ngFor="let quantity of quantityMax" [value]="quantity">
-          {{quantity}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-  <button [disabled]="cartMangaPurchaseForm.invalid" (click)="addMangaToCart()" mat-button mat-raised-button>
-    Add to cart!
-  </button>
-</section>
 
+  <div class="mangaPage" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div class="leftPage" fxLayout="column" fxLayoutAlign="center start">
+      <mat-card-title matTooltipPosition="above"
+      [ngClass]="(mangaData.title===mangaData.title_english || mangaData.title_english==null)?'extendedMargin':''"
+        matTooltip="{{mangaData.title}}">
+        {{mangaData.title}}
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="mangaData.title!==mangaData.title_english && mangaData.title_english!=null">
+        {{mangaData.title_english}}
+      </mat-card-subtitle>
+      <img loading="lazy" mat-card-image src={{mangaData.images.jpg.image_url}} alt="Manga Image">
+
+      <div class="icons">
+        <p class="badge">
+          {{mangaData.score}}
+        </p>
+
+        <button (click)="btnFavoriteClick()" mat-fab [color]="isFavorite ? 'warn' : 'accent'"
+            aria-label="Example icon button with a bookmark icon">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="rightPage" fxLayout="column" fxLayoutAlign="center start">
+
+      <p class="synopsis">
+        {{mangaData.synopsis || "Für diesen Titel ist keine Zusammenfassung verfügbar"}}
+      </p>
+
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip *ngFor="let genre of mangaData.genres">
+          {{genre.name| titlecase}}
+        </mat-chip>
+      </mat-chip-list>
+
+      <p class="price">
+        {{price | number : '1.2-2'}} €
+      </p>
+
+      <div class="buy" fxLayout="row" fxLayoutAlign="center start">
+        <form [formGroup]="cartMangaPurchaseForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Manga Volume</mat-label>
+            <mat-select formControlName="volume">
+              <mat-option *ngFor="let volume of volumeArr" [value]="volume">
+                Volume No: {{volume}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Quantity</mat-label>
+            <mat-select formControlName="quantity">
+              <mat-option *ngFor="let quantity of quantityMax" [value]="quantity">
+                {{quantity}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <button [disabled]="cartMangaPurchaseForm.invalid" (click)="addMangaToCart()" mat-button mat-raised-button>
+          Add to cart!
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <ng-template #loadSpinner>
   <div class="spinner-wrap">
