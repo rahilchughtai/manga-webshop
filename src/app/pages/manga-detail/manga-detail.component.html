@@ -2,26 +2,8 @@
 
   <div class="mangaPage" fxLayout="row wrap" fxLayoutAlign="center start">
     <div class="leftPage" fxLayout="column" fxLayoutAlign="center start">
-      <mat-card-title matTooltipPosition="above"
-      [ngClass]="(mangaData.title===mangaData.title_english || mangaData.title_english==null)?'extendedMargin':''"
-        matTooltip="{{mangaData.title}}">
-        {{mangaData.title}}
-      </mat-card-title>
-      <mat-card-subtitle *ngIf="mangaData.title!==mangaData.title_english && mangaData.title_english!=null">
-        {{mangaData.title_english}}
-      </mat-card-subtitle>
-      <img loading="lazy" mat-card-image src={{mangaData.images.jpg.image_url}} alt="Manga Image">
-
-      <div class="icons">
-        <p class="badge">
-          {{mangaData.score}}
-        </p>
-
-        <button (click)="btnFavoriteClick()" mat-fab [color]="isFavorite ? 'warn' : 'accent'"
-            aria-label="Example icon button with a bookmark icon">
-          <mat-icon>favorite</mat-icon>
-        </button>
-      </div>
+      <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="false" [showPrice]="false" [mangaData]="mangaData">
+      </app-manga-card>
     </div>
 
     <div class="rightPage" fxLayout="column" fxLayoutAlign="center start">

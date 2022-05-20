@@ -17,7 +17,6 @@ import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { take } from 'rxjs';
 import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
-import { MangaFavoritesService } from 'src/app/shared/services/manga-favorites.service';
 
 @Component({
   selector: 'app-manga-detail',
@@ -31,8 +30,7 @@ export class MangaDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private mangaApi: MangaApiService,
     public auth: AuthService,
-    private snack: SnackbarService,
-    private mangaFavService: MangaFavoritesService,
+    private snack: SnackbarService
   ) {}
 
   public cartMangaPurchaseForm: FormGroup = this.fb.group({
@@ -48,8 +46,6 @@ export class MangaDetailComponent implements OnInit {
   quantityMax = makeNumbersArray(100);
 
   price: number = 0;
-  isFavorite = false;
-
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn) {
@@ -61,32 +57,9 @@ export class MangaDetailComponent implements OnInit {
       .subscribe((mangaItem) => {
         this.mangaData = mangaItem;
         this.price = getPriceByPublishingDate(this.mangaData.published.from)
-        this.isFavorite = this.mangaFavService.checkIsMangaFav(this.mangaData);
         this.volumeArr = makeNumbersArray(mangaItem.volumes);
         this.loading = false;
       });
-  }
-
-  addMangaToFavorites() {
-    this.mangaFavService.addMangaFavs(this.mangaData);
-    this.snack.openSnackBar(
-      `Added ${this.mangaData.title} to your favorites!`
-    );
-  }
-
-  removeMangaFromFavorites() {
-    this.mangaFavService.removeMangaFromFavs(this.mangaData);
-    this.snack.openSnackBar(
-      `Removed ${this.mangaData.title} from your favorites!`,
-      'snackbar-warn'
-    );
-  }
-
-  btnFavoriteClick() {
-    this.isFavorite = !this.isFavorite;
-    return this.isFavorite
-      ? this.addMangaToFavorites()
-      : this.removeMangaFromFavorites();
   }
 
   get cartFormData(): CartFormInformation {

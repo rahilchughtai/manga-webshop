@@ -1,4 +1,5 @@
 @use "../../shared/styles/styles" as s;
+@use "../../shared/styles/customvars" as *;
 
 h1 {
   text-align: center;
@@ -12,25 +13,154 @@ h1 {
 }
 
 div.wrapper {
-  @include s.page-wrap;
-  margin-top: 40px;
+  width: 90%;
+  margin: 40px auto 0 auto;
+
+  button.clearAll {
+    margin: 0 auto;
+    display: block;
+
+    &:hover {
+      background-color: $primary_marking_color;
+    }
+  }
 }
 
 ul {
   list-style-type: none;
+  padding: 0;
 
   li {
     padding: 2em;
-    border: 1px pink solid;
+    margin: 0 1em;
+
     p {
-      font-size: 2.1em;
+      font-size: 1.6em;
       margin-top: .8em;
     }
     button {
       padding: .2em;
       margin: 0 1em;
+
+      &:hover {
+        background-color: $primary_marking_color;
+      }
     }
-    margin: 0 1em;
+
+
+    div.left {
+
+      background-color: $main_color_dark;
+
+      margin: 0 2.5%;
+      padding-top: 20px;
+
+      border-radius: 10px;
+
+      width: 250px;
+
+      p {
+        width: fit-content;
+        max-width: 200px;
+        margin: 0 auto 20px auto;
+
+        height: 25px;
+
+        margin: 0 auto 10px auto;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      img {
+        display: block;
+        margin: 0 auto 20px auto;
+        width: 200px;
+        height: auto;
+      }
+
+    }
+
+    div.right {
+
+      margin: 0 2.5%;
+
+      width: 350px;
+
+      @media (max-width: $mobile_width) {
+        margin-top: 30px;
+        margin-bottom: -10px;
+      }
+
+      p {
+        width: fit-content;
+        max-width: 350px;
+        margin: 0 auto 40px auto;
+
+        height: 25px;
+
+        padding: 5px 15px;
+        border-radius: 10px;
+        background-color: $main_color_dark;
+
+        overflow: hidden;
+      }
+
+      button.deleteElement {
+        margin: 0 auto 40px auto;
+        display: block;
+      }
+
+      div.changeQuantity {
+        width: 100%;
+
+        button {
+          height: 52px;
+
+          &:disabled {
+            background-color: $main_color;
+          }
+        }
+      }
+    }
   }
 }
 
+div.checkout {
+
+  margin-top: 30px;
+
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+
+  @media (max-width: $mobile_width) {
+    flex-direction: column;
+  }
+
+  p {
+    font-size: 2.5em;
+    margin: 0;
+
+    line-height: 1.25em;
+
+    display: inline;
+
+    @media (max-width: $mobile_width) {
+      margin: 0 auto 20px auto;
+    }
+  }
+
+  button {
+    margin: 0 0 0 50px;
+    vertical-align: middle;
+    height: 43px;
+    width: fit-content;
+
+    @media (max-width: $mobile_width) {
+      margin: 0 auto 0 auto;
+    }
+  }
+
+}
