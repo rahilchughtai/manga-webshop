@@ -1,0 +1,42 @@
+<h1>
+  Kasse
+</h1>
+
+
+<div fxLayout="column">
+  <div fxLayoutAlign="center" fxLayout="row">
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z" dynamicHeight>
+      <mat-tab label="Zustellungsdaten">
+        <div>
+          <h1 style="text-align: center;">
+            Daten überprüfen
+          </h1>
+
+        </div>
+      </mat-tab>
+      <mat-tab label="Zahlungsmethode">
+        <div class="example-large-box mat-elevation-z4">
+
+          <mat-form-field>
+            <input matInput>
+          </mat-form-field>
+
+        </div>
+      </mat-tab>
+
+
+      <mat-tab label="Bestellungsübersicht">
+        <div class="example-large-box mat-elevation-z4">
+          <h1>
+            Bestellung Abschließen
+          </h1>
+
+          <button (click)="makeOrder()" color="primary" mat-raised-button>
+            Bestellen
+          </button>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>

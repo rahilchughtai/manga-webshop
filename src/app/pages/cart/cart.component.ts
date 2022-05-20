@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartButtonComponent } from 'src/app/components/navigation/toolbar/cart-button.component';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { MatSelectChange } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { makeNumbersArray } from 'src/app/shared/utils/manga-utils';
 
 @Component({
@@ -16,7 +17,8 @@ import { makeNumbersArray } from 'src/app/shared/utils/manga-utils';
 export class CartComponent implements OnInit {
   constructor(
     public cartService: CartService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router:Router,
   ) {}
 
   makeArray = makeNumbersArray;

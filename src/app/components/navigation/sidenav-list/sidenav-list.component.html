@@ -12,6 +12,15 @@
 
   </div>
 
+  <a routerLink="orders" *ngIf="authService.isLoggedIn" mat-list-item (click)="onToggleClose()">
+    <mat-icon>
+      list_alt
+    </mat-icon>
+    <span> Bestellungen
+    </span>
+  </a>
+
+
   <a mat-list-item (click)="onToggleClose(); authService.SignOut()">
     <mat-icon>
       {{authService.isLoggedIn ? 'logout': 'input'}}

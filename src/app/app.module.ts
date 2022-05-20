@@ -34,6 +34,8 @@ import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
 import { FilterChipComponent } from './components/manga-filter-form/filter-chip.component';
 import { MangaDateToPricePipe } from './shared/pipes/manga-date-to-price.pipe';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { MangaDateToPricePipe } from './shared/pipes/manga-date-to-price.pipe';
     SnakeCaseToSpacePipe,
     FilterChipComponent,
     MangaDateToPricePipe,
+    CheckoutComponent,
+    OrdersComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
