@@ -22,12 +22,27 @@ import { ProfileComponent } from './pages/profile/profile.component';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class UserIsLoggedIn implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.auth.isLoggedIn) {
       this.router.navigateByUrl('/home');
+      return false;
+    }
+    return true;
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthenticateUser implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (!this.auth.isLoggedIn) {
+      this.router.navigate(['login']);
       return false;
     }
     return true;
@@ -42,13 +57,21 @@ const routes: Routes = [
   { path: 'favorites', component: FavoritesComponent },
   { path: 'cart', component: CartComponent },
   { path: 'search', component: MangaListComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'orders', component: OrdersComponent },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+    canActivate: [AuthenticateUser],
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    canActivate: [AuthenticateUser],
+  },
 
   {
     path: 'login',
     component: LoginRegisterComponent,
-    canActivate: [AuthGuard],
+    canActivate: [UserIsLoggedIn],
   },
   { path: 'manga/:mid', component: MangaDetailComponent },
 

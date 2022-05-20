@@ -1,7 +1,7 @@
 import { CartItem } from './cart.model';
 import { User } from 'firebase/auth';
 
-interface Order {
+export interface Order {
   orderItems: CartItem[];
   totalAmount: number;
   userData: User;

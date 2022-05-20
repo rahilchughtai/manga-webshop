@@ -1,7 +1,23 @@
-<h1>
+<h1 style="text-align: center">
   Your MangaMiracle Orders
 </h1>
 
 
-
-{{$UserOrders | async | json}}
+<ul>
+  <li *ngFor="let orderItem of $UserOrders | async">
+    {{orderItem.timestamp}}
+    <ul>
+      <li *ngFor="let items of orderItem.items">
+        <p>
+          Title: {{items.mangaData.title}}
+        </p>
+        <p>
+          Volumes:{{items.volume}}
+        </p>
+        <p>
+          Quantity: {{items.quantity}}
+        </p>
+      </li>
+    </ul>
+  </li>
+</ul>

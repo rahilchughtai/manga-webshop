@@ -1,8 +1,5 @@
-import {} from '../models/manga-item.model';
-
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { CartIncDec, CartItem } from '../models/cart.model';
@@ -68,10 +65,7 @@ export class CartService {
   }
 
   get userRef(): AngularFirestoreDocument<any> | undefined {
-    if (!this.authService.isLoggedIn) {
-      return undefined;
-    }
-    return this.afs.doc(`users/${this.authService.userId}`);
+    return this.authService.userRef;
   }
 
   getCart(): Observable<CartItem[]> | undefined {
@@ -146,6 +140,5 @@ export class CartService {
 
     return result ? itemIndex : false;
   }
-
   removeMangaFromCart() {}
 }

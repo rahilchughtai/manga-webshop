@@ -22,17 +22,11 @@ export class OrderService {
   ) {}
 
   get userRef(): AngularFirestoreDocument<any> | undefined {
-    if (!this.authService.isLoggedIn) {
-      return undefined;
-    }
-    return this.afs.doc(`users/${this.authService.userId}`);
+    return this.authService.userRef;
   }
 
   getAllUserOrders() {
-    return this.afs
-      .doc(`users/${this.authService.userId}`)
-      .collection('orders')
-      .valueChanges();
+    return this.userRef?.collection('orders').valueChanges();
   }
 
   makeOrder(data?: any) {

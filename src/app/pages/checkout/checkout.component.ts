@@ -18,9 +18,11 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  selectedIndex=0;
+
   makeOrder() {
     this.orderService.makeOrder();
     console.log('Making order!');
-    this.router.navigateByUrl('cart');
+    this.router.navigateByUrl('orders');
   }
 }
