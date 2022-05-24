@@ -1,29 +1,53 @@
 <section *ngIf="!loading; else loadSpinner">
-  <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="true" [mangaData]="mangaData">
-  </app-manga-card>
-  <form [formGroup]="cartMangaPurchaseForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Manga Volume</mat-label>
-      <mat-select formControlName="volume">
-        <mat-option *ngFor="let volume of volumeArr" [value]="volume">
-          Volume No: {{volume}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Quantity</mat-label>
-      <mat-select formControlName="quantity">
-        <mat-option *ngFor="let quantity of quantityMax" [value]="quantity">
-          {{quantity}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-  <button [disabled]="cartMangaPurchaseForm.invalid" (click)="addMangaToCart()" mat-button mat-raised-button>
-    Add to cart!
-  </button>
-</section>
 
+  <div class="mangaPage" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div class="leftPage" fxLayout="column" fxLayoutAlign="center start">
+      <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="false" [showPrice]="false" [mangaData]="mangaData">
+      </app-manga-card>
+    </div>
+
+    <div class="rightPage" fxLayout="column" fxLayoutAlign="center start">
+
+      <p class="synopsis">
+        {{mangaData.synopsis || "Für diesen Titel ist keine Zusammenfassung verfügbar"}}
+      </p>
+
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip *ngFor="let genre of mangaData.genres">
+          {{genre.name| titlecase}}
+        </mat-chip>
+      </mat-chip-list>
+
+      <p class="price">
+        {{price | number : '1.2-2'}} €
+      </p>
+
+      <div class="buy" fxLayout="row" fxLayoutAlign="center start">
+        <form [formGroup]="cartMangaPurchaseForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Manga Volume</mat-label>
+            <mat-select formControlName="volume">
+              <mat-option *ngFor="let volume of volumeArr" [value]="volume">
+                Volume No: {{volume}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Quantity</mat-label>
+            <mat-select formControlName="quantity">
+              <mat-option *ngFor="let quantity of quantityMax" [value]="quantity">
+                {{quantity}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <button [disabled]="cartMangaPurchaseForm.invalid" (click)="addMangaToCart()" mat-button mat-raised-button>
+          Add to cart!
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <ng-template #loadSpinner>
   <div class="spinner-wrap">

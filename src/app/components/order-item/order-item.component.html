@@ -1,0 +1,39 @@
+<li fxLayout="row wrap" fxLayoutAlign="center start" style="margin-top: 2em;">
+  <div class="left">
+    <p class="text-ellipsis" matTooltipPosition="above" matTooltip="{{cartItem.mangaData.title}}">
+      Titel: {{cartItem.mangaData.title}}
+    </p>
+    <img [src]="cartItem.mangaData.images.jpg.image_url">
+    <p>
+      Volumen: #{{cartItem.volume}}
+    </p>
+  </div>
+  <div class="right">
+    <p>
+      Stückpreis: {{cartItem.mangaData.published.from | mangaDateToPrice}}€
+    </p>
+    <div class="changeQuantity" fxLayout="row wrap" fxLayoutAlign="center start">
+      <button color="accent" *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC, cartItem.quantity)"
+        mat-raised-button>
+        <mat-icon>{{cartItem.quantity===1? 'delete':'remove'}}</mat-icon>
+      </button>
+      <mat-form-field style="width: 100px;" appearance="fill">
+        <mat-label>Anzahl</mat-label>
+        <mat-select (selectionChange)="cartQuantityChange($event, ind)" [(value)]=" cartItem.quantity">
+          <mat-option *ngFor="let quantity of makeArray(100)" [value]="quantity">{{quantity}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button color="accent" [disabled]="cartItem.quantity>=100"
+        (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)" mat-raised-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <button (click)="removeMangaFromCart(ind)" class="deleteElement" color="warn" style="text-align: center;"
+      mat-raised-button>
+      <mat-icon>close</mat-icon>
+    </button>
+    <p class="sum">
+      Zwischensumme {{cartItem.subtotal}} €
+    </p>
+  </div>
+</li>

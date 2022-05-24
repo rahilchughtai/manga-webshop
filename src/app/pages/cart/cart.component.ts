@@ -1,13 +1,9 @@
-import { CartIncDec, CartItem } from 'src/app/shared/models/cart.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, of, reduce, take, tap } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { CartButtonComponent } from 'src/app/components/navigation/toolbar/cart-button.component';
+import { CartItem } from 'src/app/shared/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
-import { MatSelectChange } from '@angular/material/select';
-import { Router } from '@angular/router';
-import { makeNumbersArray } from 'src/app/shared/utils/manga-utils';
 
 @Component({
   selector: 'app-cart',
@@ -21,8 +17,6 @@ export class CartComponent implements OnInit {
     public router:Router,
   ) {}
 
-  makeArray = makeNumbersArray;
-  IncDec = CartIncDec;
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;
   OrderTotal: Observable<number> | undefined = undefined;
 
@@ -36,21 +30,6 @@ export class CartComponent implements OnInit {
         )
       );
     }
-  }
-
-  changeQuantity(index: number, inc: CartIncDec, quantity: number) {
-    if (inc == this.IncDec.DEC && quantity === 1) {
-      return this.removeMangaFromCart(index);
-    }
-    this.cartService.setItemQuantityInCart(index, quantity + inc);
-  }
-
-  cartQuantityChange(event: MatSelectChange, index: number) {
-    this.cartService.setItemQuantityInCart(index, event.value);
-  }
-
-  removeMangaFromCart(index: number) {
-    return this.cartService.removeItemFromCart(index);
   }
   emptyMyCart() {
     this.cartService.emptyCart();
