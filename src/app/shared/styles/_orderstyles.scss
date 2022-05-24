@@ -1,0 +1,8 @@
+@use "./customvars" as *;
+
+
+@mixin order-hr {
+  margin: 2em 2em;
+  border: 3px solid $primary_marking_color;
+  border-radius: 2px;
+}

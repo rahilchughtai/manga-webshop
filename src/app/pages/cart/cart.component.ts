@@ -4,6 +4,7 @@ import { Observable, map, of, reduce, take, tap } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartItem } from 'src/app/shared/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -12,9 +13,9 @@ import { CartService } from 'src/app/shared/services/cart.service';
 })
 export class CartComponent implements OnInit {
   constructor(
+    public router: Router,
     public cartService: CartService,
-    public authService: AuthService,
-    public router:Router,
+    public authService: AuthService
   ) {}
 
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;

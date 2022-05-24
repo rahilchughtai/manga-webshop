@@ -64,13 +64,27 @@
 
 
       <mat-tab label="3. Bestellungsübersicht">
-        <div class="example-large-box mat-elevation-z4">
+        <div class="example-large-box">
           <h1 style="text-align: center;">
             Bestellung Abschließen
           </h1>
-          <button (click)="makeOrder()" color="primary" mat-raised-button>
-            Bestellen
-          </button>
+          <ul *ngIf="authService.isLoggedIn">
+            <ng-container *ngFor="let cartItem of shoppingCartData | async; let ind=index">
+              <list-order-item [cartItem]="cartItem" [ind]="ind">
+              </list-order-item>
+            </ng-container>
+          </ul>
+          <hr class="order-line">
+
+          <div style="text-align: center; margin:2em;">
+            <p style="font-size: 2em;">
+              Total: {{OrderTotal | async}} €
+            </p>
+            <button (click)="makeOrder()" color="primary" mat-raised-button>
+              Bestellen
+            </button>
+          </div>
+
         </div>
       </mat-tab>
 
