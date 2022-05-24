@@ -7,18 +7,8 @@
   <li class="outer" *ngFor="let orderItem of $UserOrders | async">
     {{orderItem.timestamp.seconds*1000 | date}}
     <ul>
-      <li class="inner" *ngFor="let item of orderItem.items">
-        <p>
-          {{item.mangaData.title}}
-        </p>
-        <p>
-          Volume {{item.volume}}
-        </p>
-        <p>
-          Quantity {{item.quantity}}
-        </p>
-      </li>
+      <list-order-item [ImgWidth]="90" [changable]="false" *ngFor="let item of orderItem.items" [cartItem]="item">
+      </list-order-item>
     </ul>
-
   </li>
 </ul>

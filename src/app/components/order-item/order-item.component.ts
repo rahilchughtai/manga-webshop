@@ -17,6 +17,8 @@ export class OrderItemComponent implements OnInit {
   constructor(public cartService: CartService) {}
   @Input() cartItem!: CartItem;
   @Input() ind: number = 0;
+  @Input() changable = true;
+  @Input() ImgWidth = 150;
 
   maxManga = MAX_MANGA_LIMIT;
   makeArray = makeNumbersArray;
