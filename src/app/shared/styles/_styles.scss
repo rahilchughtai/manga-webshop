@@ -1,3 +1,12 @@
+$gradient-color-1: #c1c1ff 0%;
+$gradient-color-2: #e91e63 100%;
+
+$gradient-linear: linear-gradient(
+  to right,
+  $gradient-color-1,
+  $gradient-color-2
+);
+
 @mixin page-wrap {
   display: flex;
   margin: 10px auto 32px;
@@ -7,14 +16,24 @@
   align-items: center;
 }
 
+@mixin primary-gradient() {
+  background: -webkit-linear-gradient(
+    to right,
+    $gradient-color-1,
+    $gradient-color-2
+  );
+  background: -moz-linear-gradient(
+    to right,
+    $gradient-color-1,
+    $gradient-color-2
+  );
+  background: linear-gradient(to right, $gradient-color-1, $gradient-color-2);
+}
+
 @mixin gradient-font {
   font-family: "Montserrat", sans-serif;
   background: #0000ff;
-  background: -webkit-linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
-  background: -moz-linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
-  background: linear-gradient(to right, #c1c1ff 0%, #e91e63 100%);
+  @include primary-gradient();
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-

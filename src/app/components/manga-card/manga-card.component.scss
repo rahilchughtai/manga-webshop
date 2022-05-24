@@ -67,6 +67,11 @@ mat-card {
       flex: 2;
     }
 
+    div.Spacer {
+      height: 1px;
+      width: 300px;
+    }
+
     mat-card-content {
       background-color: $main_color_mediumdark;
       padding: 5px;

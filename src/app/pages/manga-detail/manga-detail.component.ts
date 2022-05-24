@@ -16,6 +16,7 @@ import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { take } from 'rxjs';
+import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
 
 @Component({
   selector: 'app-manga-detail',
@@ -44,6 +45,8 @@ export class MangaDetailComponent implements OnInit {
   volumeArr: number[] = [];
   quantityMax = makeNumbersArray(100);
 
+  price: number = 0;
+
   ngOnInit(): void {
     if (this.auth.isLoggedIn) {
     }
@@ -53,6 +56,7 @@ export class MangaDetailComponent implements OnInit {
       .pipe(take(1))
       .subscribe((mangaItem) => {
         this.mangaData = mangaItem;
+        this.price = getPriceByPublishingDate(this.mangaData.published.from)
         this.volumeArr = makeNumbersArray(mangaItem.volumes);
         this.loading = false;
       });
