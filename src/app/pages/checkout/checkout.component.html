@@ -13,43 +13,24 @@
             Daten überprüfen
           </h2>
 
-          <div class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
-            <mat-form-field>
-              <input matInput type="string" placeholder="First Name">
+          <form class="form-layout" fxLayout="column" fxLayoutAlign="space-around" [formGroup]="userForm">
+            <mat-form-field *ngFor="let field of formFieldNames">
+              <input matInput [formControlName]="field.formControlName" [type]="field.type"
+                [placeholder]="field.placeholder">
             </mat-form-field>
-            <mat-form-field>
-              <input matInput type="string" placeholder="Last Name">
-            </mat-form-field>
-            <mat-form-field>
-              <input maxlength="15" matInput type="string" placeholder="Display Name">
-            </mat-form-field>
-            <ng-container>
-              <mat-form-field>
-                <mat-label>Land</mat-label>
-                <input type="text" matInput placeholder="Land">
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Ort</mat-label>
-                <input type="text" matInput placeholder="Ort">
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>PLZ</mat-label>
-                <input type="number" matInput placeholder="PLZ">
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Straße</mat-label>
-                <input type="text" matInput placeholder="Straße">
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Nummer</mat-label>
-                <input type="number" matInput placeholder="Nummer">
+            <ng-container formGroupName="address">
+              <mat-form-field *ngFor="let field of formFieldAddress">
+                <input matInput [formControlName]="field.formControlName" [type]="field.type"
+                  [placeholder]="field.placeholder">
               </mat-form-field>
             </ng-container>
-          </div>
+          </form>
 
           <div class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
-            <button (click)="selectedIndex=selectedIndex+1" mat-raised-button color="primary"> Weiter </button>
+            <button [disabled]="userForm.invalid" (click)="selectedIndex=selectedIndex+1" mat-raised-button
+              color="primary"> Weiter </button>
           </div>
+
         </div>
       </mat-tab>
       <mat-tab label="2. Zahlungsmethode">

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
+import {
+  formAddressFields,
+  formNameFields,
+} from 'src/app/shared/utils/form-utils';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartItem } from 'src/app/shared/models/cart.model';
@@ -17,14 +22,19 @@ export class CheckoutComponent implements OnInit {
     private orderService: OrderService,
     private cartService: CartService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private fb: FormBuilder
   ) {}
 
+  userForm!: FormGroup;
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;
   OrderTotal: Observable<number> | undefined = undefined;
+  formFieldNames = formNameFields;
+  formFieldAddress = formAddressFields;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
+      this.initForm();
       this.shoppingCartData = this.cartService.getCart();
       this.OrderTotal = this.shoppingCartData?.pipe(
         map((item: CartItem[]) => item.map((item) => item.subtotal)),
@@ -33,6 +43,25 @@ export class CheckoutComponent implements OnInit {
         )
       );
     }
+  }
+
+  initForm() {
+    const { email, firstName, lastName, address } =
+      this.authService.getStorageUserData() || {};
+    const { streetName, streetNumber, country, plz, ort } = address || {};
+
+    this.userForm = this.fb.group({
+      email: [email, [Validators.email, Validators.required]],
+      firstName: [firstName, Validators.required],
+      lastName: [lastName, Validators.required],
+      address: this.fb.group({
+        streetName: [streetName, Validators.required],
+        streetNumber: [streetNumber, Validators.required],
+        country: [country, Validators.required],
+        ort: [ort, Validators.required],
+        plz: [plz, Validators.required],
+      }),
+    });
   }
 
   selectedIndex = 0;

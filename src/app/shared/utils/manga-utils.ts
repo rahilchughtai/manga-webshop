@@ -1,5 +1,7 @@
 import { MangaItem } from '../models/manga-item.model';
 
+export const MAX_MANGA_LIMIT = 50;
+
 export function getPriceByPublishingDate(startDate: Date): number {
   const year = new Date(startDate).getFullYear();
   return yearToPrice(year);

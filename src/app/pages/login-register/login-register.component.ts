@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  formAddressFields,
+  formEmailPassFields,
+  formNameFieldWithDisplayName,
+  formNameFields,
+} from 'src/app/shared/utils/form-utils';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -11,6 +17,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class LoginRegisterComponent implements OnInit {
   constructor(public authService: AuthService, public fb: FormBuilder) {}
 
+  formFieldEmailPass = formEmailPassFields;
+
+  formFieldAddress = formAddressFields;
+  formFieldNames = formNameFieldWithDisplayName;
   formEmailAndPassword = {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],

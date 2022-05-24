@@ -4,20 +4,21 @@
 
 
 <ul>
-  <li *ngFor="let orderItem of $UserOrders | async">
-    {{orderItem.timestamp}}
+  <li class="outer" *ngFor="let orderItem of $UserOrders | async">
+    {{orderItem.timestamp.seconds*1000 | date}}
     <ul>
-      <li *ngFor="let items of orderItem.items">
+      <li class="inner" *ngFor="let item of orderItem.items">
         <p>
-          Title: {{items.mangaData.title}}
+          {{item.mangaData.title}}
         </p>
         <p>
-          Volumes:{{items.volume}}
+          Volume {{item.volume}}
         </p>
         <p>
-          Quantity: {{items.quantity}}
+          Quantity {{item.quantity}}
         </p>
       </li>
     </ul>
+
   </li>
 </ul>

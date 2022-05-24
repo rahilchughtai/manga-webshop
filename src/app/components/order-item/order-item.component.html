@@ -1,11 +1,11 @@
 <li fxLayout="row wrap" fxLayoutAlign="center start" style="margin-top: 2em;">
   <div class="left">
     <p class="text-ellipsis" matTooltipPosition="above" matTooltip="{{cartItem.mangaData.title}}">
-      Titel: {{cartItem.mangaData.title}}
+      {{cartItem.mangaData.title}}
     </p>
     <img [src]="cartItem.mangaData.images.jpg.image_url">
     <p>
-      Volumen: #{{cartItem.volume}}
+      Volumen #{{cartItem.volume}}
     </p>
   </div>
   <div class="right">
@@ -20,7 +20,7 @@
       <mat-form-field style="width: 100px;" appearance="fill">
         <mat-label>Anzahl</mat-label>
         <mat-select (selectionChange)="cartQuantityChange($event, ind)" [(value)]=" cartItem.quantity">
-          <mat-option *ngFor="let quantity of makeArray(100)" [value]="quantity">{{quantity}}</mat-option>
+          <mat-option *ngFor="let quantity of makeArray(maxManga)" [value]="quantity">{{quantity}}</mat-option>
         </mat-select>
       </mat-form-field>
       <button color="accent" [disabled]="cartItem.quantity>=100"
