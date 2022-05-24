@@ -7,7 +7,7 @@ h1 {
   font-size: 2rem;
   margin: 1em;
 
-  &.headerText{
+  &.headerText {
     margin-top: 70px;
   }
 }
@@ -31,15 +31,19 @@ ul {
   padding: 0;
 
   li {
+    max-width: 800px;
     padding: 2em;
-    margin: 0 1em;
-
+    margin: auto;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: s.$gradient-linear;
     p {
       font-size: 1.6em;
-      margin-top: .8em;
+      margin-top: 0.8em;
     }
     button {
-      padding: .2em;
+      padding: 0.2em;
       margin: 0 1em;
 
       &:hover {
@@ -47,9 +51,7 @@ ul {
       }
     }
 
-
     div.left {
-
       background-color: $main_color_dark;
 
       margin: 0 2.5%;
@@ -79,11 +81,9 @@ ul {
         width: 200px;
         height: auto;
       }
-
     }
 
     div.right {
-
       margin: 0 2.5%;
 
       width: 350px;
@@ -127,12 +127,17 @@ ul {
   }
 }
 
+hr.line {
+  margin: 2em 2em;
+  border: 3px solid $primary_marking_color;
+  border-radius: 2px;
+}
+
 div.checkout {
-
-  margin-top: 30px;
-
+  margin-top: 1em;
+  margin-bottom: 4em;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   flex-wrap: wrap;
 
   @media (max-width: $mobile_width) {
@@ -153,6 +158,7 @@ div.checkout {
   }
 
   button {
+    font-size: 1.5em;
     margin: 0 0 0 50px;
     vertical-align: middle;
     height: 43px;
@@ -162,5 +168,4 @@ div.checkout {
       margin: 0 auto 0 auto;
     }
   }
-
 }

@@ -7,10 +7,10 @@
   </button>
 
 
-
   <div>
     <ul *ngIf="authService.isLoggedIn">
-      <li fxLayout="row wrap" fxLayoutAlign="center start" style="margin-top: 2em;" *ngFor="let cartItem of cart; let ind=index">
+      <li fxLayout="row wrap" fxLayoutAlign="center start" style="margin-top: 2em;"
+        *ngFor="let cartItem of cart; let ind=index">
 
         <div class="left">
           <p class="text-ellipsis" matTooltipPosition="above" matTooltip="{{cartItem.mangaData.title}}">
@@ -26,8 +26,8 @@
             Stückpreis: {{cartItem.mangaData.published.from | mangaDateToPrice}}€
           </p>
           <div class="changeQuantity" fxLayout="row wrap" fxLayoutAlign="center start">
-            <button color="accent" *ngIf="cartItem.quantity>=1" (click)="changeQuantity(ind,IncDec.DEC, cartItem.quantity)"
-              mat-raised-button>
+            <button color="accent" *ngIf="cartItem.quantity>=1"
+              (click)="changeQuantity(ind,IncDec.DEC, cartItem.quantity)" mat-raised-button>
               <mat-icon>{{cartItem.quantity===1? 'delete':'remove'}}</mat-icon>
             </button>
             <mat-form-field style="width: 100px;" appearance="fill">
@@ -41,9 +41,10 @@
               <mat-icon>add</mat-icon>
             </button>
           </div>
-            <button (click)="removeMangaFromCart(ind)" class="deleteElement" color="warn" style="text-align: center;" mat-raised-button>
-              <mat-icon>close</mat-icon>
-            </button>
+          <button (click)="removeMangaFromCart(ind)" class="deleteElement" color="warn" style="text-align: center;"
+            mat-raised-button>
+            <mat-icon>close</mat-icon>
+          </button>
           <p class="sum">
             Zwischensumme {{cartItem.subtotal}} €
           </p>
@@ -51,12 +52,14 @@
       </li>
     </ul>
   </div>
-  <hr>
-  <div class="checkout">
+
+  <hr class="line">
+
+  <div style="text-align: center;" class="checkout">
     <p>
       Total: {{OrderTotal | async}} €
     </p>
-    <button mat-raised-button>
+    <button color="primary" mat-raised-button>
       To Checkout
     </button>
   </div>
@@ -65,7 +68,7 @@
 
 <ng-template #noCartData>
   <div class="wrapper">
-    <h2>
+    <h2 style="text-align: center;">
       {{authService.isLoggedIn ? 'Füge tolle Mangas zu deinem Warenkorb hinzu' :
       'Logge dich ein oder Registriere dich, um deinen Warenkorb einzusehen'}}
     </h2>
