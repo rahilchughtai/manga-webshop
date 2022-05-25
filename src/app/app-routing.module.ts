@@ -11,7 +11,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
 import { AuthenticateUser } from './shared/guards/authenticate-user.guard';
 import { CartComponent } from './pages/cart/cart.component';
-import { CartIsntEmptyGuard } from './shared/guards/cart-isnt-empty.guard';
+import { CartNotEmptyGuard } from './shared/guards/cart-not-empty-guard.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [AuthenticateUser, CartIsntEmptyGuard],
+    canActivate: [AuthenticateUser, CartNotEmptyGuard],
   },
   {
     path: 'orders',

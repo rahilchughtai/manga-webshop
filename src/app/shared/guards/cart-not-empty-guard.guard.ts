@@ -13,7 +13,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class CartIsntEmptyGuard implements CanActivate {
+export class CartNotEmptyGuard implements CanActivate {
   constructor(private cartService: CartService, private router: Router) {}
   canActivate(): Observable<boolean> {
     return new Observable<boolean>((obs) => {
