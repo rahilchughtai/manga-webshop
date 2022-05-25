@@ -3,7 +3,6 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
@@ -15,8 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthenticateUser implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
-
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate() {
     if (!this.auth.isLoggedIn) {
       this.router.navigate(['login']);
       return false;

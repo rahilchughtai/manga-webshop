@@ -15,24 +15,19 @@ import { Injectable } from '@angular/core';
 })
 export class CartIsntEmptyGuard implements CanActivate {
   constructor(private cartService: CartService, private router: Router) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    let cartCount = 0;
-    this.cartService
-      .getCartCount()
-      ?.pipe(take(1))
-      .subscribe((count) => (cartCount = count));
-
-    if (!cartCount) {
-      this.router.navigateByUrl('/cart');
-      return false;
-    }
-    return true;
+  canActivate(): Observable<boolean> {
+    return new Observable<boolean>((obs) => {
+      this.cartService
+        .getCartCount()
+        ?.pipe(take(1))
+        .subscribe((count) => {
+          if (!count) {
+            this.router.navigateByUrl('/cart');
+            return obs.next(false);
+          } else {
+            return obs.next(true);
+          }
+        });
+    });
   }
 }

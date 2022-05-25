@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core';
 export class UserIsLoggedIn implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate() {
     if (this.auth.isLoggedIn) {
       this.router.navigateByUrl('/home');
       return false;
