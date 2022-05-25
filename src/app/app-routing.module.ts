@@ -9,7 +9,9 @@ import {
 import { Injectable, NgModule } from '@angular/core';
 
 import { AuthService } from './shared/services/auth.service';
+import { AuthenticateUser } from './shared/guards/authenticate-user.guard';
 import { CartComponent } from './pages/cart/cart.component';
+import { CartIsntEmptyGuard } from './shared/guards/cart-isnt-empty.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -18,36 +20,7 @@ import { MangaDetailComponent } from './pages/manga-detail/manga-detail.componen
 import { MangaListComponent } from './pages/manga-list/manga-list.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-
-@Injectable({
-  providedIn: 'root',
-})
-export class UserIsLoggedIn implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
-
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.auth.isLoggedIn) {
-      this.router.navigateByUrl('/home');
-      return false;
-    }
-    return true;
-  }
-}
-
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthenticateUser implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
-
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!this.auth.isLoggedIn) {
-      this.router.navigate(['login']);
-      return false;
-    }
-    return true;
-  }
-}
+import { UserIsLoggedIn } from './shared/guards/user-logged.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -60,7 +33,7 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [AuthenticateUser],
+    canActivate: [AuthenticateUser, CartIsntEmptyGuard],
   },
   {
     path: 'orders',

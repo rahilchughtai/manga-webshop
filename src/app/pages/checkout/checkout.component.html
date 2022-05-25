@@ -68,8 +68,11 @@
               Total: {{OrderTotal | async}} €
             </p>
           </div>
+
           <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
-            <button (click)="makeOrder()" mat-raised-button color="primary"> Bestellung Abschließen </button>
+            <button [disabled]="!(shoppingCartData | async)" (click)="makeOrder()" mat-raised-button color="primary">
+              Bestellung
+              Abschließen </button>
           </div>
         </div>
       </mat-tab>
