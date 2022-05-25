@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartItem } from 'src/app/shared/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { Router } from '@angular/router';
+import { mapToCartOrderTotal } from 'src/app/shared/utils/order-utils';
 
 @Component({
   selector: 'app-cart',
@@ -24,12 +25,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
       this.shoppingCartData = this.cartService.getCart();
-      this.OrderTotal = this.shoppingCartData?.pipe(
-        map((item: CartItem[]) => item.map((item) => item.subtotal)),
-        map((item) =>
-          item.reduce((sum: number, current: number) => sum + current, 0)
-        )
-      );
+      this.OrderTotal = this.shoppingCartData?.pipe(mapToCartOrderTotal());
     }
   }
   emptyMyCart() {

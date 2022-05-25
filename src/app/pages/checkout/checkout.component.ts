@@ -9,8 +9,10 @@ import {
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CartItem } from 'src/app/shared/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { MangaOrder } from 'src/app/shared/models/order.model';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-checkout',
@@ -23,14 +25,17 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private router: Router,
     public authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snack: SnackbarService
   ) {}
 
+  studentId = 0;
   userForm!: FormGroup;
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;
   OrderTotal: Observable<number> | undefined = undefined;
   formFieldNames = formNameFields;
   formFieldAddress = formAddressFields;
+  selectedIndex = 0;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
@@ -43,6 +48,18 @@ export class CheckoutComponent implements OnInit {
         )
       );
     }
+  }
+
+  indexChange(event: any) {
+    let index = this.selectedIndex;
+    console.log('event index', event);
+    console.log('selected index', this.selectedIndex);
+    this.selectedIndex = index;
+    return;
+  }
+
+  tabClick(event: any) {
+    console.log(event, event.toElement);
   }
 
   initForm() {
@@ -64,11 +81,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  selectedIndex = 0;
-
   makeOrder() {
-    this.orderService.makeOrder();
-    console.log('Making order!');
+    this.orderService.makeOrder(this.userForm.value, this.studentId);
     this.router.navigateByUrl('orders');
+    this.snack.openSnackBar('Your order has been placed');
   }
 }

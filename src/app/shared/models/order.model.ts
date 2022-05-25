@@ -1,9 +1,11 @@
 import { CartItem } from './cart.model';
-import { User } from 'firebase/auth';
+import { MangaUser } from './user.model';
+import { Timestamp } from 'firebase/firestore';
 
-export interface Order {
+export interface MangaOrder {
   orderItems: CartItem[];
   totalAmount: number;
-  userData: User;
-  orderDate: Date;
+  userData: MangaUser;
+  studentId: number;
+  orderDate: Timestamp;
 }

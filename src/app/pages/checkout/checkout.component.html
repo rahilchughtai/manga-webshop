@@ -5,8 +5,8 @@
 
 <div fxLayout="column">
   <div fxLayoutAlign="center" fxLayout="row">
-    <mat-tab-group [(selectedIndex)]="selectedIndex" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z"
-      dynamicHeight>
+    <mat-tab-group (selectedIndexChange)="indexChange($event)" [(selectedIndex)]="selectedIndex" mat-stretch-tabs
+      class="example-stretched-tabs mat-elevation-z" dynamicHeight>
       <mat-tab label="1. Zustellungsdaten">
         <div>
           <h2 style="text-align: center;">
@@ -26,26 +26,33 @@
             </ng-container>
           </form>
 
-          <div class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
+          <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
             <button [disabled]="userForm.invalid" (click)="selectedIndex=selectedIndex+1" mat-raised-button
               color="primary"> Weiter </button>
           </div>
 
         </div>
       </mat-tab>
-      <mat-tab label="2. Zahlungsmethode">
-        <div class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
-          <form>
+      <mat-tab [disabled]="userForm.invalid" label="2. Zahlungsmethode">
+        <div>
+          <form style="margin-top: 0.5em" class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
             <mat-form-field>
-              <input matInput type="text" placeholder="MatrikelNr">
+              <input type="number" name="studentId" [(ngModel)]="studentId" placeholder="MatrikelNr" matInput>
             </mat-form-field>
           </form>
+
+
+          <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
+            <button [disabled]="studentId===null" (click)="selectedIndex=selectedIndex+1" mat-raised-button
+              color="primary"> Weiter </button>
+          </div>
+
         </div>
       </mat-tab>
 
 
-      <mat-tab label="3. Bestellungsübersicht">
-        <div class="example-large-box">
+      <mat-tab [disabled]="studentId===null || userForm.invalid" label="3. Bestellungsübersicht">
+        <div class="example-large-box" style="margin-bottom: 4em">
           <h1 style="text-align: center;">
             Bestellung Abschließen
           </h1>
@@ -56,16 +63,14 @@
             </ng-container>
           </ul>
           <hr class="order-line">
-
           <div style="text-align: center; margin:2em;">
             <p style="font-size: 2em;">
               Total: {{OrderTotal | async}} €
             </p>
-            <button (click)="makeOrder()" color="primary" mat-raised-button>
-              Bestellen
-            </button>
           </div>
-
+          <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
+            <button (click)="makeOrder()" mat-raised-button color="primary"> Bestellung Abschließen </button>
+          </div>
         </div>
       </mat-tab>
 

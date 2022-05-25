@@ -2,12 +2,14 @@
   Your MangaMiracle Orders
 </h1>
 
-
 <ul>
-  <li class="outer" *ngFor="let orderItem of $UserOrders | async">
-    {{orderItem.timestamp.seconds*1000 | date}}
+  <li class="outer" *ngFor="let mangaOrder of $UserOrders | async">
+    {{mangaOrder.orderDate.toDate() | date}}
+    <h2>
+      {{mangaOrder.totalAmount}} Euro
+    </h2>
     <ul>
-      <list-order-item [ImgWidth]="90" [changable]="false" *ngFor="let item of orderItem.items" [cartItem]="item">
+      <list-order-item *ngFor="let item of mangaOrder.orderItems" [cartItem]="item" [ImgWidth]="90" [changable]="false">
       </list-order-item>
     </ul>
   </li>
