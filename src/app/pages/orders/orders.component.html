@@ -4,9 +4,26 @@
 
 <ul>
   <li class="outer" *ngFor="let mangaOrder of $UserOrders | async">
-    {{mangaOrder.orderDate.toDate() | date}}
+    <h1>
+      Bestelldatum: {{mangaOrder.orderDate.toDate() | date:'medium'}}
+    </h1>
     <h2>
-      {{mangaOrder.totalAmount}} Euro
+      <p>
+        Gesamtbetrag: {{mangaOrder.totalAmount}} Euro
+      </p>
+      <p *ngIf="mangaOrder.userData as user">
+        {{user.firstName}} {{user.lastName}}
+      </p>
+      <ng-container *ngIf="mangaOrder.userData.address as address">
+        <p>
+          Versand an:
+          {{address.streetName}}
+          {{address.streetNumber}}
+          {{address.plz}}
+          {{address.ort}}
+          {{address.country}}
+        </p>
+      </ng-container>
     </h2>
     <ul>
       <list-order-item *ngFor="let item of mangaOrder.orderItems" [cartItem]="item" [ImgWidth]="90" [changable]="false">

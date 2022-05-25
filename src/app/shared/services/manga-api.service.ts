@@ -79,7 +79,9 @@ export class MangaApiService {
   ): Observable<JikanApiResponse> {
     const jikanParams = this.overwriteParams(requestParams);
     return this.http
-      .get<JikanApiResponse>(`${this.BASE_API_V4}/manga`, { params: jikanParams })
+      .get<JikanApiResponse>(`${this.BASE_API_V4}/manga`, {
+        params: jikanParams,
+      })
       .pipe(catchError(this.errorHandler));
   }
 

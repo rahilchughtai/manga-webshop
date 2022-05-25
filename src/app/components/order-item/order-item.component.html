@@ -1,5 +1,5 @@
 <li fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 2em;">
-  <div class="left">
+  <div (click)="orderItemClicked()" class="left">
     <p class="text-ellipsis" matTooltipPosition="above" matTooltip="{{cartItem.mangaData.title}}">
       {{cartItem.mangaData.title}}
     </p>

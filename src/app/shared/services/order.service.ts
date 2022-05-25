@@ -25,20 +25,19 @@ export class OrderService {
     private cartService: CartService
   ) {}
 
-  get userRef(): AngularFirestoreDocument<any> | undefined {
+  private get userRef(): AngularFirestoreDocument<any> | undefined {
     return this.authService.userRef;
   }
 
+  private get userOrderCollection():
+    | AngularFirestoreCollection<MangaOrder>
+    | undefined {
+    return this.userRef?.collection('orders');
+  }
   getAllUserOrders(): Observable<MangaOrder[]> | undefined {
     return this.userRef?.collection('orders').valueChanges() as Observable<
       MangaOrder[]
     >;
-  }
-
-  get userOrderCollection():
-    | AngularFirestoreCollection<MangaOrder>
-    | undefined {
-    return this.userRef?.collection('orders');
   }
 
   makeOrder(userData: MangaUser, studentId: number) {
@@ -56,6 +55,7 @@ export class OrderService {
           };
           return this.userOrderCollection?.add(UserOrder);
         } catch (error) {
+          // TODO
           console.log(error);
           return;
         }

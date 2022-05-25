@@ -7,6 +7,7 @@ import {
 
 import { CartService } from 'src/app/shared/services/cart.service';
 import { MatSelectChange } from '@angular/material/select';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'list-order-item',
@@ -14,7 +15,7 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrls: ['./order-item.component.scss'],
 })
 export class OrderItemComponent implements OnInit {
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService, public router: Router) {}
   @Input() cartItem!: CartItem;
   @Input() ind: number = 0;
   @Input() changable = true;
@@ -39,5 +40,8 @@ export class OrderItemComponent implements OnInit {
 
   removeMangaFromCart(index: number) {
     return this.cartService.removeItemFromCart(index);
+  }
+  orderItemClicked() {
+    this.router.navigate([`/manga/${this.cartItem.mangaData.mal_id}`]);
   }
 }

@@ -1,11 +1,13 @@
 li.outer {
-  border: 1px solid rgb(0, 54, 119);
+  border: 2px solid rgb(0, 39, 86);
   margin-top: 2em;
   padding: 2em;
 }
 
 ul {
   list-style: none;
+  max-width: 900px;
+  margin: auto;
 }
 
 li.inner {
