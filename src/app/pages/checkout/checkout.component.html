@@ -1,0 +1,82 @@
+<h1 style="text-align: center;">
+  Kasse
+</h1>
+
+
+<div fxLayout="column">
+  <div fxLayoutAlign="center" fxLayout="row">
+    <mat-tab-group (selectedIndexChange)="indexChange($event)" [(selectedIndex)]="selectedIndex" mat-stretch-tabs
+      class="example-stretched-tabs mat-elevation-z" dynamicHeight>
+      <mat-tab label="1. Zustellungsdaten">
+        <div>
+          <h2 style="text-align: center;">
+            Daten überprüfen
+          </h2>
+
+          <form class="form-layout" fxLayout="column" fxLayoutAlign="space-around" [formGroup]="userForm">
+            <mat-form-field *ngFor="let field of formFieldNames">
+              <input matInput [formControlName]="field.formControlName" [type]="field.type"
+                [placeholder]="field.placeholder">
+            </mat-form-field>
+            <ng-container formGroupName="address">
+              <mat-form-field *ngFor="let field of formFieldAddress">
+                <input matInput [formControlName]="field.formControlName" [type]="field.type"
+                  [placeholder]="field.placeholder">
+              </mat-form-field>
+            </ng-container>
+          </form>
+
+          <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
+            <button [disabled]="userForm.invalid" (click)="selectedIndex=selectedIndex+1" mat-raised-button
+              color="primary"> Weiter </button>
+          </div>
+
+        </div>
+      </mat-tab>
+      <mat-tab [disabled]="userForm.invalid" label="2. Zahlungsmethode">
+        <div>
+          <form style="margin-top: 0.5em" class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
+            <mat-form-field>
+              <input type="number" name="studentId" [(ngModel)]="studentId" placeholder="MatrikelNr" matInput>
+            </mat-form-field>
+          </form>
+
+
+          <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
+            <button [disabled]="studentId===null" (click)="selectedIndex=selectedIndex+1" mat-raised-button
+              color="primary"> Weiter </button>
+          </div>
+
+        </div>
+      </mat-tab>
+
+
+      <mat-tab [disabled]="studentId===null || userForm.invalid" label="3. Bestellungsübersicht">
+        <div class="example-large-box" style="margin-bottom: 4em">
+          <h1 style="text-align: center;">
+            Bestellung Abschließen
+          </h1>
+          <ul *ngIf="authService.isLoggedIn">
+            <ng-container *ngFor="let cartItem of shoppingCartData | async; let ind=index">
+              <list-order-item [cartItem]="cartItem" [ind]="ind">
+              </list-order-item>
+            </ng-container>
+          </ul>
+          <hr class="order-line">
+          <div style="text-align: center; margin:2em;">
+            <p style="font-size: 2em;">
+              Total: {{OrderTotal | async}} €
+            </p>
+          </div>
+
+          <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
+            <button [disabled]="!(shoppingCartData | async)" (click)="makeOrder()" mat-raised-button color="primary">
+              Bestellung
+              Abschließen </button>
+          </div>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>

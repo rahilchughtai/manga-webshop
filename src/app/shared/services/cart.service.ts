@@ -1,13 +1,14 @@
-import {} from '../models/manga-item.model';
-
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { CartIncDec, CartItem } from '../models/cart.model';
+import {
+  MAX_MANGA_LIMIT,
+  calculateMangaSubtotal,
+  getMangaPrice,
+} from '../utils/manga-utils';
 import { Observable, catchError, map, of, take } from 'rxjs';
-import { calculateMangaSubtotal, getMangaPrice } from '../utils/manga-utils';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from './auth.service';
@@ -40,7 +41,7 @@ export class CartService {
           return this.addToExistingCart(cartData, newCartItem, itemIndex);
         } catch (error) {
           return this.snackBar.openSnackBar(
-            'Du kannst nicht mehr als 100 Stück eines Produktes bestellen',
+            `Du kannst nicht mehr als ${MAX_MANGA_LIMIT} Stück eines Produktes bestellen`,
             'snackbar-warn',
             'Verstanden',
             3000
@@ -60,7 +61,7 @@ export class CartService {
       quantity: item.quantity + newCartItem.quantity,
       subtotal: item.subtotal + newCartItem.subtotal,
     };
-    if (newItem.quantity > 100) {
+    if (newItem.quantity > MAX_MANGA_LIMIT) {
       throw new Error('Quantity Exceeded');
     }
     currentCart[index] = newItem;
@@ -68,10 +69,7 @@ export class CartService {
   }
 
   get userRef(): AngularFirestoreDocument<any> | undefined {
-    if (!this.authService.isLoggedIn) {
-      return undefined;
-    }
-    return this.afs.doc(`users/${this.authService.userId}`);
+    return this.authService.userRef;
   }
 
   getCart(): Observable<CartItem[]> | undefined {
@@ -146,6 +144,5 @@ export class CartService {
 
     return result ? itemIndex : false;
   }
-
   removeMangaFromCart() {}
 }

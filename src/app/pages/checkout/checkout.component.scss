@@ -1,0 +1,13 @@
+@use "../../shared/styles/orderstyles" as *;
+.example-stretched-tabs {
+  width: 800px;
+}
+
+.form-layout {
+  max-width: 50%;
+  margin: auto;
+}
+
+.order-line {
+  @include order-hr;
+}

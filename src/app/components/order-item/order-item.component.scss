@@ -9,6 +9,7 @@ li {
   border-image-slice: 1;
   border-width: 2px;
   border-image-source: $gradient-linear;
+
   p {
     font-size: 1.6em;
     margin-top: 0.8em;
@@ -23,15 +24,12 @@ li {
   }
 
   div.left {
+    cursor: pointer;
     background-color: $main_color_dark;
-
     margin: 0 2.5%;
     padding-top: 20px;
-
     border-radius: 10px;
-
     width: 250px;
-
     p {
       width: fit-content;
       max-width: 200px;
@@ -49,14 +47,12 @@ li {
     img {
       display: block;
       margin: 0 auto 20px auto;
-      width: 200px;
       height: auto;
     }
   }
 
   div.right {
     margin: 0 2.5%;
-
     width: 350px;
 
     @media (max-width: $mobile_width) {
@@ -68,13 +64,10 @@ li {
       width: fit-content;
       max-width: 350px;
       margin: 0 auto 40px auto;
-
       height: 25px;
-
       padding: 5px 15px;
       border-radius: 10px;
       background-color: $main_color_dark;
-
       overflow: hidden;
     }
 

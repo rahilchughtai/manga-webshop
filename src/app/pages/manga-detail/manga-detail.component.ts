@@ -5,6 +5,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  MAX_MANGA_LIMIT,
   calculateMangaSubtotal,
   makeNumbersArray,
 } from 'src/app/shared/utils/manga-utils';
@@ -15,8 +16,8 @@ import { CartService } from 'src/app/shared/services/cart.service';
 import { MangaApiService } from 'src/app/shared/services/manga-api.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
-import { take } from 'rxjs';
 import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-manga-detail',
@@ -43,7 +44,7 @@ export class MangaDetailComponent implements OnInit {
   mangaId: string | null = '';
   mangaData!: MangaItem;
   volumeArr: number[] = [];
-  quantityMax = makeNumbersArray(100);
+  quantityMax = makeNumbersArray(MAX_MANGA_LIMIT);
 
   price: number = 0;
 

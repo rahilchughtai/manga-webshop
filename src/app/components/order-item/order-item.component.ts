@@ -1,9 +1,13 @@
 import { CartIncDec, CartItem } from 'src/app/shared/models/cart.model';
 import { Component, Input, OnInit } from '@angular/core';
+import {
+  MAX_MANGA_LIMIT,
+  makeNumbersArray,
+} from 'src/app/shared/utils/manga-utils';
 
 import { CartService } from 'src/app/shared/services/cart.service';
 import { MatSelectChange } from '@angular/material/select';
-import { makeNumbersArray } from 'src/app/shared/utils/manga-utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'list-order-item',
@@ -11,12 +15,15 @@ import { makeNumbersArray } from 'src/app/shared/utils/manga-utils';
   styleUrls: ['./order-item.component.scss'],
 })
 export class OrderItemComponent implements OnInit {
-  constructor(public cartService: CartService) {}
-
-  makeArray = makeNumbersArray;
-  IncDec = CartIncDec;
+  constructor(public cartService: CartService, public router: Router) {}
   @Input() cartItem!: CartItem;
   @Input() ind: number = 0;
+  @Input() changable = true;
+  @Input() ImgWidth = 150;
+
+  maxManga = MAX_MANGA_LIMIT;
+  makeArray = makeNumbersArray;
+  IncDec = CartIncDec;
 
   ngOnInit(): void {}
 
@@ -33,5 +40,8 @@ export class OrderItemComponent implements OnInit {
 
   removeMangaFromCart(index: number) {
     return this.cartService.removeItemFromCart(index);
+  }
+  orderItemClicked() {
+    this.router.navigate([`/manga/${this.cartItem.mangaData.mal_id}`]);
   }
 }

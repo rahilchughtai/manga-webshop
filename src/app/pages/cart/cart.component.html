@@ -21,7 +21,7 @@
     <p>
       Total: {{OrderTotal | async}} €
     </p>
-    <button color="primary" mat-raised-button>
+    <button (click)="router.navigateByUrl('/checkout')" color="primary" mat-raised-button>
       To Checkout
     </button>
   </div>

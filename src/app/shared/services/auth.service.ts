@@ -87,6 +87,13 @@ export class AuthService {
     return user !== null ? true : false;
   }
 
+  get userRef(): AngularFirestoreDocument<any> | undefined {
+    if (!this.isLoggedIn) {
+      return undefined;
+    }
+    return this.afs.doc(`users/${this.userId}`);
+  }
+
   get userId(): number {
     return JSON.parse(localStorage.getItem('user')!).uid;
   }
