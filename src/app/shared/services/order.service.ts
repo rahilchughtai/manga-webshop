@@ -35,9 +35,9 @@ export class OrderService {
     return this.userRef?.collection('orders');
   }
   getAllUserOrders(): Observable<MangaOrder[]> | undefined {
-    return this.userRef?.collection('orders').valueChanges() as Observable<
-      MangaOrder[]
-    >;
+    return this.userRef
+      ?.collection('orders', (ref) => ref.orderBy('orderDate', 'desc'))
+      .valueChanges() as Observable<MangaOrder[]>;
   }
 
   makeOrder(userData: MangaUser, studentId: number) {
