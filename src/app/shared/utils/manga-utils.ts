@@ -1,10 +1,23 @@
-import { MangaItem } from '../models/manga-item.model';
+import { MangaItem, MinMangaItemData } from '../models/manga-item.model';
 
 export const MAX_MANGA_LIMIT = 50;
 
 export function getPriceByPublishingDate(startDate: Date): number {
   const year = new Date(startDate).getFullYear();
   return yearToPrice(year);
+}
+
+export function minifyMangaData(manga: MangaItem): MinMangaItemData {
+  const { images, mal_id, published, title, title_english, title_japanese } = manga;
+
+  return {
+    images,
+    mal_id,
+    published,
+    title,
+    title_english,
+    title_japanese,
+  };
 }
 
 function publishingYears() {

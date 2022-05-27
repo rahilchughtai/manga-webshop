@@ -1,24 +1,27 @@
 import { GenreItem } from './filter.model';
 
-export interface MangaItem {
+export interface MinMangaItemData {
   mal_id: number;
-  url: string;
   title: string;
   title_english: string;
   title_japanese: string;
+  published: Published;
+  volumes?: number;
   images: ImageType;
-  synopsis: string;
+}
+export interface MangaItem extends MinMangaItemData {
+  url?: string;
+  synopsis?: string;
   type?: string;
   published: Published;
   status?: string;
-  volumes?: number;
-  members: number;
-  authors: any[];
-  score: number;
-  serialization: any[];
-  popularity: number;
-  favorites: number;
-  genres: GenreItem[];
+  members?: number;
+  authors?: any[];
+  score?: number;
+  serialization?: any[];
+  popularity?: number;
+  favorites?: number;
+  genres?: GenreItem[];
 }
 
 export interface Published {

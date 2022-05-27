@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { MangaItem } from '../models/manga-item.model';
+import { MinMangaItemData } from '../models/manga-item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +11,24 @@ export class MangaFavoritesService {
 
   constructor() {}
 
-  getStorageFavs(): MangaItem[] {
+  getStorageFavs(): MinMangaItemData[] {
     return JSON.parse(localStorage.getItem('favorites') || '[]');
   }
 
-  private setMangaFavs(favMangas: MangaItem[]) {
+  private setMangaFavs(favMangas: MinMangaItemData[]) {
     localStorage.setItem('favorites', JSON.stringify(favMangas));
     this.mangaFavSource.next(favMangas);
   }
 
-  addMangaFavs(mangaItem: MangaItem) {
+  addMangaFavs(mangaItem: MinMangaItemData) {
     this.setMangaFavs([...this.getStorageFavs(), mangaItem]);
   }
 
-  removeMangaFromFavs(mangaItem: MangaItem) {
+  removeMangaFromFavs(mangaItem: MinMangaItemData) {
     if (!this.getStorageFavs()) return;
 
     const updatedFavs = [...this.getStorageFavs(), mangaItem].filter(
-      (manga: MangaItem) => manga.mal_id !== mangaItem.mal_id
+      (manga: MinMangaItemData) => manga.mal_id !== mangaItem.mal_id
     );
     this.setMangaFavs(updatedFavs);
   }
@@ -37,10 +37,10 @@ export class MangaFavoritesService {
     this.setMangaFavs([]);
   }
 
-  checkIsMangaFav(mangaItem: MangaItem): boolean {
+  checkIsMangaFav(mangaItem: MinMangaItemData): boolean {
     if (!this.getStorageFavs()) return false;
     return this.getStorageFavs().some(
-      (manga: MangaItem) => manga.mal_id === mangaItem.mal_id
+      (manga: MinMangaItemData) => manga.mal_id === mangaItem.mal_id
     );
   }
 }

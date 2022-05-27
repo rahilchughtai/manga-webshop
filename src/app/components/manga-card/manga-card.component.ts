@@ -1,13 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  getPriceByPublishingDate,
+  minifyMangaData,
+} from 'src/app/shared/utils/manga-utils';
 
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { MangaFavoritesService } from 'src/app/shared/services/manga-favorites.service';
 import { MangaItem } from 'src/app/shared/models/manga-item.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
-import { Subscription } from 'rxjs';
-import { getPriceByPublishingDate } from 'src/app/shared/utils/manga-utils';
 
 @Component({
   selector: 'app-manga-card',
@@ -18,13 +18,12 @@ export class MangaCardComponent implements OnInit {
   constructor(
     private snackService: SnackbarService,
     private router: Router,
-    private auth: AuthService,
     private mangaFavService: MangaFavoritesService
   ) {}
 
   @Input() mangaData!: MangaItem;
   @Input() hasSynopsis = true;
-  @Input() showBadge=true;
+  @Input() showBadge = true;
   @Input() hasInfoButton = true;
   @Input() maxCardHeight = 300;
   @Input() maxCardWidth = 400;
@@ -35,13 +34,12 @@ export class MangaCardComponent implements OnInit {
   isFavorite = false;
 
   ngOnInit(): void {
-
     this.price = getPriceByPublishingDate(this.mangaData.published.from);
     this.isFavorite = this.mangaFavService.checkIsMangaFav(this.mangaData);
   }
 
   addMangaToFavorites() {
-    this.mangaFavService.addMangaFavs(this.mangaData);
+    this.mangaFavService.addMangaFavs(minifyMangaData(this.mangaData));
     this.snackService.openSnackBar(
       `Added ${this.mangaData.title} to your favorites!`
     );
