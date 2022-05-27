@@ -14,7 +14,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from './auth.service';
 import { FieldValue } from 'firebase/firestore';
 import { Injectable } from '@angular/core';
-import { MangaUser } from '../models/user.model';
 import { SnackbarService } from './snackbar.service';
 import { arrayUnion } from '@angular/fire/firestore';
 

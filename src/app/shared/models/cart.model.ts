@@ -1,4 +1,4 @@
-import { MangaItem } from './manga-item.model';
+import { MinMangaItemData } from './manga-item.model';
 
 export interface CartFormInformation {
   quantity: number;
@@ -6,11 +6,9 @@ export interface CartFormInformation {
 }
 
 export interface CartItem extends CartFormInformation {
-  mangaData: MangaItem;
-  subtotal:number;
+  mangaData: MinMangaItemData;
+  subtotal: number;
 }
-
-
 
 export enum CartIncDec {
   INC = 1,

@@ -8,6 +8,7 @@ import {
   MAX_MANGA_LIMIT,
   calculateMangaSubtotal,
   makeNumbersArray,
+  minifyMangaData,
 } from 'src/app/shared/utils/manga-utils';
 
 import { ActivatedRoute } from '@angular/router';
@@ -57,7 +58,7 @@ export class MangaDetailComponent implements OnInit {
       .pipe(take(1))
       .subscribe((mangaItem) => {
         this.mangaData = mangaItem;
-        this.price = getPriceByPublishingDate(this.mangaData.published.from)
+        this.price = getPriceByPublishingDate(this.mangaData.published.from);
         this.volumeArr = makeNumbersArray(mangaItem.volumes);
         this.loading = false;
       });
@@ -76,11 +77,12 @@ export class MangaDetailComponent implements OnInit {
     }
 
     const { quantity, volume } = this.cartFormData;
+    const minMangaData = minifyMangaData(this.mangaData);
     const newCartData = {
-      mangaData: this.mangaData,
+      mangaData: minMangaData,
       quantity,
       volume,
-      subtotal: calculateMangaSubtotal(quantity, this.mangaData),
+      subtotal: calculateMangaSubtotal(quantity, minMangaData),
     };
 
     this.cartService.addMangaToCart(newCartData);
