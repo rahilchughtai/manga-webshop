@@ -10,7 +10,14 @@ import { Component, Input, OnInit } from '@angular/core';
       </p>
     </div>
   `,
-  styles: [],
+  styles: [
+    `
+      p {
+        padding: 1em;
+        border: 1px solid blue;
+      }
+    `,
+  ],
 })
 export class UserCommentComponent implements OnInit {
   constructor() {}
