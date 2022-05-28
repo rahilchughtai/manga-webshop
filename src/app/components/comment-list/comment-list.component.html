@@ -16,10 +16,8 @@
     <div class="list">
       <div fxLayout="column" fxLayoutAlign="start center">
         <ng-container *ngFor="let comment of userComments$ | async">
-          <p>
-            {{comment.user.displayName}} <br>
-            {{comment.text}}
-          </p>
+          <manga-detail-user-comment [comment]="comment">
+          </manga-detail-user-comment>
         </ng-container>
       </div>
     </div>
