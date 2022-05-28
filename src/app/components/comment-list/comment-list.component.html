@@ -1,0 +1,30 @@
+<div class="wrapper">
+
+  <div *ngIf="authService.isLoggedIn" class="post-box">
+    <mat-form-field appearance="fill">
+      <mat-label>Share your thoughts about this manga...</mat-label>
+      <textarea [(ngModel)]="commentText" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+    <button (click)="postComment()" mat-button>Post </button>
+  </div>
+
+  <div class="user-comments">
+    <h2 style="text-align: center;">
+      Comments for this Manga
+    </h2>
+    <div class="list">
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <ng-container *ngFor="let comment of userComments$ | async">
+          <p>
+            {{comment.user.displayName}} <br>
+            {{comment.text}}
+          </p>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
