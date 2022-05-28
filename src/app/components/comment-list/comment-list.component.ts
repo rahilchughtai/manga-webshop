@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommentsService } from 'src/app/shared/services/comment.service';
+import { MangaComment } from 'src/app/shared/models/comment.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -19,7 +20,7 @@ export class CommentListComponent implements OnInit {
     public authService: AuthService
   ) {}
 
-  userComments$!: Observable<any>;
+  userComments$!: Observable<MangaComment[]>;
   ngOnInit(): void {
     this.userComments$ = this.commentService.getCommentsByManga(this.mangaId);
   }

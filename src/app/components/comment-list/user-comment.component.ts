@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { MangaComment } from 'src/app/shared/models/comment.model';
+
 @Component({
   selector: 'manga-detail-user-comment',
   template: `
     <div>
       <p>
-        {{ comment.user.displayName }} <br />
+        {{ comment.userData.displayName }} <br />
         {{ comment.text }}
       </p>
     </div>
@@ -14,7 +16,8 @@ import { Component, Input, OnInit } from '@angular/core';
     `
       p {
         padding: 1em;
-        border: 1px solid blue;
+        width: 50vw;
+        word-break: break-word;
       }
     `,
   ],
@@ -22,6 +25,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UserCommentComponent implements OnInit {
   constructor() {}
 
-  @Input() comment: any;
+  @Input() comment!: MangaComment;
   ngOnInit(): void {}
 }
