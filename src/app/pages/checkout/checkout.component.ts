@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import {
   formAddressFields,
@@ -13,6 +18,7 @@ import { MangaOrder } from 'src/app/shared/models/order.model';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { mapToCartOrderTotal } from 'src/app/shared/utils/order-utils';
 
 @Component({
   selector: 'app-checkout',
@@ -29,7 +35,10 @@ export class CheckoutComponent implements OnInit {
     private snack: SnackbarService
   ) {}
 
-  studentId = 0;
+  studentId: FormControl = new FormControl(null, [
+    Validators.required,
+    Validators.pattern('[0-9]{7}'),
+  ]);
   userForm!: FormGroup;
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;
   OrderTotal: Observable<number> | undefined = undefined;
@@ -41,12 +50,7 @@ export class CheckoutComponent implements OnInit {
     if (this.authService.isLoggedIn) {
       this.initForm();
       this.shoppingCartData = this.cartService.getCart();
-      this.OrderTotal = this.shoppingCartData?.pipe(
-        map((item: CartItem[]) => item.map((item) => item.subtotal)),
-        map((item) =>
-          item.reduce((sum: number, current: number) => sum + current, 0)
-        )
-      );
+      this.OrderTotal = this.shoppingCartData?.pipe(mapToCartOrderTotal());
     }
   }
 
@@ -82,7 +86,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   makeOrder() {
-    this.orderService.makeOrder(this.userForm.value, this.studentId);
+    this.orderService.makeOrder(this.userForm.value, this.studentId.value);
     this.router.navigateByUrl('orders');
     this.snack.openSnackBar('Your order has been placed');
   }

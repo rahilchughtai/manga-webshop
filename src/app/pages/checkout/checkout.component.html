@@ -37,13 +37,17 @@
         <div>
           <form style="margin-top: 0.5em" class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
             <mat-form-field>
-              <input type="number" name="studentId" [(ngModel)]="studentId" placeholder="MatrikelNr" matInput>
+              <input [formControl]="studentId" type="number" name="studentId" placeholder="MatrikelNr" matInput>
             </mat-form-field>
+            <mat-error *ngIf="studentId.invalid">
+              Bitte gebe eine gültige MatrikelNr ein (7-Stellig)
+            </mat-error>
           </form>
 
 
+
           <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
-            <button [disabled]="studentId===null" (click)="selectedIndex=selectedIndex+1" mat-raised-button
+            <button [disabled]="studentId.invalid" (click)="selectedIndex=selectedIndex+1" mat-raised-button
               color="primary"> Weiter </button>
           </div>
 
@@ -51,7 +55,7 @@
       </mat-tab>
 
 
-      <mat-tab [disabled]="studentId===null || userForm.invalid" label="3. Bestellungsübersicht">
+      <mat-tab [disabled]="studentId.invalid || userForm.invalid" label="3. Bestellungsübersicht">
         <div class="example-large-box" style="margin-bottom: 4em">
           <h1 style="text-align: center;">
             Bestellung Abschließen
