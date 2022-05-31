@@ -2,7 +2,8 @@
 
   <div class="mangaPage" fxLayout="row wrap" fxLayoutAlign="center start">
     <div class="leftPage" fxLayout="column" fxLayoutAlign="center start">
-      <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="false" [showPrice]="false" [mangaData]="mangaData">
+      <app-manga-card [headingEllipsis]="false" [hasInfoButton]="false" [hasSynopsis]="false" [showPrice]="false"
+        [mangaData]="mangaData">
       </app-manga-card>
     </div>
 
@@ -47,12 +48,19 @@
       </div>
     </div>
   </div>
+
+  <div class="comments">
+    <h1 style="text-align: center; margin-top: 2em;">Comments</h1>
+    <manga-detail-comment-list [mangaId]="mangaData.mal_id">
+    </manga-detail-comment-list>
+  </div>
 </section>
+
+
+
 
 <ng-template #loadSpinner>
   <div class="spinner-wrap">
     <mat-spinner style="margin: auto;"></mat-spinner>
   </div>
 </ng-template>
-
-

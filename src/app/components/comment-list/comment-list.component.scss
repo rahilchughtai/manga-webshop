@@ -1,0 +1,16 @@
+.wrapper {
+  mat-form-field {
+    width: 60%;
+    min-width: 300px;
+  }
+  h2,
+  h3,
+  h1 {
+    text-align: center;
+  }
+}
+
+.post-box {
+  display: flex;
+  justify-content: center;
+}

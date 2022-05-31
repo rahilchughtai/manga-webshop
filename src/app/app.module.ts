@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CartButtonComponent } from './components/navigation/toolbar/cart-button.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { ElementBoxComponent } from './components/elements/element-box.component';
 import { ElementComponent } from './components/elements/element.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
@@ -35,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 import { SnakeCaseToSpacePipe } from './shared/pipes/snake-case-to-space.pipe';
 import { ToolbarComponent } from './components/navigation/toolbar/toolbar.component';
+import { UserCommentComponent } from './components/comment-list/user-comment.component';
 import { WrapperComponent } from './pages/wrapper.component';
 import { environment } from '../environments/environment';
 
@@ -65,6 +67,8 @@ import { environment } from '../environments/environment';
     CheckoutComponent,
     OrdersComponent,
     OrderItemComponent,
+    CommentListComponent,
+    UserCommentComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

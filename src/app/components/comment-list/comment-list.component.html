@@ -1,0 +1,35 @@
+<div class="wrapper">
+
+
+  <div *ngIf="authService.isLoggedIn else notLogged" class="post-box">
+    <mat-form-field appearance="fill">
+      <mat-label>Teile deine Meinung zu diesem Manga...</mat-label>
+      <textarea [(ngModel)]="commentText" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+    <button (click)="postComment()" mat-button>Post </button>
+
+  </div>
+  <ng-template #notLogged>
+    <h3>
+      Logge dich ein oder Registriere dich, um zu kommentieren
+    </h3>
+  </ng-template>
+
+  <div class="user-comments">
+    <h2>
+      Comments for this Manga
+    </h2>
+    <div class="list">
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <ng-container *ngFor="let comment of userComments$ | async">
+          <manga-detail-user-comment [comment]="comment">
+          </manga-detail-user-comment>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
