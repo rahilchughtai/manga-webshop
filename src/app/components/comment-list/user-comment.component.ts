@@ -7,6 +7,8 @@ import { MangaComment } from 'src/app/shared/models/comment.model';
   template: `
     <div>
       <p>
+        <!--Zum Anzeigen vom Datum-->
+        <!-- {{comment.timestamp.toDate() | date:'medium'}} <br> -->
         <span>{{ comment.userData.displayName }}</span> <br />
         {{ comment.text }}
       </p>
@@ -14,7 +16,7 @@ import { MangaComment } from 'src/app/shared/models/comment.model';
   `,
   styles: [
     `
-      @use "../../shared/styles/customvars" as *;
+      @use '../../shared/styles/customvars' as *;
       p {
         background-color: $main_color_dark;
         padding: 1em;
@@ -24,7 +26,7 @@ import { MangaComment } from 'src/app/shared/models/comment.model';
 
         border-radius: 5px;
       }
-      span  {
+      span {
         opacity: 0.8;
       }
     `,
