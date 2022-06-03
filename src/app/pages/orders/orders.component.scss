@@ -1,8 +1,4 @@
-li.outer {
-  border: 2px solid rgb(0, 39, 86);
-  margin-top: 2em;
-  padding: 2em;
-}
+@use "../../shared/styles/styles" as s;
 
 ul {
   list-style: none;
@@ -11,7 +7,16 @@ ul {
 }
 
 li.inner {
-  border: 1px solid rgb(0, 119, 113);
   margin-top: 2em;
   padding: 2em;
+}
+
+h1.headerText {
+  @include s.gradient-font;
+    font-size: 2rem;
+    margin: 0.6em;
+
+    &.headerText{
+      margin-top: 70px;
+    }
 }
