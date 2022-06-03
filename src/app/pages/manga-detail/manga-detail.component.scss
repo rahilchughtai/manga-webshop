@@ -4,15 +4,23 @@ div.spinner-wrap {
   margin-top: 5em;
 }
 
+div.comments {
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+
 div.mangaPage {
 
-  margin: 100px auto 0 auto;
+  margin: 100px auto 30px auto;
   width: 100%;
   max-width: 1500px;
 
   div.leftPage {
 
     margin: 0 3% 0 5%;
+    min-width: fit-content;
     width: 300px;
   }
 
