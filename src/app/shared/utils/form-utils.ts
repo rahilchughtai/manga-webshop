@@ -53,7 +53,7 @@ export const formAddressFields: formItem[] = [
   },
   {
     formControlName: 'plz',
-    type: 'text',
+    type: 'number',
     placeholder: 'PLZ',
   },
   { formControlName: 'streetName', type: 'text', placeholder: 'Straße...' },
