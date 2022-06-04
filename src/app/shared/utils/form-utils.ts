@@ -9,7 +9,7 @@ export const formEmailPassFields: formItem[] = [
   {
     formControlName: 'password',
     type: 'password',
-    placeholder: 'password',
+    placeholder: 'Password',
     autocomplete: 'password',
   },
   {
