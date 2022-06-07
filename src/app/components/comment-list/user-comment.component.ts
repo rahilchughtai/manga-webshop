@@ -7,9 +7,7 @@ import { MangaComment } from 'src/app/shared/models/comment.model';
   template: `
     <div>
       <p>
-        <!--Zum Anzeigen vom Datum-->
-        <!-- {{comment.timestamp.toDate() | date:'medium'}} <br> -->
-        <span>{{ comment.userData.displayName }}</span> <br />
+        <span>{{ comment.userData.displayName }}</span> <span>{{comment.timestamp.toDate() | date:'short'}}</span> <br />
         {{ comment.text }}
       </p>
     </div>
@@ -28,6 +26,10 @@ import { MangaComment } from 'src/app/shared/models/comment.model';
       }
       span {
         opacity: 0.8;
+
+        &:nth-of-type(1) {
+          margin-right: 15px;
+        }
       }
     `,
   ],

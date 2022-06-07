@@ -24,6 +24,11 @@ li {
   }
 
   div.left {
+
+    &:hover {
+      background-color: $primary_marking_color_dark;
+    }
+
     cursor: pointer;
     background-color: $main_color_dark;
     margin: 0 2.5%;
