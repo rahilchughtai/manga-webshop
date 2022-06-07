@@ -60,6 +60,7 @@
     &.readOnly {
       margin: 0 auto 1.34375em auto;
 
+      touch-action: none;
       pointer-events: none;
 
       // Overriting global values

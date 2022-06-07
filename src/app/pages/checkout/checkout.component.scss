@@ -1,4 +1,6 @@
 @use "../../shared/styles/orderstyles" as *;
+@use "../../shared/styles/styles" as s;
+
 .example-stretched-tabs {
   width: 800px;
 }
@@ -6,6 +8,20 @@
 .form-layout {
   max-width: 50%;
   margin: auto;
+}
+
+h1 {
+  @include s.gradient-font;
+  font-size: 2rem;
+  margin: 0.6em;
+
+  &.headerText{
+    margin-top: 40px;
+  }
+}
+
+h2 {
+  margin-top: 30px;
 }
 
 .order-line {

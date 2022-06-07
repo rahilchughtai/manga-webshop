@@ -1,17 +1,50 @@
-li.outer {
-  border: 2px solid rgb(0, 39, 86);
-  margin-top: 2em;
-  padding: 2em;
-}
+@use "../../shared/styles/styles" as s;
+@use "../../shared/styles/customvars" as *;
 
 ul {
   list-style: none;
   max-width: 900px;
-  margin: auto;
+  width: 90%;
+  margin:  40px auto 40px auto;
+  padding: 0;
+
+  li {
+    padding-top: 20px;
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.2em;
+
+      &.bold {
+        padding-top: 10px;
+        font-weight: bold;
+      }
+
+      &.indeted {
+        margin-left: 10px;
+      }
+    }
+    hr.line {
+      margin: 2em 2em;
+      border: 3px solid $primary_marking_color;
+      border-radius: 2px;
+    }
+
+    &:last-of-type{
+      hr.line {
+          display: none;
+      }
+    }
+
+  }
 }
 
-li.inner {
-  border: 1px solid rgb(0, 119, 113);
-  margin-top: 2em;
-  padding: 2em;
+h1.headerText {
+  @include s.gradient-font;
+    font-size: 2rem;
+    margin: 0.6em;
+
+    &.headerText{
+      margin-top: 70px;
+    }
 }
