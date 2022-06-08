@@ -14,7 +14,7 @@ export class CommentListComponent implements OnInit {
   @Input() mangaId = -1;
 
   commentText = '';
-
+  minCommentLength=4;
   constructor(
     private commentService: CommentsService,
     public authService: AuthService

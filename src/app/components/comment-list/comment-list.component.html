@@ -2,10 +2,10 @@
   <div *ngIf="authService.isLoggedIn else notLogged" class="post-box" fxLayout="row wrap" fxLayoutAlign="center">
     <mat-form-field appearance="fill">
       <mat-label>Teile deine Meinung zu diesem Manga...</mat-label>
-      <textarea [(ngModel)]="commentText" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+      <textarea [minlength]="minCommentLength" [(ngModel)]="commentText" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
         cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
     </mat-form-field>
-    <button (click)="postComment()" mat-raised-button>Post </button>
+    <button [disabled]="commentText.length<minCommentLength" (click)="postComment()" mat-raised-button>Post </button>
 
   </div>
   <ng-template #notLogged>
@@ -14,7 +14,7 @@
     </h3>
   </ng-template>
 
-  <div fxLayout="column" fxLayoutAlign="start center"  class="list">
+  <div fxLayout="column" fxLayoutAlign="start center" class="list">
     <ng-container *ngFor="let comment of userComments$ | async">
       <manga-detail-user-comment [comment]="comment">
       </manga-detail-user-comment>
