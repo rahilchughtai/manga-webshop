@@ -7,16 +7,16 @@ export interface formItem {
 
 export const formEmailPassFields: formItem[] = [
   {
-    formControlName: 'password',
-    type: 'password',
-    placeholder: 'Password',
-    autocomplete: 'password',
-  },
-  {
     formControlName: 'email',
     type: 'email',
     placeholder: 'E-Mail',
     autocomplete: 'email',
+  },
+  {
+    formControlName: 'password',
+    type: 'password',
+    placeholder: 'Password',
+    autocomplete: 'password',
   },
 ];
 
@@ -56,8 +56,8 @@ export const formAddressFields: formItem[] = [
     type: 'number',
     placeholder: 'PLZ',
   },
-  { formControlName: 'streetName', type: 'text', placeholder: 'Straße...' },
-  { formControlName: 'streetNumber', type: 'number', placeholder: 'Nummer' },
+  { formControlName: 'streetName', type: 'text', placeholder: 'Straße' },
+  { formControlName: 'streetNumber', type: 'number', placeholder: 'Hausnummer' },
 ];
 
 export const formNameFieldWithDisplayName = [

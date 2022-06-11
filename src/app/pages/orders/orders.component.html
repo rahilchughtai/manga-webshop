@@ -1,33 +1,38 @@
-<h1 style="text-align: center">
-  Your MangaMiracle Orders
-</h1>
+<div class="wrapper">
+  <h1 class="headerText" style="text-align: center">
+    Your MangaMiracle Orders
+  </h1>
+</div>
 
 <ul>
   <li class="outer" *ngFor="let mangaOrder of $UserOrders | async">
-    <h1>
+    <h2 style="margin-bottom: 10px;">
       Bestelldatum: {{mangaOrder.orderDate.toDate() | date:'medium'}}
-    </h1>
-    <h2>
-      <p>
-        Gesamtbetrag: {{mangaOrder.totalAmount}} Euro
-      </p>
-      <p *ngIf="mangaOrder.userData as user">
+    </h2>
+    <p class="indeted">
+      Gesamtbetrag: {{mangaOrder.totalAmount}} Euro
+    </p>
+
+    <p class="bold">Versand an:</p>
+      <p class="indeted" *ngIf="mangaOrder.userData as user">
         {{user.firstName}} {{user.lastName}}
       </p>
-      <ng-container *ngIf="mangaOrder.userData.address as address">
-        <p>
-          Versand an:
-          {{address.streetName}}
-          {{address.streetNumber}}
-          {{address.plz}}
-          {{address.ort}}
-          {{address.country}}
-        </p>
-      </ng-container>
-    </h2>
+      <p class="indeted" *ngIf="mangaOrder.userData.address as address">
+        {{address.streetName}}
+        {{address.streetNumber}}
+        {{address.plz}}
+        {{address.ort}}
+        {{address.country}}
+      </p>
+
+    <p class="bold" style="margin-bottom: -20px;">Versand beinhaltet:</p>
     <ul>
       <list-order-item *ngFor="let item of mangaOrder.orderItems" [cartItem]="item" [ImgWidth]="90" [changable]="false">
       </list-order-item>
     </ul>
+
+
+  <hr class="line">
+
   </li>
 </ul>

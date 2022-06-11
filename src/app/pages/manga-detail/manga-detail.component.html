@@ -23,7 +23,7 @@
         {{price | number : '1.2-2'}} €
       </p>
 
-      <div class="buy" fxLayout="row" fxLayoutAlign="center start">
+      <div class="buy" fxLayout="row wrap" fxLayoutAlign="start center">
         <form [formGroup]="cartMangaPurchaseForm">
           <mat-form-field appearance="fill">
             <mat-label>Manga Volume</mat-label>
@@ -49,8 +49,10 @@
     </div>
   </div>
 
+  <hr>
+
   <div class="comments">
-    <h1 style="text-align: center; margin-top: 2em;">Comments</h1>
+    <h1>Comments</h1>
     <manga-detail-comment-list [mangaId]="mangaData.mal_id">
     </manga-detail-comment-list>
   </div>

@@ -25,7 +25,7 @@
             <mat-option *ngFor="let quantity of makeArray(maxManga)" [value]="quantity">{{quantity}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button color="accent" [disabled]="cartItem.quantity>=100"
+        <button color="accent" [disabled]="cartItem.quantity>=maxManga"
           (click)="changeQuantity(ind,IncDec.INC,cartItem.quantity)" mat-raised-button>
           <mat-icon>add</mat-icon>
         </button>
@@ -45,7 +45,7 @@
     </ng-template>
 
     <p class="sum">
-      Zwischensumme {{cartItem.subtotal}} €
+      Zwischensumme: {{cartItem.subtotal}} €
     </p>
   </div>
 </li>

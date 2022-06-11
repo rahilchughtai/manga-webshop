@@ -101,6 +101,7 @@ mat-sidenav {
   background: none;
   width: 100%;
 
+  touch-action: none;
   pointer-events: none;
 
   &:not(.mat-drawer-side){

@@ -4,6 +4,6 @@ import { Timestamp } from 'firebase/firestore';
 export interface MangaComment {
   text: string;
   id: number;
-  timetamp: Timestamp;
+  timestamp: Timestamp;
   userData: MangaUser;
 }
