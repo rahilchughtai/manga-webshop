@@ -37,17 +37,24 @@
         <div>
           <form style="margin-top: 0.5em" class="form-layout" fxLayout="column" fxLayoutAlign="space-around">
             <mat-form-field>
-              <input [formControl]="studentId" type="number" name="studentId" placeholder="MatrikelNr" matInput>
+              <input [value]="orderIBAN.value | ibanFormatter" required [formControl]="orderIBAN" type="text"
+                name="studentId" placeholder="IBAN" matInput>
             </mat-form-field>
-            <mat-error *ngIf="studentId.invalid">
-              Bitte gebe eine gültige MatrikelNr ein (7-Stellig)
+
+            <mat-error *ngIf="orderIBAN.invalid && orderIBAN.dirty">
+              <p>
+                Bitte gebe eine gültige IBAN ein.
+              </p>
+              <p>
+                Beispiel: <span>{{'DE02120300000000202051' | ibanFormatter}} </span>
+              </p>
             </mat-error>
           </form>
 
 
 
           <div class="form-layout tab-button" fxLayout="column" fxLayoutAlign="space-around">
-            <button [disabled]="studentId.invalid" (click)="selectedIndex=selectedIndex+1" mat-raised-button
+            <button [disabled]="orderIBAN.invalid" (click)="selectedIndex=selectedIndex+1" mat-raised-button
               color="primary"> Weiter </button>
           </div>
 
@@ -55,7 +62,7 @@
       </mat-tab>
 
 
-      <mat-tab [disabled]="studentId.invalid || userForm.invalid" label="3. Bestellungsübersicht">
+      <mat-tab [disabled]="orderIBAN.invalid || userForm.invalid" label="3. Bestellungsübersicht">
         <div class="example-large-box" style="margin-bottom: 4em">
           <h1 style="text-align: center;">
             Bestellung Abschließen

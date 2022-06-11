@@ -1,4 +1,5 @@
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularIbanModule } from 'angular-iban';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './shared/services/auth.service';
@@ -71,6 +72,7 @@ import { environment } from '../environments/environment';
     UserCommentComponent,
   ],
   imports: [
+    AngularIbanModule,
     AngularFireModule.initializeApp(environment.firebase),
     FirebaseServiceModule,
     BrowserModule,

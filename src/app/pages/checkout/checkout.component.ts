@@ -18,6 +18,7 @@ import { MangaOrder } from 'src/app/shared/models/order.model';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { ValidatorService } from 'angular-iban';
 import { mapToCartOrderTotal } from 'src/app/shared/utils/order-utils';
 
 @Component({
@@ -35,9 +36,9 @@ export class CheckoutComponent implements OnInit {
     private snack: SnackbarService
   ) {}
 
-  studentId: FormControl = new FormControl(null, [
+  orderIBAN: FormControl = new FormControl(null, [
     Validators.required,
-    Validators.pattern('[0-9]{7}'),
+    ValidatorService.validateIban,
   ]);
   userForm!: FormGroup;
   shoppingCartData: Observable<CartItem[]> | undefined = undefined;
@@ -86,7 +87,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   makeOrder() {
-    this.orderService.makeOrder(this.userForm.value, this.studentId.value);
+    this.orderService.makeOrder(this.userForm.value, this.orderIBAN.value);
     this.router.navigateByUrl('orders');
     this.snack.openSnackBar('Your order has been placed');
   }
