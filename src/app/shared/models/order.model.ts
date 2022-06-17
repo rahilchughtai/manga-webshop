@@ -6,6 +6,6 @@ export interface MangaOrder {
   orderItems: CartItem[];
   totalAmount: number;
   userData: MangaUser;
-  studentId: number;
+  orderIBAN: string;
   orderDate: Timestamp;
 }

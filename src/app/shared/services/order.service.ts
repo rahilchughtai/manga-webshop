@@ -40,15 +40,16 @@ export class OrderService {
       .valueChanges() as Observable<MangaOrder[]>;
   }
 
-  makeOrder(userData: MangaUser, studentId: number) {
+  makeOrder(userData: MangaUser, orderIBAN: string) {
     this.cartService
       .getCart()
       ?.pipe(take(1))
       .subscribe((cartData) => {
         try {
+          orderIBAN = orderIBAN.replace(/\s/g, '');
           const UserOrder: MangaOrder = {
             userData,
-            studentId,
+            orderIBAN,
             orderItems: cartData,
             orderDate: Timestamp.now(),
             totalAmount: CartDataToTotal(cartData),
