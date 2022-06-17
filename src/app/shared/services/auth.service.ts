@@ -76,6 +76,7 @@ export class AuthService {
           this.router.navigate([this.redirectHome]);
         });
         this.setUserData(result.user);
+        this.mergeLocalStorageData(result.user);
       })
       .catch((error) => {
         window.alert(error);
