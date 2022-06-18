@@ -4,7 +4,7 @@ Projekt von Rahil Chughtai und Christopher John für Kurs Web-Engineering 2 TINF
 Die Applikation stellt eine e-commerce Plattform speziell für die Manga Niche dar.
 Die Manga Daten werden mithilfe der JIKAN-API über HTTP requests gefetched.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rahilchughtai/manga-webshop)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/DHBW-Vilas/20ai2-webeng-II-mangawebshop/tree/project)
 
 ## **Quick Start Guide**
 
@@ -13,6 +13,7 @@ Die Manga Daten werden mithilfe der JIKAN-API über HTTP requests gefetched.
 Die Empfohlenen möglichkeiten, um die Applikation zu starten sind:
 
 1. Über Gitpod
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/DHBW-Vilas/20ai2-webeng-II-mangawebshop/tree/project)
 2. Über die öffentlich Domäne: https://manga-miracle-tinf20ai2.web.app/
 3. Lokales ausführen mit `ng serve`
 
