@@ -79,7 +79,7 @@ verwendet werden. Alternativ kann ein neuer Account über die Registrierung erst
 
 ## Benutzte API
 
-### Jikan
+### Jikan API
 
 Wir nutzen die JIKAN-API, eine
 open-source PHP & REST API, welche eine Schnittstelle zu der online Anime+Manga Datenbank MyAnimeList.net bietet. Über den Angular HTTP-Client werden API Requests verschickt und verarbeitet.
@@ -95,14 +95,16 @@ Zur Persistenz von Daten wird der Firestore Service von Firebase genutzt. Das Lo
 ### Datenstruktur
 
 Firebase Firestore nutzt eine Collection/Document basierte Datenbank. Das Diagramm zeigt die verwendete Struktur.
-![workflow diagram](/src/assets/readme/data.jpg)
+
+![data diagram](/src/assets/readme/data.jpg)
 
 ## User Flow
 
 Das folgende Diagramm zeigt den User Workflow. Hierbei wurde sich auf das Bestell-Feature fokussiert.
+
 ![workflow diagram](/src/assets/readme/workflow.jpg)
 
-Automatisch Generierter Text von Angular CLI:
+# Automatisch Generierter Text von Angular CLI:
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
 
