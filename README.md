@@ -6,14 +6,24 @@ Die Manga Daten werden mithilfe der JIKAN-API über HTTP requests gefetched.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rahilchughtai/manga-webshop)
 
-## Quick Start Guide
+## **Quick Start Guide**
+
+### Applikation Aufrufen
+
+Die Empfohlenen möglichkeiten, um die Applikation zu starten sind:
+
+1. Über Gitpod
+2. Über die öffentlich Domäne: https://manga-miracle-tinf20ai2.web.app/
+3. Lokales ausführen mit `ng serve`
+
+### Nutzerprofil
 
 Zum Einloggen kann der Account
 
 - email: user@user.de
 - pw: sh7up#KT!
 
-verwendet werden. Alternativ kann ein neuer Account über die Registrierung erstellt werden.
+verwendet werden. Alternativ kann ein neuer Account über die Registrierung erstellt werden, oder das Google-Login kann benutzt werden.
 
 ## Verwendete Technologien
 
@@ -29,15 +39,21 @@ verwendet werden. Alternativ kann ein neuer Account über die Registrierung erst
 
 ## **Features:**
 
-- Firebase Login/Registrierung mit Email/Passwort
-- Hinzufügen/Entfernen und Anzeigen von Favoriten
-- Detaillierte Manga Suche mit Filterung, Sortierung nach verschiedenen Attributen
-- Hinzufügen/Entfernen zum Warenkorb
-- Abschließen einer Bestellung
-- Anzeigen aller Bestellungen
-- Profilansicht, die bearbeitet werden kann
+- Login
+  - Firebase Login/Registrierung mit Email/Passwort oder Google
+- Favoriten
+  - Hinzufügen/Entfernen und Anzeigen von Favoriten
 - Manga Details
   - Verfassen und Einsehen von Nutzer Kommentaren
+- Manga Suche
+  - Filterung, Sortierung nach verschiedenen Attributen
+- Warenkorb
+  - Hinzufügen/Entfernen zum Warenkorb
+- Bestellungen
+  - Abschließen einer Bestellung
+  - Anzeigen aller Bestellungen
+- Profil
+  - Profilansicht, die bearbeitet werden kann
 
 ## Pages
 
@@ -51,7 +67,7 @@ verwendet werden. Alternativ kann ein neuer Account über die Registrierung erst
 - Manga-List (Suche, Filterung von Mangas)
 - Manga-Detail (Detail Ansicht eines Mangas)
 
-## **OrdnerStruktur**
+## **Ordner Struktur**
 
 - components
   - Hier befinden sich alle wiederverwendbare UI Komponenten
@@ -67,14 +83,23 @@ verwendet werden. Alternativ kann ein neuer Account über die Registrierung erst
 Wir nutzen die JIKAN-API, eine
 open-source PHP & REST API, welche eine Schnittstelle zu der online Anime+Manga Datenbank MyAnimeList.net bietet. Über den Angular HTTP-Client werden API Requests verschickt und verarbeitet.
 
+Docs: https://jikan.moe/
+
+Verwendung in: `app/shared/services/manga-api.ts`
+
 ### Firebase Firestore
 
 Zur Persistenz von Daten wird der Firestore Service von Firebase genutzt. Das Login wird auch über den Firebase Service gehandled.
 
+### Datenstruktur
+
+Firebase Firestore nutzt eine Collection/Document basierte Datenbank. Das Diagramm zeigt die verwendete Struktur.
+![workflow diagram](/src/assets/readme/data.jpg)
+
 ## User Flow
 
 Das folgende Diagramm zeigt den User Workflow. Hierbei wurde sich auf das Bestell-Feature fokussiert.
-![alt text](/src/assets/workflow.jpg)
+![workflow diagram](/src/assets/readme/workflow.jpg)
 
 Automatisch Generierter Text von Angular CLI:
 
